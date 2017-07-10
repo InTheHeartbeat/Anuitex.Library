@@ -44,14 +44,19 @@ namespace Anuitex.Library.Models.Repositories
             _dataContext.SubmitChanges();
         }
 
-        void Delete(int id)
+        public void Delete(Book book)
         {
-            _dataContext.Books.DeleteOnSubmit(_dataContext.Books.FirstOrDefault(book=>book.Id == id));
+            _dataContext.Books.DeleteOnSubmit(book);
         }
 
         public void SetAvailableValue(Book book, bool available)
         {
             _dataContext.Books.FirstOrDefault(first => first.Id == book.Id).Available = available;            
+            Submit();
+        }
+
+        public void Submit()
+        {
             _dataContext.SubmitChanges();
         }
     }

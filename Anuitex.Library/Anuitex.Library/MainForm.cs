@@ -19,7 +19,9 @@ namespace Anuitex.Library
         public event Action UiUpdated;
         public event Action<Book> BookTakenToRead;
         public event Action<Book> BookReturned;
+        public event Action<Book> BookDeleted;
 
+       
         public MainForm()
         {
             InitializeComponent();
@@ -61,9 +63,9 @@ namespace Anuitex.Library
 
         private void UpdateBooksGridView()
         {
+            booksGridView.Rows.Clear();
             if (Books.Any())
-            {
-                booksGridView.Rows.Clear();
+            {                
                 foreach (Book book in Books)
                 {
                     booksGridView.Rows.Add(
@@ -109,6 +111,17 @@ namespace Anuitex.Library
         private void OnBookReturned(Book obj)
         {
             BookReturned?.Invoke(obj);
+            OnUiUpdated();
+        }
+
+        private void buttonDeleteSelected_Click(object sender, EventArgs e)
+        {
+            OnBookDeleted(GetSelectedBook());
+        }
+
+        private void OnBookDeleted(Book obj)
+        {
+            BookDeleted?.Invoke(obj);
             OnUiUpdated();
         }
     }

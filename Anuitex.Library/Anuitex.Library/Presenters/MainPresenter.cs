@@ -21,6 +21,13 @@ namespace Anuitex.Library.Presenters
             _view.UiUpdated += UpdateBooksList;
             _view.BookTakenToRead += _view_BookTakenToRead;
             _view.BookReturned += _view_BookReturned;
+            _view.BookDeleted += _view_BookDeleted;
+        }
+
+        private void _view_BookDeleted(Book obj)
+        {
+            _bookRepository.Delete(obj);
+            _bookRepository.Submit();
         }
 
         private void _view_BookReturned(Book obj)

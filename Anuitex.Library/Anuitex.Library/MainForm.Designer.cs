@@ -38,7 +38,13 @@
             this.Available = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonTakeToRead = new System.Windows.Forms.Button();
             this.buttonReturnSelectedBook = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.buttonDeleteSelected = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // booksGridView
@@ -120,9 +126,9 @@
             // 
             // buttonTakeToRead
             // 
-            this.buttonTakeToRead.Location = new System.Drawing.Point(616, 12);
+            this.buttonTakeToRead.Location = new System.Drawing.Point(3, 3);
             this.buttonTakeToRead.Name = "buttonTakeToRead";
-            this.buttonTakeToRead.Size = new System.Drawing.Size(165, 23);
+            this.buttonTakeToRead.Size = new System.Drawing.Size(158, 23);
             this.buttonTakeToRead.TabIndex = 1;
             this.buttonTakeToRead.Text = "Take to read selected ";
             this.buttonTakeToRead.UseVisualStyleBackColor = true;
@@ -130,22 +136,54 @@
             // 
             // buttonReturnSelectedBook
             // 
-            this.buttonReturnSelectedBook.Location = new System.Drawing.Point(617, 42);
+            this.buttonReturnSelectedBook.Location = new System.Drawing.Point(3, 33);
             this.buttonReturnSelectedBook.Name = "buttonReturnSelectedBook";
-            this.buttonReturnSelectedBook.Size = new System.Drawing.Size(164, 23);
+            this.buttonReturnSelectedBook.Size = new System.Drawing.Size(158, 23);
             this.buttonReturnSelectedBook.TabIndex = 2;
             this.buttonReturnSelectedBook.Text = "Mark book as Available";
             this.buttonReturnSelectedBook.UseVisualStyleBackColor = true;
             this.buttonReturnSelectedBook.Click += new System.EventHandler(this.buttonReturnSelectedBook_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(616, 12);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonTakeToRead);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonReturnSelectedBook);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.buttonDeleteSelected);
+            this.splitContainer1.Size = new System.Drawing.Size(164, 123);
+            this.splitContainer1.SplitterDistance = 61;
+            this.splitContainer1.TabIndex = 3;
+            // 
+            // buttonDeleteSelected
+            // 
+            this.buttonDeleteSelected.Location = new System.Drawing.Point(4, 4);
+            this.buttonDeleteSelected.Name = "buttonDeleteSelected";
+            this.buttonDeleteSelected.Size = new System.Drawing.Size(157, 23);
+            this.buttonDeleteSelected.TabIndex = 0;
+            this.buttonDeleteSelected.Text = "Delete selected book";
+            this.buttonDeleteSelected.UseVisualStyleBackColor = true;
+            this.buttonDeleteSelected.Click += new System.EventHandler(this.buttonDeleteSelected_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.buttonReturnSelectedBook);
-            this.Controls.Add(this.buttonTakeToRead);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.booksGridView);
             this.Name = "MainForm";
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -163,6 +201,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Available;
         private System.Windows.Forms.Button buttonTakeToRead;
         private System.Windows.Forms.Button buttonReturnSelectedBook;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button buttonDeleteSelected;
     }
 }
 
