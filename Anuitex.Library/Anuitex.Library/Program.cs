@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Anuitex.Library.Models.Repositories;
+using Anuitex.Library.Presenters;
 
 namespace Anuitex.Library
 {
@@ -16,7 +18,10 @@ namespace Anuitex.Library
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            
+            MainPresenter mainPresenter = new MainPresenter(new MainForm(), new BookRepository());
+            mainPresenter.Run();
+            
         }
     }
 }
