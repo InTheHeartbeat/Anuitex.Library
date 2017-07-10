@@ -16,20 +16,48 @@ namespace Anuitex.Library
 
         public IEnumerable<Book> Books;
 
-        public event Action ComponentsInitialized;
+        public event Action UiUpdated;
+        public event Action<Book> BookTakenToRead;
+
 
         public MainForm()
         {
             InitializeComponent();
+
+            booksGridView.SelectionChanged += BooksGridView_SelectionChanged;
 
             Books = new List<Book>();
 
                        
         }
 
-        
+        private void BooksGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (booksGridView.SelectedRows.Count > 0)
+            {                
+                bool bookAvailable = CheckBookAvailable(GetSelectedBook());
+                if (!bookAvailable)
+                {
+                    buttonTakeToRead.Enabled = false;
+                }
+                if (bookAvailable)
+                {
+                    buttonTakeToRead.Enabled = true;
+                }
+            }
+        }
 
-        private void FillBooksGridView()
+        private bool CheckBookAvailable(Book book)
+        {
+            return book.Available != null && (bool) book.Available;
+        }
+
+        private Book GetSelectedBook()
+        {
+            return Books.FirstOrDefault(book => book.Id == (int) booksGridView.SelectedRows[0].Cells["Id"].Value);
+        }
+
+        private void UpdateBooksGridView()
         {
             if (Books.Any())
             {
@@ -50,14 +78,25 @@ namespace Anuitex.Library
 
         public new void Show()
         {
-            OnComponentsInitialized();
-            FillBooksGridView();
+            OnUiUpdated();            
             Application.Run(this);            
         }
 
-        private void OnComponentsInitialized()
+        private void OnUiUpdated()
         {
-            ComponentsInitialized?.Invoke();
+            UiUpdated?.Invoke();
+            UpdateBooksGridView();
+        }
+
+        private void buttonTakeToRead_Click(object sender, EventArgs e)
+        {
+            OnBookTakenToRead(GetSelectedBook());
+            OnUiUpdated();
+        }
+
+        private void OnBookTakenToRead(Book obj)
+        {
+            BookTakenToRead?.Invoke(obj);
         }
     }
 }

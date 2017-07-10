@@ -36,6 +36,7 @@
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pages = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Available = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonTakeToRead = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,9 +117,20 @@
             this.Available.ReadOnly = true;
             this.Available.Width = 75;
             // 
+            // buttonTakeToRead
+            // 
+            this.buttonTakeToRead.Location = new System.Drawing.Point(616, 12);
+            this.buttonTakeToRead.Name = "buttonTakeToRead";
+            this.buttonTakeToRead.Size = new System.Drawing.Size(165, 23);
+            this.buttonTakeToRead.TabIndex = 1;
+            this.buttonTakeToRead.Text = "Take to read selected ";
+            this.buttonTakeToRead.UseVisualStyleBackColor = true;
+            this.buttonTakeToRead.Click += new System.EventHandler(this.buttonTakeToRead_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonTakeToRead);
             this.Controls.Add(this.booksGridView);
             this.Name = "MainForm";
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).EndInit();
@@ -137,6 +149,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
         private System.Windows.Forms.DataGridViewTextBoxColumn Pages;
         private System.Windows.Forms.DataGridViewTextBoxColumn Available;
+        private System.Windows.Forms.Button buttonTakeToRead;
     }
 }
 

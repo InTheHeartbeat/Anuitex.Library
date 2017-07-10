@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,11 +40,19 @@ namespace Anuitex.Library.Models.Repositories
             old.Pages = !old.Pages.Equals(newItem.Pages)          ? newItem.Pages    : old.Pages;
             old.Author = !old.Author.Equals(newItem.Author) ? newItem.Author : old.Author;
             old.Genre = !old.Genre.Equals(newItem.Genre)    ? newItem.Genre  : old.Genre;
+            old.Available = !old.Available.Equals(newItem.Available) ? newItem.Available : old.Available;
+            _dataContext.SubmitChanges();
         }
 
         void Delete(int id)
         {
             _dataContext.Books.DeleteOnSubmit(_dataContext.Books.FirstOrDefault(book=>book.Id == id));
+        }
+
+        public void SetAvailableValue(Book book, bool available)
+        {
+            _dataContext.Books.FirstOrDefault(first => first.Id == book.Id).Available = available;            
+            _dataContext.SubmitChanges();
         }
     }
 }

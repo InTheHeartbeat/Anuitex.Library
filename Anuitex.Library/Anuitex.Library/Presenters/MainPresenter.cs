@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Anuitex.Library.Data;
 using Anuitex.Library.Models.Repositories;
 
 namespace Anuitex.Library.Presenters
@@ -17,7 +18,13 @@ namespace Anuitex.Library.Presenters
             _view = view;
             _bookRepository = bookRepository;
 
-            _view.ComponentsInitialized += UpdateBooksList;
+            _view.UiUpdated += UpdateBooksList;
+            _view.BookTakenToRead += _view_BookTakenToRead;
+        }
+
+        private void _view_BookTakenToRead(Data.Book obj)
+        {            
+            _bookRepository.SetAvailableValue(obj,false);            
         }
 
         private void UpdateBooksList()
