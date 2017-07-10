@@ -37,6 +37,7 @@
             this.Pages = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Available = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonTakeToRead = new System.Windows.Forms.Button();
+            this.buttonReturnSelectedBook = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,9 +128,20 @@
             this.buttonTakeToRead.UseVisualStyleBackColor = true;
             this.buttonTakeToRead.Click += new System.EventHandler(this.buttonTakeToRead_Click);
             // 
+            // buttonReturnSelectedBook
+            // 
+            this.buttonReturnSelectedBook.Location = new System.Drawing.Point(617, 42);
+            this.buttonReturnSelectedBook.Name = "buttonReturnSelectedBook";
+            this.buttonReturnSelectedBook.Size = new System.Drawing.Size(164, 23);
+            this.buttonReturnSelectedBook.TabIndex = 2;
+            this.buttonReturnSelectedBook.Text = "Mark book as Available";
+            this.buttonReturnSelectedBook.UseVisualStyleBackColor = true;
+            this.buttonReturnSelectedBook.Click += new System.EventHandler(this.buttonReturnSelectedBook_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonReturnSelectedBook);
             this.Controls.Add(this.buttonTakeToRead);
             this.Controls.Add(this.booksGridView);
             this.Name = "MainForm";
@@ -150,6 +162,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Pages;
         private System.Windows.Forms.DataGridViewTextBoxColumn Available;
         private System.Windows.Forms.Button buttonTakeToRead;
+        private System.Windows.Forms.Button buttonReturnSelectedBook;
     }
 }
 

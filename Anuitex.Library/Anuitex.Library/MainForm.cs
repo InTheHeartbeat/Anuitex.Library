@@ -18,7 +18,7 @@ namespace Anuitex.Library
 
         public event Action UiUpdated;
         public event Action<Book> BookTakenToRead;
-
+        public event Action<Book> BookReturned;
 
         public MainForm()
         {
@@ -39,10 +39,12 @@ namespace Anuitex.Library
                 if (!bookAvailable)
                 {
                     buttonTakeToRead.Enabled = false;
+                    buttonReturnSelectedBook.Enabled = true;
                 }
                 if (bookAvailable)
                 {
                     buttonTakeToRead.Enabled = true;
+                    buttonReturnSelectedBook.Enabled = false;
                 }
             }
         }
@@ -97,6 +99,17 @@ namespace Anuitex.Library
         private void OnBookTakenToRead(Book obj)
         {
             BookTakenToRead?.Invoke(obj);
+        }
+
+        private void buttonReturnSelectedBook_Click(object sender, EventArgs e)
+        {
+            OnBookReturned(GetSelectedBook());
+        }
+
+        private void OnBookReturned(Book obj)
+        {
+            BookReturned?.Invoke(obj);
+            OnUiUpdated();
         }
     }
 }

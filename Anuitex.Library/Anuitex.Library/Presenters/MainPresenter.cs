@@ -20,6 +20,12 @@ namespace Anuitex.Library.Presenters
 
             _view.UiUpdated += UpdateBooksList;
             _view.BookTakenToRead += _view_BookTakenToRead;
+            _view.BookReturned += _view_BookReturned;
+        }
+
+        private void _view_BookReturned(Book obj)
+        {
+            _bookRepository.SetAvailableValue(obj, true);
         }
 
         private void _view_BookTakenToRead(Data.Book obj)
