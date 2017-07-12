@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Anuitex.Library.Data;
+using Anuitex.Library.Models.Repositories;
+using Anuitex.Library.Presenters;
 
 namespace Anuitex.Library
 {
@@ -35,6 +37,22 @@ namespace Anuitex.Library
 
         private void BooksGridView_SelectionChanged(object sender, EventArgs e)
         {
+            if (!Books.Any())
+            {
+                buttonTakeToRead.Enabled = false;
+                buttonReturnSelectedBook.Enabled = false;
+                buttonUpdateSelected.Enabled = false;
+                buttonDeleteSelected.Enabled = false;
+            }
+
+            if (Books.Any())
+            {
+                buttonTakeToRead.Enabled = true;
+                buttonReturnSelectedBook.Enabled = true;
+                buttonUpdateSelected.Enabled = true;
+                buttonDeleteSelected.Enabled = true;
+            }
+
             if (booksGridView.SelectedRows.Count > 0)
             {                
                 bool bookAvailable = CheckBookAvailable(GetSelectedBook());
@@ -47,8 +65,8 @@ namespace Anuitex.Library
                 {
                     buttonTakeToRead.Enabled = true;
                     buttonReturnSelectedBook.Enabled = false;
-                }
-            }
+                }                
+            }            
         }
 
         private bool CheckBookAvailable(Book book)
@@ -123,6 +141,18 @@ namespace Anuitex.Library
         {
             BookDeleted?.Invoke(obj);
             OnUiUpdated();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAddBook_Click(object sender, EventArgs e)
+        {
+            CreatePresenter a = new CreatePresenter(new CreateForm(), new BookRepository());
+            a.Run();
+
         }
     }
 }
