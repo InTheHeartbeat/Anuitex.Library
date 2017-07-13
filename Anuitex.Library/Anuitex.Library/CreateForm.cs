@@ -9,7 +9,7 @@ namespace Anuitex.Library
         public event Action<Book> BookCreated; 
 
 
-        public CreateForm()
+        public CreateForm() 
         {
             InitializeComponent();
         }

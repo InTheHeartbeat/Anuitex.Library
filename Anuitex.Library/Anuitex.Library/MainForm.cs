@@ -19,10 +19,11 @@ namespace Anuitex.Library
         public IEnumerable<Book> Books;
 
         public event Action UiUpdated;
-        public event Action<Book> BookTakenToRead;
-        public event Action<Book> BookReturned;
+        public event Action<Book> BookCreated;
         public event Action<Book> BookDeleted;
-
+        public event Action<Book> BookTakenToRead;
+        public event Action<Book> BookReturned;        
+        
        
         public MainForm()
         {
@@ -30,28 +31,19 @@ namespace Anuitex.Library
 
             booksGridView.SelectionChanged += BooksGridView_SelectionChanged;
 
-            Books = new List<Book>();
-
-                       
+            Books = new List<Book>();                       
         }
+
+        public new void Show()
+        {
+            OnUiUpdated();
+            Application.Run(this);
+        }
+
 
         private void BooksGridView_SelectionChanged(object sender, EventArgs e)
         {
-            if (!Books.Any())
-            {
-                buttonTakeToRead.Enabled = false;
-                buttonReturnSelectedBook.Enabled = false;
-                buttonUpdateSelected.Enabled = false;
-                buttonDeleteSelected.Enabled = false;
-            }
-
-            if (Books.Any())
-            {
-                buttonTakeToRead.Enabled = true;
-                buttonReturnSelectedBook.Enabled = true;
-                buttonUpdateSelected.Enabled = true;
-                buttonDeleteSelected.Enabled = true;
-            }
+            SetButtonsState();
 
             if (booksGridView.SelectedRows.Count > 0)
             {                
@@ -69,26 +61,35 @@ namespace Anuitex.Library
             }            
         }
 
-        private bool CheckBookAvailable(Book book)
+        private void SetButtonsState()
         {
-            return book.Available != null && (bool) book.Available;
-        }
+            if (!Books.Any())
+            {
+                buttonTakeToRead.Enabled = false;
+                buttonReturnSelectedBook.Enabled = false;
+                buttonUpdateSelected.Enabled = false;
+                buttonDeleteSelected.Enabled = false;
+            }
 
-        private Book GetSelectedBook()
-        {
-            return Books.FirstOrDefault(book => book.Id == (int) booksGridView.SelectedRows[0].Cells["Id"].Value);
+            if (Books.Any())
+            {
+                buttonTakeToRead.Enabled = true;
+                buttonReturnSelectedBook.Enabled = true;
+                buttonUpdateSelected.Enabled = true;
+                buttonDeleteSelected.Enabled = true;
+            }
         }
 
         private void UpdateBooksGridView()
         {
             booksGridView.Rows.Clear();
             if (Books.Any())
-            {                
+            {
                 foreach (Book book in Books)
                 {
                     booksGridView.Rows.Add(
                         book.Id,
-                        book.Title, 
+                        book.Title,
                         book.Author,
                         book.Genre,
                         book.Year,
@@ -98,61 +99,60 @@ namespace Anuitex.Library
             }
         }
 
-        public new void Show()
+        private bool CheckBookAvailable(Book book)
         {
-            OnUiUpdated();            
-            Application.Run(this);            
+            return book.Available != null && (bool)book.Available;
         }
 
-        private void OnUiUpdated()
+        private Book GetSelectedBook()
         {
-            UiUpdated?.Invoke();
-            UpdateBooksGridView();
+            return Books.FirstOrDefault(book => book.Id == (int)booksGridView.SelectedRows[0].Cells["Id"].Value);
         }
 
         private void buttonTakeToRead_Click(object sender, EventArgs e)
         {
             OnBookTakenToRead(GetSelectedBook());
             OnUiUpdated();
-        }
-
-        private void OnBookTakenToRead(Book obj)
-        {
-            BookTakenToRead?.Invoke(obj);
-        }
-
+        }        
         private void buttonReturnSelectedBook_Click(object sender, EventArgs e)
         {
             OnBookReturned(GetSelectedBook());
-        }
-
-        private void OnBookReturned(Book obj)
-        {
-            BookReturned?.Invoke(obj);
-            OnUiUpdated();
-        }
-
+        }       
         private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {
             OnBookDeleted(GetSelectedBook());
         }
+        private void buttonAddBook_Click(object sender, EventArgs e)
+        {
+            CreateForm form = new CreateForm();
+            form.BookCreated += OnBookCreated;
+            form.Show();
+        }
 
+
+        private void OnBookCreated(Book obj)
+        {
+            BookCreated?.Invoke(obj);
+            OnUiUpdated();
+        }
         private void OnBookDeleted(Book obj)
         {
             BookDeleted?.Invoke(obj);
             OnUiUpdated();
         }
-
-        private void label2_Click(object sender, EventArgs e)
+        private void OnBookTakenToRead(Book obj)
         {
-
+            BookTakenToRead?.Invoke(obj);
         }
-
-        private void buttonAddBook_Click(object sender, EventArgs e)
+        private void OnBookReturned(Book obj)
         {
-            CreatePresenter a = new CreatePresenter(new CreateForm(), new BookRepository());
-            a.Run();
-
+            BookReturned?.Invoke(obj);
+            OnUiUpdated();
+        }                        
+        private void OnUiUpdated()
+        {
+            UiUpdated?.Invoke();
+            UpdateBooksGridView();
         }
     }
 }
