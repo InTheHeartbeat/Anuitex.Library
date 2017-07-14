@@ -11,37 +11,31 @@ namespace Anuitex.Library.Models.Repositories
 {
     public class BookRepository
     {
-
         private static readonly string DbFilePath = Application.StartupPath + "\\Data\\LibraryDatabase.mdf";
-        private string _connectionString =
+        private readonly string connectionString =
                 "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename="+ DbFilePath + ";Integrated Security=True;Connect Timeout=30"
             ;
 
-
-        private readonly LibraryDataContext _dataContext;
+        private readonly LibraryDataContext dataContext;
 
         public BookRepository()
         {
-            _dataContext = new LibraryDataContext(_connectionString);
+            dataContext = new LibraryDataContext(connectionString);
         }
 
         public IEnumerable<Book> GetBookList()
         {
-            return _dataContext.Books.AsEnumerable();
-        }
-        public Book GetBook(int id)
-        {
-            return _dataContext.Books.FirstOrDefault(book => book.Id == id);
+            return dataContext.Books.AsEnumerable();
         }
 
         public void Create(Book item)
         {
-            _dataContext.Books.InsertOnSubmit(item);
+            dataContext.Books.InsertOnSubmit(item);
         }
 
         public void Update(Book newItem)
         {
-            Book old = _dataContext.Books.FirstOrDefault(book => book.Id == newItem.Id);
+            Book old = dataContext.Books.FirstOrDefault(book => book.Id == newItem.Id);
             old.Title = !old.Title.Equals(newItem.Title)          ? newItem.Title    : old.Title;
             old.Year = !old.Year.Equals(newItem.Year)             ? newItem.Year     : old.Year;
             old.Pages = !old.Pages.Equals(newItem.Pages)          ? newItem.Pages    : old.Pages;
@@ -52,18 +46,22 @@ namespace Anuitex.Library.Models.Repositories
 
         public void Delete(Book book)
         {
-            _dataContext.Books.DeleteOnSubmit(book);            
+            dataContext.Books.DeleteOnSubmit(book);            
         }
 
-        public void SetAvailableValue(Book book, bool available)
+        public void SetAvailableValue(int bookId, bool available)
         {
-            _dataContext.Books.FirstOrDefault(first => first.Id == book.Id).Available = available;            
-            Submit();
+            Book book = dataContext.Books.FirstOrDefault(first => first.Id == bookId);
+
+            if (book != null)
+            {
+                book.Available = available;
+            }
         }
 
         public void Submit()
         {
-            _dataContext.SubmitChanges();
+            dataContext.SubmitChanges();
         }
     }
 }

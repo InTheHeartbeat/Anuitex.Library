@@ -15,7 +15,6 @@ namespace Anuitex.Library
 {
     public sealed partial class MainForm : Form
     {
-
         public IEnumerable<Book> Books;
 
         public event Action UiUpdated;
@@ -38,47 +37,30 @@ namespace Anuitex.Library
         public new void Show()
         {
             OnUiUpdated();
-            Application.Run(this);
+            Application.Run(this);                     
         }
-
 
         private void BooksGridView_SelectionChanged(object sender, EventArgs e)
         {
             SetButtonsState();
 
             if (booksGridView.SelectedRows.Count > 0)
-            {                
+            {
                 bool bookAvailable = CheckBookAvailable(GetSelectedBook());
-                if (!bookAvailable)
-                {
-                    buttonTakeToRead.Enabled = false;
-                    buttonReturnSelectedBook.Enabled = true;
-                }
-                if (bookAvailable)
-                {
-                    buttonTakeToRead.Enabled = true;
-                    buttonReturnSelectedBook.Enabled = false;
-                }                
-            }            
+
+                buttonTakeToRead.Enabled = bookAvailable;
+                buttonReturnSelectedBook.Enabled = !bookAvailable;
+            }
         }
 
         private void SetButtonsState()
         {
-            if (!Books.Any())
-            {
-                buttonTakeToRead.Enabled = false;
-                buttonReturnSelectedBook.Enabled = false;
-                buttonUpdateSelected.Enabled = false;
-                buttonDeleteSelected.Enabled = false;
-            }
+            bool anyBookExists = Books.Any();
 
-            if (Books.Any())
-            {
-                buttonTakeToRead.Enabled = true;
-                buttonReturnSelectedBook.Enabled = true;
-                buttonUpdateSelected.Enabled = true;
-                buttonDeleteSelected.Enabled = true;
-            }
+            buttonTakeToRead.Enabled = anyBookExists;
+            buttonReturnSelectedBook.Enabled = anyBookExists;
+            buttonUpdateSelected.Enabled = anyBookExists;
+            buttonDeleteSelected.Enabled = anyBookExists;
         }
 
         private void UpdateBooksGridView()
@@ -105,16 +87,20 @@ namespace Anuitex.Library
             return book.Available != null && (bool)book.Available;
         }
 
+        private int GetSelectedBookId()
+        {
+            return (int)booksGridView.SelectedRows[0].Cells["Id"].Value;
+        }
+
         private Book GetSelectedBook()
         {
-            return Books.FirstOrDefault(book => book.Id == (int)booksGridView.SelectedRows[0].Cells["Id"].Value);
+            return Books.FirstOrDefault(book => book.Id == GetSelectedBookId());
         }
 
         private void buttonTakeToRead_Click(object sender, EventArgs e)
         {
             OnBookTakenToRead(GetSelectedBook());            
-        } 
-               
+        }                
         private void buttonReturnSelectedBook_Click(object sender, EventArgs e)
         {
             OnBookReturned(GetSelectedBook());
@@ -125,7 +111,7 @@ namespace Anuitex.Library
         }
         private void buttonAddBook_Click(object sender, EventArgs e)
         {
-            BuildBookForm form = new BuildBookForm();
+            DesignBookForm form = new DesignBookForm();
             DialogResult dialogResult = form.ShowDialog(this);
             if (dialogResult == DialogResult.OK)
             {
@@ -135,7 +121,7 @@ namespace Anuitex.Library
         }
         private void buttonUpdateSelected_Click(object sender, EventArgs e)
         {
-            BuildBookForm form = new BuildBookForm(GetSelectedBook());
+            DesignBookForm form = new DesignBookForm(GetSelectedBook());
             DialogResult dialogResult = form.ShowDialog(this);
             if (dialogResult == DialogResult.OK)
             {

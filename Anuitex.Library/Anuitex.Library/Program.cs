@@ -20,8 +20,7 @@ namespace Anuitex.Library
             Application.SetCompatibleTextRenderingDefault(false);
             
             MainPresenter mainPresenter = new MainPresenter(new MainForm(), new BookRepository());
-            mainPresenter.Run();
-            
+            mainPresenter.Run();            
         }
     }
 }

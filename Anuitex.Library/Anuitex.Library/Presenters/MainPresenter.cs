@@ -10,64 +10,75 @@ namespace Anuitex.Library.Presenters
 {
     public class MainPresenter
     {
-        private readonly MainForm _view;
-        private readonly BookRepository _bookRepository;
+        private readonly MainForm view;
+        private readonly BookRepository bookRepository;
 
         public MainPresenter(MainForm view, BookRepository bookRepository)
         {
-            _view = view;
-            _bookRepository = bookRepository;
+            this.view = view;
+            this.bookRepository = bookRepository;
 
-            _view.UiUpdated += UpdateBooksList;
-            _view.BookTakenToRead += _view_BookTakenToRead;
-            _view.BookReturned += _view_BookReturned;
-            _view.BookDeleted += _view_BookDeleted;
-            _view.BookCreated += _view_BookCreated;
-            _view.BookUpdated += _view_BookUpdated;
+            this.view.UiUpdated += UpdateBooksList;
+            this.view.BookTakenToRead += OnViewBookTakenToRead;
+            this.view.BookReturned += OnViewBookReturned;
+            this.view.BookDeleted += OnViewBookDeleted;
+            this.view.BookCreated += OnViewBookCreated;
+            this.view.BookUpdated += OnViewBookUpdated;
         }
 
-        private void _view_BookUpdated(Book book)
+        private void OnViewBookUpdated(Book book)
         {
             if (book != null)
             {
-                _bookRepository.Update(book);
-                _bookRepository.Submit();
+                bookRepository.Update(book);
+                bookRepository.Submit();
             }
         }
 
-        private void _view_BookCreated(Data.Book book)
+        private void OnViewBookCreated(Data.Book book)
         {
             if (book != null)
             {
-                _bookRepository.Create(book);
-                _bookRepository.Submit();
+                bookRepository.Create(book);
+                bookRepository.Submit();
             }
         }
 
-        private void _view_BookDeleted(Book obj)
+        private void OnViewBookDeleted(Book book)
         {
-            _bookRepository.Delete(obj);
-            _bookRepository.Submit();
+            if (book != null)
+            {
+                bookRepository.Delete(book);
+                bookRepository.Submit();
+            }
         }
 
-        private void _view_BookReturned(Book obj)
+        private void OnViewBookReturned(Book book)
         {
-            _bookRepository.SetAvailableValue(obj, true);
+            if (book != null)
+            {
+                bookRepository.SetAvailableValue(book.Id, true);
+                bookRepository.Submit();
+            }
         }
 
-        private void _view_BookTakenToRead(Data.Book obj)
-        {            
-            _bookRepository.SetAvailableValue(obj,false);            
+        private void OnViewBookTakenToRead(Book book)
+        {
+            if (book != null)
+            {
+                bookRepository.SetAvailableValue(book.Id, false);
+                bookRepository.Submit();
+            }
         }
 
         private void UpdateBooksList()
         {
-            _view.Books = _bookRepository.GetBookList();
+            view.Books = bookRepository.GetBookList();
         }
 
         public void Run()
         {
-            _view.Show();            
+            view.Show();            
         }
     }
 }
