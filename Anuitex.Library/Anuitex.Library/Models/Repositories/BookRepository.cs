@@ -4,6 +4,7 @@ using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Anuitex.Library.Data;
 
 namespace Anuitex.Library.Models.Repositories
@@ -11,11 +12,17 @@ namespace Anuitex.Library.Models.Repositories
     public class BookRepository
     {
 
+        private static readonly string DbFilePath = Application.StartupPath + "\\Data\\LibraryDatabase.mdf";
+        private string _connectionString =
+                "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename="+ DbFilePath + ";Integrated Security=True;Connect Timeout=30"
+            ;
+
+
         private readonly LibraryDataContext _dataContext;
 
         public BookRepository()
         {
-            _dataContext = new LibraryDataContext();
+            _dataContext = new LibraryDataContext(_connectionString);
         }
 
         public IEnumerable<Book> GetBookList()
@@ -40,13 +47,12 @@ namespace Anuitex.Library.Models.Repositories
             old.Pages = !old.Pages.Equals(newItem.Pages)          ? newItem.Pages    : old.Pages;
             old.Author = !old.Author.Equals(newItem.Author) ? newItem.Author : old.Author;
             old.Genre = !old.Genre.Equals(newItem.Genre)    ? newItem.Genre  : old.Genre;
-            old.Available = !old.Available.Equals(newItem.Available) ? newItem.Available : old.Available;
-            _dataContext.SubmitChanges();
+            old.Available = !old.Available.Equals(newItem.Available) ? newItem.Available : old.Available;            
         }
 
         public void Delete(Book book)
         {
-            _dataContext.Books.DeleteOnSubmit(book);
+            _dataContext.Books.DeleteOnSubmit(book);            
         }
 
         public void SetAvailableValue(Book book, bool available)

@@ -1,6 +1,6 @@
 ﻿namespace Anuitex.Library
 {
-    partial class CreateForm
+    partial class BuildBookForm
     {
         /// <summary>
         /// Required designer variable.
@@ -38,7 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxPages = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonBuild = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -123,15 +123,15 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Pages:";
             // 
-            // buttonCreate
+            // buttonBuild
             // 
-            this.buttonCreate.Location = new System.Drawing.Point(80, 210);
-            this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(75, 23);
-            this.buttonCreate.TabIndex = 10;
-            this.buttonCreate.Text = "Create";
-            this.buttonCreate.UseVisualStyleBackColor = true;
-            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
+            this.buttonBuild.Location = new System.Drawing.Point(80, 210);
+            this.buttonBuild.Name = "buttonBuild";
+            this.buttonBuild.Size = new System.Drawing.Size(75, 23);
+            this.buttonBuild.TabIndex = 10;
+            this.buttonBuild.Text = "Create";
+            this.buttonBuild.UseVisualStyleBackColor = true;
+            this.buttonBuild.Click += new System.EventHandler(this.buttonBuild_Click);
             // 
             // buttonClear
             // 
@@ -153,14 +153,14 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // CreateForm
+            // BuildBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(165, 265);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonClear);
-            this.Controls.Add(this.buttonCreate);
+            this.Controls.Add(this.buttonBuild);
             this.Controls.Add(this.textBoxPages);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxYear);
@@ -171,8 +171,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.label1);
-            this.Name = "CreateForm";
-            this.Text = "CreateForm";
+            this.Name = "BuildBookForm";
+            this.Text = "BuildBookForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,7 +190,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxPages;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button buttonCreate;
+        private System.Windows.Forms.Button buttonBuild;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonCancel;
     }

@@ -21,6 +21,7 @@ namespace Anuitex.Library
         public event Action UiUpdated;
         public event Action<Book> BookCreated;
         public event Action<Book> BookDeleted;
+        public event Action<Book> BookUpdated;
         public event Action<Book> BookTakenToRead;
         public event Action<Book> BookReturned;        
         
@@ -111,28 +112,46 @@ namespace Anuitex.Library
 
         private void buttonTakeToRead_Click(object sender, EventArgs e)
         {
-            OnBookTakenToRead(GetSelectedBook());
-            OnUiUpdated();
-        }        
+            OnBookTakenToRead(GetSelectedBook());            
+        } 
+               
         private void buttonReturnSelectedBook_Click(object sender, EventArgs e)
         {
             OnBookReturned(GetSelectedBook());
-        }       
+        }        
         private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {
             OnBookDeleted(GetSelectedBook());
         }
         private void buttonAddBook_Click(object sender, EventArgs e)
         {
-            CreateForm form = new CreateForm();
-            form.BookCreated += OnBookCreated;
-            form.Show();
+            BuildBookForm form = new BuildBookForm();
+            DialogResult dialogResult = form.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                OnBookCreated(form.ResultBook);
+            }            
+            form.Dispose();
         }
-
+        private void buttonUpdateSelected_Click(object sender, EventArgs e)
+        {
+            BuildBookForm form = new BuildBookForm(GetSelectedBook());
+            DialogResult dialogResult = form.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                OnBookUpdated(form.ResultBook);
+            }
+            form.Dispose();
+        }
 
         private void OnBookCreated(Book obj)
         {
             BookCreated?.Invoke(obj);
+            OnUiUpdated();
+        }
+        private void OnBookUpdated(Book obj)
+        {
+            BookUpdated?.Invoke(obj);
             OnUiUpdated();
         }
         private void OnBookDeleted(Book obj)
@@ -143,6 +162,7 @@ namespace Anuitex.Library
         private void OnBookTakenToRead(Book obj)
         {
             BookTakenToRead?.Invoke(obj);
+            OnUiUpdated();
         }
         private void OnBookReturned(Book obj)
         {
@@ -153,6 +173,6 @@ namespace Anuitex.Library
         {
             UiUpdated?.Invoke();
             UpdateBooksGridView();
-        }
+        }        
     }
 }

@@ -4,17 +4,36 @@ using Anuitex.Library.Data;
 
 namespace Anuitex.Library
 {
-    public partial class CreateForm : Form
+    public partial class BuildBookForm : Form
     {
-        public event Action<Book> BookCreated; 
+        public Book ResultBook => _book;
 
-
-        public CreateForm() 
+        private readonly Book _book;
+        public BuildBookForm() 
         {
             InitializeComponent();
         }
 
-        private void buttonCreate_Click(object sender, EventArgs e)
+        public BuildBookForm(Book book)
+        {
+            InitializeComponent();
+
+            this._book = book;
+            InitializeForUpdate();
+        }
+
+        private void InitializeForUpdate()
+        {
+            textBoxTitle.Text = _book.Title;
+            textBoxAuthor.Text = _book.Author;
+            textBoxGenre.Text = _book.Genre;
+            textBoxPages.Text = _book.Pages.ToString();
+            textBoxYear.Text = _book.Year.ToString();
+
+            buttonBuild.Text = "Update";
+        }
+
+        private void buttonBuild_Click(object sender, EventArgs e)
         {                       
             if(!ValidateInputs()) return;
 
@@ -33,6 +52,7 @@ namespace Anuitex.Library
 
             Book result = new Book()
             {
+                Id = _book?.Id ?? 0,
                 Title = textBoxTitle.Text,
                 Author = textBoxAuthor.Text,
                 Genre = textBoxGenre.Text,
@@ -40,8 +60,7 @@ namespace Anuitex.Library
                 Pages = pages,
                 Available = true
             };
-
-            OnBookCreated(result);
+            this.DialogResult = DialogResult.OK;                        
         }
 
         private bool ValidateInputs()
@@ -73,12 +92,7 @@ namespace Anuitex.Library
             }
             return true;
         }
-
-        protected virtual void OnBookCreated(Book obj)
-        {
-            BookCreated?.Invoke(obj);
-        }
-
+        
         private void buttonClear_Click(object sender, EventArgs e)
         {
             textBoxAuthor.Text = String.Empty;

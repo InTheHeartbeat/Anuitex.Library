@@ -63,11 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Genre.cs" />
-    <Compile Include="CreateForm.cs">
+    <Compile Include="BuildBookForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateForm.Designer.cs">
-      <DependentUpon>CreateForm.cs</DependentUpon>
+    <Compile Include="BuildBookForm.Designer.cs">
+      <DependentUpon>BuildBookForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\LibraryContext.designer.cs">
       <AutoGen>True</AutoGen>
@@ -87,8 +87,8 @@
     <None Include="Data\LibraryContext.dbml.layout">
       <DependentUpon>LibraryContext.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="CreateForm.resx">
-      <DependentUpon>CreateForm.cs</DependentUpon>
+    <EmbeddedResource Include="BuildBookForm.resx">
+      <DependentUpon>BuildBookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

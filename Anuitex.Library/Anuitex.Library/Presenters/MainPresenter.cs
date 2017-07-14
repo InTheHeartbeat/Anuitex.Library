@@ -23,6 +23,16 @@ namespace Anuitex.Library.Presenters
             _view.BookReturned += _view_BookReturned;
             _view.BookDeleted += _view_BookDeleted;
             _view.BookCreated += _view_BookCreated;
+            _view.BookUpdated += _view_BookUpdated;
+        }
+
+        private void _view_BookUpdated(Book book)
+        {
+            if (book != null)
+            {
+                _bookRepository.Update(book);
+                _bookRepository.Submit();
+            }
         }
 
         private void _view_BookCreated(Data.Book book)

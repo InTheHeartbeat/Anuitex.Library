@@ -148,7 +148,7 @@
             this.buttonDeleteSelected.Location = new System.Drawing.Point(616, 107);
             this.buttonDeleteSelected.Name = "buttonDeleteSelected";
             this.buttonDeleteSelected.Size = new System.Drawing.Size(160, 25);
-            this.buttonDeleteSelected.TabIndex = 0;
+            this.buttonDeleteSelected.TabIndex = 4;
             this.buttonDeleteSelected.Text = "Delete selected book";
             this.buttonDeleteSelected.UseVisualStyleBackColor = true;
             this.buttonDeleteSelected.Click += new System.EventHandler(this.buttonDeleteSelected_Click);
@@ -166,9 +166,10 @@
             this.buttonUpdateSelected.Location = new System.Drawing.Point(616, 76);
             this.buttonUpdateSelected.Name = "buttonUpdateSelected";
             this.buttonUpdateSelected.Size = new System.Drawing.Size(160, 25);
-            this.buttonUpdateSelected.TabIndex = 4;
+            this.buttonUpdateSelected.TabIndex = 3;
             this.buttonUpdateSelected.Text = "Update selected book";
             this.buttonUpdateSelected.UseVisualStyleBackColor = true;
+            this.buttonUpdateSelected.Click += new System.EventHandler(this.buttonUpdateSelected_Click);
             // 
             // label2
             // 
@@ -183,7 +184,7 @@
             this.buttonAddBook.Location = new System.Drawing.Point(617, 141);
             this.buttonAddBook.Name = "buttonAddBook";
             this.buttonAddBook.Size = new System.Drawing.Size(160, 25);
-            this.buttonAddBook.TabIndex = 6;
+            this.buttonAddBook.TabIndex = 5;
             this.buttonAddBook.Text = "Add new book";
             this.buttonAddBook.UseVisualStyleBackColor = true;
             this.buttonAddBook.Click += new System.EventHandler(this.buttonAddBook_Click);
