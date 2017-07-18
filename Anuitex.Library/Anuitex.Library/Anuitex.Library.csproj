@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DataContext.cs" />
     <Compile Include="DesignBookForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +74,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LibraryContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="DesignMagazineForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesignMagazineForm.Designer.cs">
+      <DependentUpon>DesignMagazineForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignNewspaperForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesignNewspaperForm.Designer.cs">
+      <DependentUpon>DesignNewspaperForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +93,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\BookRepository.cs" />
+    <Compile Include="Models\Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="Models\Repositories\MagazineRepository.cs" />
+    <Compile Include="Models\Repositories\Newspaper.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +104,12 @@
     </None>
     <EmbeddedResource Include="DesignBookForm.resx">
       <DependentUpon>DesignBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignMagazineForm.resx">
+      <DependentUpon>DesignMagazineForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignNewspaperForm.resx">
+      <DependentUpon>DesignNewspaperForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

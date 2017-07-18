@@ -33,6 +33,12 @@ namespace Anuitex.Library.Data
     partial void InsertBook(Book instance);
     partial void UpdateBook(Book instance);
     partial void DeleteBook(Book instance);
+    partial void InsertMagazine(Magazine instance);
+    partial void UpdateMagazine(Magazine instance);
+    partial void DeleteMagazine(Magazine instance);
+    partial void InsertNewspaper(Newspaper instance);
+    partial void UpdateNewspaper(Newspaper instance);
+    partial void DeleteNewspaper(Newspaper instance);
     #endregion
 		
 		public LibraryDataContext() : 
@@ -72,6 +78,22 @@ namespace Anuitex.Library.Data
 				return this.GetTable<Book>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Magazine> Magazines
+		{
+			get
+			{
+				return this.GetTable<Magazine>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Newspaper> Newspapers
+		{
+			get
+			{
+				return this.GetTable<Newspaper>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Book")]
@@ -92,7 +114,7 @@ namespace Anuitex.Library.Data
 		
 		private string _Genre;
 		
-		private System.Nullable<bool> _Available;
+		private bool _Available;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -110,7 +132,7 @@ namespace Anuitex.Library.Data
     partial void OnAuthorChanged();
     partial void OnGenreChanging(string value);
     partial void OnGenreChanged();
-    partial void OnAvailableChanging(System.Nullable<bool> value);
+    partial void OnAvailableChanging(bool value);
     partial void OnAvailableChanged();
     #endregion
 		
@@ -239,8 +261,348 @@ namespace Anuitex.Library.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Available", DbType="Bit")]
-		public System.Nullable<bool> Available
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Available", DbType="Bit NOT NULL")]
+		public bool Available
+		{
+			get
+			{
+				return this._Available;
+			}
+			set
+			{
+				if ((this._Available != value))
+				{
+					this.OnAvailableChanging(value);
+					this.SendPropertyChanging();
+					this._Available = value;
+					this.SendPropertyChanged("Available");
+					this.OnAvailableChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Magazine")]
+	public partial class Magazine : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Title;
+		
+		private string _Periodicity;
+		
+		private string _Subjects;
+		
+		private string _Date;
+		
+		private bool _Available;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnPeriodicityChanging(string value);
+    partial void OnPeriodicityChanged();
+    partial void OnSubjectsChanging(string value);
+    partial void OnSubjectsChanged();
+    partial void OnDateChanging(string value);
+    partial void OnDateChanged();
+    partial void OnAvailableChanging(bool value);
+    partial void OnAvailableChanged();
+    #endregion
+		
+		public Magazine()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Periodicity", DbType="NVarChar(50)")]
+		public string Periodicity
+		{
+			get
+			{
+				return this._Periodicity;
+			}
+			set
+			{
+				if ((this._Periodicity != value))
+				{
+					this.OnPeriodicityChanging(value);
+					this.SendPropertyChanging();
+					this._Periodicity = value;
+					this.SendPropertyChanged("Periodicity");
+					this.OnPeriodicityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subjects", DbType="NVarChar(250)")]
+		public string Subjects
+		{
+			get
+			{
+				return this._Subjects;
+			}
+			set
+			{
+				if ((this._Subjects != value))
+				{
+					this.OnSubjectsChanging(value);
+					this.SendPropertyChanging();
+					this._Subjects = value;
+					this.SendPropertyChanged("Subjects");
+					this.OnSubjectsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Available", DbType="Bit NOT NULL")]
+		public bool Available
+		{
+			get
+			{
+				return this._Available;
+			}
+			set
+			{
+				if ((this._Available != value))
+				{
+					this.OnAvailableChanging(value);
+					this.SendPropertyChanging();
+					this._Available = value;
+					this.SendPropertyChanged("Available");
+					this.OnAvailableChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Newspaper")]
+	public partial class Newspaper : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Title;
+		
+		private string _Periodicity;
+		
+		private string _Date;
+		
+		private bool _Available;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnPeriodicityChanging(string value);
+    partial void OnPeriodicityChanged();
+    partial void OnDateChanging(string value);
+    partial void OnDateChanged();
+    partial void OnAvailableChanging(bool value);
+    partial void OnAvailableChanged();
+    #endregion
+		
+		public Newspaper()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Periodicity", DbType="NVarChar(50)")]
+		public string Periodicity
+		{
+			get
+			{
+				return this._Periodicity;
+			}
+			set
+			{
+				if ((this._Periodicity != value))
+				{
+					this.OnPeriodicityChanging(value);
+					this.SendPropertyChanging();
+					this._Periodicity = value;
+					this.SendPropertyChanged("Periodicity");
+					this.OnPeriodicityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Available", DbType="Bit NOT NULL")]
+		public bool Available
 		{
 			get
 			{

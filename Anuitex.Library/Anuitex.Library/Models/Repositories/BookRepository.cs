@@ -6,36 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Anuitex.Library.Data;
+using Anuitex.Library.Models.Repositories.Interfaces;
+using DataContext = Anuitex.Library.Data.DataContext;
 
 namespace Anuitex.Library.Models.Repositories
 {
-    public class BookRepository
-    {
-        private static readonly string DbFilePath = Application.StartupPath + "\\Data\\LibraryDatabase.mdf";
-        private readonly string connectionString =
-                "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename="+ DbFilePath + ";Integrated Security=True;Connect Timeout=30"
-            ;
-
-        private readonly LibraryDataContext dataContext;
-
+    public class BookRepository : IRepository<Book>
+    {      
         public BookRepository()
-        {
-            dataContext = new LibraryDataContext(connectionString);
+        {                        
         }
 
-        public IEnumerable<Book> GetBookList()
+        public IEnumerable<Book> GetList()
         {
-            return dataContext.Books.AsEnumerable();
+            return DataContext.Context.LibraryContext.Books.AsEnumerable();
         }
 
-        public void Create(Book item)
+        public void Add(Book item)
         {
-            dataContext.Books.InsertOnSubmit(item);
+            DataContext.Context.LibraryContext.Books.InsertOnSubmit(item);
         }
 
         public void Update(Book newItem)
         {
-            Book old = dataContext.Books.FirstOrDefault(book => book.Id == newItem.Id);
+            Book old = DataContext.Context.LibraryContext.Books.FirstOrDefault(book => book.Id == newItem.Id);
             old.Title = !old.Title.Equals(newItem.Title)          ? newItem.Title    : old.Title;
             old.Year = !old.Year.Equals(newItem.Year)             ? newItem.Year     : old.Year;
             old.Pages = !old.Pages.Equals(newItem.Pages)          ? newItem.Pages    : old.Pages;
@@ -46,12 +40,12 @@ namespace Anuitex.Library.Models.Repositories
 
         public void Delete(Book book)
         {
-            dataContext.Books.DeleteOnSubmit(book);            
+            DataContext.Context.LibraryContext.Books.DeleteOnSubmit(book);            
         }
 
         public void SetAvailableValue(int bookId, bool available)
         {
-            Book book = dataContext.Books.FirstOrDefault(first => first.Id == bookId);
+            Book book = DataContext.Context.LibraryContext.Books.FirstOrDefault(first => first.Id == bookId);
 
             if (book != null)
             {
@@ -61,7 +55,7 @@ namespace Anuitex.Library.Models.Repositories
 
         public void Submit()
         {
-            dataContext.SubmitChanges();
+            DataContext.Context.LibraryContext.SubmitChanges();
         }
     }
 }

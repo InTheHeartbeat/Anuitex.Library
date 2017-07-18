@@ -2,10 +2,22 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LibraryDataContext">
   <DataContextMoniker Name="/LibraryDataContext" />
   <nestedChildShapes>
-    <classShape Id="5d5f0055-c0b1-4d72-a48a-922181787f01" absoluteBounds="4.375, 1.5, 2, 2.1554996744791666">
+    <classShape Id="3e192ddd-a545-40e3-9fa4-8a8f83382deb" absoluteBounds="0.75, 0.75, 2, 2.1554996744791666">
       <DataClassMoniker Name="/LibraryDataContext/Book" />
       <nestedChildShapes>
-        <elementListCompartment Id="abd3f1c3-e844-482c-9142-304ede4fd168" absoluteBounds="4.39, 1.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="413dcbbe-a609-488d-8d94-36c5948b1a0b" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0694f87f-c3ed-4004-ad2a-c2d67818c731" absoluteBounds="3.75, 0.75, 2, 1.9631982421875">
+      <DataClassMoniker Name="/LibraryDataContext/Magazine" />
+      <nestedChildShapes>
+        <elementListCompartment Id="67b126ad-9550-4197-849d-78510e52a1d9" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="00350805-8d52-4b06-9d21-cfbb22b00611" absoluteBounds="0.75, 3.75, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/LibraryDataContext/Newspaper" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5feecc77-2063-4646-8c5d-88f5bcc2e477" absoluteBounds="0.765, 4.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
