@@ -19,7 +19,7 @@ namespace Anuitex.Library
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            MainPresenter mainPresenter = new MainPresenter(new MainForm(), new BookRepository(), new MagazineRepository(), new NewspaperRepository());
+            MainPresenter mainPresenter = new MainPresenter(new MainForm(), new BookRepository(), new JournalRepository(), new NewspaperRepository());
             mainPresenter.Run();            
         }
     }

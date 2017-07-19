@@ -11,21 +11,21 @@
       <Column Name="Available" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Magazine" Member="Magazines">
-    <Type Name="Magazine">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Periodicity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Subjects" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
-      <Column Name="Date" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Available" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.Newspaper" Member="Newspapers">
     <Type Name="Newspaper">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Title" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="Periodicity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Available" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Journal" Member="Journals">
+    <Type Name="Journal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Periodicity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Subjects" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="Date" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Available" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>

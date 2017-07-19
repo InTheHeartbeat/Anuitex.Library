@@ -12,15 +12,15 @@ namespace Anuitex.Library.Presenters
     {
         private readonly MainForm view;
         private readonly BookRepository bookRepository;
-        private readonly MagazineRepository magazineRepository;
+        private readonly JournalRepository journalRepository;
         private readonly NewspaperRepository newspaperRepository;
 
 
-        public MainPresenter(MainForm view, BookRepository bookRepository, MagazineRepository magazineRepository, NewspaperRepository newspaperRepository)
+        public MainPresenter(MainForm view, BookRepository bookRepository, JournalRepository journalRepository, NewspaperRepository newspaperRepository)
         {
             this.view = view;
             this.bookRepository = bookRepository;
-            this.magazineRepository = magazineRepository;
+            this.journalRepository = journalRepository;
             this.newspaperRepository = newspaperRepository;
 
             this.view.BooksListUpdated += UpdateBooksList;
@@ -30,12 +30,12 @@ namespace Anuitex.Library.Presenters
             this.view.BookCreated += OnViewBookCreated;
             this.view.BookUpdated += OnViewBookUpdated;
 
-            this.view.MagazinesListUpdated += UpdateMagazinesList;
-            this.view.MagazineTakenToRead += OnViewMagazineTakenToRead;
-            this.view.MagazineReturned += OnViewMagazineReturned;
-            this.view.MagazineDeleted += OnViewMagazineDeleted;
-            this.view.MagazineCreated += OnViewMagazineCreated;
-            this.view.MagazineUpdated += OnViewMagazineUpdated;
+            this.view.JournalsListUpdated += UpdateJournalsList;
+            this.view.JournalTakenToRead += OnViewJournalTakenToRead;
+            this.view.JournalReturned += OnViewJournalReturned;
+            this.view.JournalDeleted += OnViewJournalDeleted;
+            this.view.JournalCreated += OnViewJournalCreated;
+            this.view.JournalUpdated += OnViewJournalUpdated;
 
             this.view.NewspapersListUpdated += UpdateNewspapersList;
             this.view.NewspaperTakenToRead += OnViewNewspaperTakenToRead;
@@ -98,54 +98,54 @@ namespace Anuitex.Library.Presenters
 #endregion
 
         #region Marazine
-        private void OnViewMagazineUpdated(Magazine obj)
+        private void OnViewJournalUpdated(Journal obj)
         {
             if(obj != null)
             {
-                magazineRepository.Update(obj);
-                magazineRepository.Submit();
+                journalRepository.Update(obj);
+                journalRepository.Submit();
             }
         }
 
-        private void OnViewMagazineCreated(Magazine obj)
+        private void OnViewJournalCreated(Journal obj)
         {
             if (obj != null)
             {
-                magazineRepository.Add(obj);
-                magazineRepository.Submit();
+                journalRepository.Add(obj);
+                journalRepository.Submit();
             }
         }
 
-        private void OnViewMagazineDeleted(Magazine obj)
+        private void OnViewJournalDeleted(Journal obj)
         {
             if (obj != null)
             {
-                magazineRepository.Delete(obj);
-                magazineRepository.Submit();
+                journalRepository.Delete(obj);
+                journalRepository.Submit();
             }
         }
 
-        private void OnViewMagazineReturned(Magazine obj)
+        private void OnViewJournalReturned(Journal obj)
         {
             if (obj != null)
             {
-                magazineRepository.SetAvailableValue(obj.Id, true);
-                magazineRepository.Submit();
+                journalRepository.SetAvailableValue(obj.Id, true);
+                journalRepository.Submit();
             }
         }
 
-        private void OnViewMagazineTakenToRead(Magazine obj)
+        private void OnViewJournalTakenToRead(Journal obj)
         {
             if (obj != null)
             {
-                magazineRepository.SetAvailableValue(obj.Id, false);
-                magazineRepository.Submit();
+                journalRepository.SetAvailableValue(obj.Id, false);
+                journalRepository.Submit();
             }
         }
 
-        private void UpdateMagazinesList()
+        private void UpdateJournalsList()
         {
-            this.view.Magazines = magazineRepository.GetList();
+            this.view.Journals = journalRepository.GetList();
         }
         #endregion
 

@@ -16,7 +16,7 @@ namespace Anuitex.Library
     public sealed partial class MainForm : Form
     {
         public IEnumerable<Book> Books;
-        public IEnumerable<Magazine> Magazines;
+        public IEnumerable<Journal> Journals;
         public IEnumerable<Newspaper> Newspapers;
 
 
@@ -28,13 +28,13 @@ namespace Anuitex.Library
         public event Action<Book> BookTakenToRead;
         public event Action<Book> BookReturned;
         #endregion
-        #region Magazine events
-        public event Action MagazinesListUpdated;
-        public event Action<Magazine> MagazineCreated;
-        public event Action<Magazine> MagazineDeleted;
-        public event Action<Magazine> MagazineUpdated;
-        public event Action<Magazine> MagazineTakenToRead;
-        public event Action<Magazine> MagazineReturned;
+        #region Journal events
+        public event Action JournalsListUpdated;
+        public event Action<Journal> JournalCreated;
+        public event Action<Journal> JournalDeleted;
+        public event Action<Journal> JournalUpdated;
+        public event Action<Journal> JournalTakenToRead;
+        public event Action<Journal> JournalReturned;
         #endregion
         #region Newspaper events
         public event Action NewspapersListUpdated;
@@ -53,13 +53,14 @@ namespace Anuitex.Library
             booksGridView.SelectionChanged += BooksGridView_SelectionChanged;
 
             Books = new List<Book>();   
-            Magazines = new List<Magazine>();
+            Journals = new List<Journal>();
             Newspapers = new List<Newspaper>();                    
         }
 
         public new void Show()
-        {            
-            Application.Run(this);                     
+        {
+            OnBooksListUpdated();
+            Application.Run(this);              
         }
 
         private void SetButtonsState()
@@ -80,9 +81,9 @@ namespace Anuitex.Library
                 return typeof(Book);                
             }
 
-            if (selectedPage.Name == "tabPageMagazines" && magazinesGridView.Visible)
+            if (selectedPage.Name == "tabPageJournals" && journalsGridView.Visible)
             {
-                return typeof(Magazine);
+                return typeof(Journal);
             }
 
             if (selectedPage.Name == "tabPageNewspapers" && newspapersGridView.Visible)
@@ -171,83 +172,83 @@ namespace Anuitex.Library
 
         #endregion
 
-        #region Magazine
+        #region Journal
 
-        private void magazinesGridView_SelectionChanged(object sender, EventArgs e)
+        private void journalsGridView_SelectionChanged(object sender, EventArgs e)
         {
             SetButtonsState();
 
-            if (magazinesGridView.SelectedRows.Count > 0)
+            if (journalsGridView.SelectedRows.Count > 0)
             {
-                bool available = GetSelectedMagazine().Available;
+                bool available = GetSelectedJournal().Available;
 
                 buttonTakeToRead.Enabled = available;
                 buttonReturnSelectedBook.Enabled = !available;
             }
         }        
 
-        private void UpdateMagazinesGridView()
+        private void UpdateJournalsGridView()
         {
-            magazinesGridView.Rows.Clear();
-            if (Magazines.Any())
+            journalsGridView.Rows.Clear();
+            if (Journals.Any())
             {
-                foreach (Magazine magazine in Magazines)
+                foreach (Journal journal in Journals)
                 {
-                    magazinesGridView.Rows.Add(
-                        magazine.Id,
-                        magazine.Title,
-                        magazine.Date,
-                        magazine.Periodicity,
-                        magazine.Subjects,                        
-                        magazine.Available);
+                    journalsGridView.Rows.Add(
+                        journal.Id,
+                        journal.Title,
+                        journal.Date,
+                        journal.Periodicity,
+                        journal.Subjects,                        
+                        journal.Available);
                 }
             }
         }
 
-        private int GetSelectedMagazineId()
+        private int GetSelectedJournalId()
         {
-            return (int)magazinesGridView.SelectedRows[0].Cells["MagazineId"].Value;
+            return (int)journalsGridView.SelectedRows[0].Cells["JournalId"].Value;
         }
 
-        private Magazine GetSelectedMagazine()
+        private Journal GetSelectedJournal()
         {
-            return Magazines.FirstOrDefault(magazine => magazine.Id == GetSelectedMagazineId());
+            return Journals.FirstOrDefault(journal => journal.Id == GetSelectedJournalId());
         }
         
-        private void OnMagazinesListUpdated()
+        private void OnJournalsListUpdated()
         {
-            MagazinesListUpdated?.Invoke();
-            UpdateMagazinesGridView();
+            JournalsListUpdated?.Invoke();
+            UpdateJournalsGridView();
         }
 
-        private void OnMagazineCreated(Magazine obj)
+        private void OnJournalCreated(Journal obj)
         {
-            MagazineCreated?.Invoke(obj);
-            OnMagazinesListUpdated();
+            JournalCreated?.Invoke(obj);
+            OnJournalsListUpdated();
         }
 
-        private void OnMagazineDeleted(Magazine obj)
+        private void OnJournalDeleted(Journal obj)
         {
-            MagazineDeleted?.Invoke(obj);
-            OnMagazinesListUpdated();
+            JournalDeleted?.Invoke(obj);
+            OnJournalsListUpdated();
         }
 
-        private void OnMagazineUpdated(Magazine obj)
+        private void OnJournalUpdated(Journal obj)
         {
-            MagazineUpdated?.Invoke(obj);
-            OnMagazinesListUpdated();
+            JournalUpdated?.Invoke(obj);
+            OnJournalsListUpdated();
         }
 
-        private void OnMagazineTakenToRead(Magazine obj)
+        private void OnJournalTakenToRead(Journal obj)
         {
-            MagazineTakenToRead?.Invoke(obj);
-            OnMagazinesListUpdated();
+            JournalTakenToRead?.Invoke(obj);
+            OnJournalsListUpdated();
         }
 
-        private void OnMagazineReturned(Magazine obj)
+        private void OnJournalReturned(Journal obj)
         {
-            MagazineReturned?.Invoke(obj);
-            OnMagazinesListUpdated();
+            JournalReturned?.Invoke(obj);
+            OnJournalsListUpdated();
         }
 
         #endregion
@@ -340,9 +341,9 @@ namespace Anuitex.Library
             {
                 OnBookTakenToRead(GetSelectedBook());
             }
-            if (selectedType == typeof(Magazine))
+            if (selectedType == typeof(Journal))
             {
-                OnMagazineTakenToRead(GetSelectedMagazine());
+                OnJournalTakenToRead(GetSelectedJournal());
             }
             if (selectedType == typeof(Newspaper))
             {
@@ -356,9 +357,9 @@ namespace Anuitex.Library
             {
                 OnBookReturned(GetSelectedBook());
             }
-            if (selectedType == typeof(Magazine))
+            if (selectedType == typeof(Journal))
             {
-                OnMagazineReturned(GetSelectedMagazine());
+                OnJournalReturned(GetSelectedJournal());
             }
             if (selectedType == typeof(Newspaper))
             {
@@ -372,9 +373,9 @@ namespace Anuitex.Library
             {
                 OnBookDeleted(GetSelectedBook());
             }
-            if (selectedType == typeof(Magazine))
+            if (selectedType == typeof(Journal))
             {
-                OnMagazineDeleted(GetSelectedMagazine());
+                OnJournalDeleted(GetSelectedJournal());
             }
             if (selectedType == typeof(Newspaper))
             {
@@ -394,13 +395,13 @@ namespace Anuitex.Library
                 form.Dispose();
             }
 
-            if (GetTypeSelectedItem() == typeof(Magazine))
+            if (GetTypeSelectedItem() == typeof(Journal))
             {
-                DesignMagazineForm form = new DesignMagazineForm();
+                DesignJournalForm form = new DesignJournalForm();
                 DialogResult dialogResult = form.ShowDialog(this);
                 if (dialogResult == DialogResult.OK)
                 {
-                    OnMagazineCreated(form.ResultMagazine);
+                    OnJournalCreated(form.ResultJournal);
                 }
                 form.Dispose();
             }
@@ -429,13 +430,13 @@ namespace Anuitex.Library
                 form.Dispose();
             }
 
-            if(GetTypeSelectedItem() == typeof(Magazine))
+            if(GetTypeSelectedItem() == typeof(Journal))
             {
-                DesignMagazineForm form = new DesignMagazineForm(GetSelectedMagazine());
+                DesignJournalForm form = new DesignJournalForm(GetSelectedJournal());
                 DialogResult dialogResult = form.ShowDialog(this);
                 if (dialogResult == DialogResult.OK)
                 {
-                    OnMagazineUpdated(form.ResultMagazine);
+                    OnJournalUpdated(form.ResultJournal);
                 }
                 form.Dispose();
             }
@@ -461,16 +462,28 @@ namespace Anuitex.Library
             if (selectedPage.Name == "tabPageBooks")
             {
                 OnBooksListUpdated();
+
+                buttonAdd.Text = "Add new book";
+                buttonDeleteSelected.Text = "Delete selected book";                
+                buttonUpdateSelected.Text = "Update selected book";
             }
 
-            if (selectedPage.Name == "tabPageMagazines")
+            if (selectedPage.Name == "tabPageJournals")
             {
-                OnMagazinesListUpdated();
+                OnJournalsListUpdated();
+
+                buttonAdd.Text = "Add new journal";
+                buttonDeleteSelected.Text = "Delete selected journal";
+                buttonUpdateSelected.Text = "Update selected journal";
             }
 
             if (selectedPage.Name == "tabPageNewspapers")
             {
                 OnNewspapersListUpdated();
+
+                buttonAdd.Text = "Add new newspaper";
+                buttonDeleteSelected.Text = "Delete selected newspaper";
+                buttonUpdateSelected.Text = "Update selected newspaper";
             }
         }        
     }

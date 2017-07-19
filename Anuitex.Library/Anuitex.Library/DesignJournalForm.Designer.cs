@@ -1,6 +1,6 @@
 ﻿namespace Anuitex.Library
 {
-    partial class DesignMagazineForm
+    partial class DesignJournalForm
     {
         /// <summary>
         /// Required designer variable.
@@ -135,7 +135,7 @@
             this.label4.TabIndex = 22;
             this.label4.Text = "Date:";
             // 
-            // DesignMagazineForm
+            // DesignJournalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -151,8 +151,8 @@
             this.Controls.Add(this.buttonBuild);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.label1);
-            this.Name = "DesignMagazineForm";
-            this.Text = "DesignMagazineForm";
+            this.Name = "DesignJournalForm";
+            this.Text = "DesignJournalForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -74,11 +74,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LibraryContext.dbml</DependentUpon>
     </Compile>
-    <Compile Include="DesignMagazineForm.cs">
+    <Compile Include="DesignJournalForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DesignMagazineForm.Designer.cs">
-      <DependentUpon>DesignMagazineForm.cs</DependentUpon>
+    <Compile Include="DesignJournalForm.Designer.cs">
+      <DependentUpon>DesignJournalForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DesignNewspaperForm.cs">
       <SubType>Form</SubType>
@@ -93,7 +93,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\BookRepository.cs" />
-    <Compile Include="Models\Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Models\Repositories\MagazineRepository.cs" />
     <Compile Include="Models\Repositories\Newspaper.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
@@ -105,8 +104,8 @@
     <EmbeddedResource Include="DesignBookForm.resx">
       <DependentUpon>DesignBookForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DesignMagazineForm.resx">
-      <DependentUpon>DesignMagazineForm.cs</DependentUpon>
+    <EmbeddedResource Include="DesignJournalForm.resx">
+      <DependentUpon>DesignJournalForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesignNewspaperForm.resx">
       <DependentUpon>DesignNewspaperForm.cs</DependentUpon>
@@ -142,12 +141,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\LibraryDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Data\LibraryDatabase.mdf" />
     <Content Include="Data\LibraryDatabase_log.ldf">
       <DependentUpon>LibraryDatabase.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

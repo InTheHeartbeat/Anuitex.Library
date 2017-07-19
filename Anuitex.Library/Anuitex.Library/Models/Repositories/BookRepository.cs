@@ -6,12 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Anuitex.Library.Data;
-using Anuitex.Library.Models.Repositories.Interfaces;
 using DataContext = Anuitex.Library.Data.DataContext;
 
 namespace Anuitex.Library.Models.Repositories
 {
-    public class BookRepository : IRepository<Book>
+    public class BookRepository
     {      
         public BookRepository()
         {                        

@@ -4,25 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Anuitex.Library.Data;
-using Anuitex.Library.Models.Repositories.Interfaces;
+using Anuitex.Library.Models.Repositories;
 
 namespace Anuitex.Library.Models.Repositories
 {
-    public class MagazineRepository : IRepository<Magazine>
+    public class JournalRepository
     {
-        public IEnumerable<Magazine> GetList()
+        public IEnumerable<Journal> GetList()
         {
-            return DataContext.Context.LibraryContext.Magazines.AsEnumerable();
+            return DataContext.Context.LibraryContext.Journals.AsEnumerable();
         }
 
-        public void Add(Magazine item)
+        public void Add(Journal item)
         {
-            DataContext.Context.LibraryContext.Magazines.InsertOnSubmit(item);
+            DataContext.Context.LibraryContext.Journals.InsertOnSubmit(item);
         }
 
-        public void Update(Magazine newItem)
+        public void Update(Journal newItem)
         {
-            Magazine old = DataContext.Context.LibraryContext.Magazines.FirstOrDefault(magazine => magazine.Id == newItem.Id);
+            Journal old = DataContext.Context.LibraryContext.Journals.FirstOrDefault(journal => journal.Id == newItem.Id);
             old.Title = !old.Title.Equals(newItem.Title) ? newItem.Title : old.Title;
             old.Date = !old.Date.Equals(newItem.Date) ? newItem.Date : old.Date;
             old.Periodicity = !old.Periodicity.Equals(newItem.Periodicity) ? newItem.Periodicity : old.Periodicity;
@@ -30,18 +30,18 @@ namespace Anuitex.Library.Models.Repositories
             old.Available = !old.Available.Equals(newItem.Available) ? newItem.Available : old.Available;
         }
 
-        public void Delete(Magazine magazine)
+        public void Delete(Journal journal)
         {
-            DataContext.Context.LibraryContext.Magazines.DeleteOnSubmit(magazine);
+            DataContext.Context.LibraryContext.Journals.DeleteOnSubmit(journal);
         }
 
         public void SetAvailableValue(int id, bool available)
         {
-            Magazine magazine = DataContext.Context.LibraryContext.Magazines.FirstOrDefault(first => first.Id == id);
+            Journal journal = DataContext.Context.LibraryContext.Journals.FirstOrDefault(first => first.Id == id);
 
-            if (magazine != null)
+            if (journal != null)
             {
-                magazine.Available = available;
+                journal.Available = available;
             }
         }
 

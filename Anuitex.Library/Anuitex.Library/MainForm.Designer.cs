@@ -29,25 +29,6 @@
         private void InitializeComponent()
         {
             this.booksGridView = new System.Windows.Forms.DataGridView();
-            this.buttonTakeToRead = new System.Windows.Forms.Button();
-            this.buttonReturnSelectedBook = new System.Windows.Forms.Button();
-            this.buttonDeleteSelected = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonUpdateSelected = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.buttonAddBook = new System.Windows.Forms.Button();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPageBooks = new System.Windows.Forms.TabPage();
-            this.tabPageMagazines = new System.Windows.Forms.TabPage();
-            this.magazinesGridView = new System.Windows.Forms.DataGridView();
-            this.tabPageNewspapers = new System.Windows.Forms.TabPage();
-            this.newspapersGridView = new System.Windows.Forms.DataGridView();
-            this.MagazineId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MagazineTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MagazinePeriodiciti = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MagazineSubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MagazineDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MagazineAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +36,25 @@
             this.BookYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookPages = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonTakeToRead = new System.Windows.Forms.Button();
+            this.buttonReturnSelectedBook = new System.Windows.Forms.Button();
+            this.buttonDeleteSelected = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonUpdateSelected = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageBooks = new System.Windows.Forms.TabPage();
+            this.tabPageJournals = new System.Windows.Forms.TabPage();
+            this.journalsGridView = new System.Windows.Forms.DataGridView();
+            this.JournalId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JournalTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JournalPeriodiciti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JournalSubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JournalDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JournalAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageNewspapers = new System.Windows.Forms.TabPage();
+            this.newspapersGridView = new System.Windows.Forms.DataGridView();
             this.NewspaperId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewspaperTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewspaperPeriodicity = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,8 +63,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageBooks.SuspendLayout();
-            this.tabPageMagazines.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.magazinesGridView)).BeginInit();
+            this.tabPageJournals.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.journalsGridView)).BeginInit();
             this.tabPageNewspapers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newspapersGridView)).BeginInit();
             this.SuspendLayout();
@@ -89,206 +89,6 @@
             this.booksGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.booksGridView.Size = new System.Drawing.Size(589, 426);
             this.booksGridView.TabIndex = 0;
-            // 
-            // buttonTakeToRead
-            // 
-            this.buttonTakeToRead.Location = new System.Drawing.Point(616, 12);
-            this.buttonTakeToRead.Name = "buttonTakeToRead";
-            this.buttonTakeToRead.Size = new System.Drawing.Size(160, 25);
-            this.buttonTakeToRead.TabIndex = 1;
-            this.buttonTakeToRead.Text = "Take to read selected ";
-            this.buttonTakeToRead.UseVisualStyleBackColor = true;
-            this.buttonTakeToRead.Click += new System.EventHandler(this.buttonTakeToRead_Click);
-            // 
-            // buttonReturnSelectedBook
-            // 
-            this.buttonReturnSelectedBook.Location = new System.Drawing.Point(616, 43);
-            this.buttonReturnSelectedBook.Name = "buttonReturnSelectedBook";
-            this.buttonReturnSelectedBook.Size = new System.Drawing.Size(160, 25);
-            this.buttonReturnSelectedBook.TabIndex = 2;
-            this.buttonReturnSelectedBook.Text = "Mark book as Available";
-            this.buttonReturnSelectedBook.UseVisualStyleBackColor = true;
-            this.buttonReturnSelectedBook.Click += new System.EventHandler(this.buttonReturnSelectedBook_Click);
-            // 
-            // buttonDeleteSelected
-            // 
-            this.buttonDeleteSelected.Location = new System.Drawing.Point(616, 107);
-            this.buttonDeleteSelected.Name = "buttonDeleteSelected";
-            this.buttonDeleteSelected.Size = new System.Drawing.Size(160, 25);
-            this.buttonDeleteSelected.TabIndex = 4;
-            this.buttonDeleteSelected.Text = "Delete selected book";
-            this.buttonDeleteSelected.UseVisualStyleBackColor = true;
-            this.buttonDeleteSelected.Click += new System.EventHandler(this.buttonDeleteSelected_Click);
-            // 
-            // label1
-            // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(616, 71);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 2);
-            this.label1.TabIndex = 3;
-            // 
-            // buttonUpdateSelected
-            // 
-            this.buttonUpdateSelected.Location = new System.Drawing.Point(616, 76);
-            this.buttonUpdateSelected.Name = "buttonUpdateSelected";
-            this.buttonUpdateSelected.Size = new System.Drawing.Size(160, 25);
-            this.buttonUpdateSelected.TabIndex = 3;
-            this.buttonUpdateSelected.Text = "Update selected book";
-            this.buttonUpdateSelected.UseVisualStyleBackColor = true;
-            this.buttonUpdateSelected.Click += new System.EventHandler(this.buttonUpdateSelected_Click);
-            // 
-            // label2
-            // 
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label2.Location = new System.Drawing.Point(616, 135);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(160, 2);
-            this.label2.TabIndex = 5;
-            // 
-            // buttonAddBook
-            // 
-            this.buttonAddBook.Location = new System.Drawing.Point(617, 141);
-            this.buttonAddBook.Name = "buttonAddBook";
-            this.buttonAddBook.Size = new System.Drawing.Size(160, 25);
-            this.buttonAddBook.TabIndex = 5;
-            this.buttonAddBook.Text = "Add new book";
-            this.buttonAddBook.UseVisualStyleBackColor = true;
-            this.buttonAddBook.Click += new System.EventHandler(this.buttonAddBook_Click);
-            // 
-            // tabControl
-            // 
-            this.tabControl.Controls.Add(this.tabPageBooks);
-            this.tabControl.Controls.Add(this.tabPageMagazines);
-            this.tabControl.Controls.Add(this.tabPageNewspapers);
-            this.tabControl.Location = new System.Drawing.Point(1, 1);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(610, 465);
-            this.tabControl.TabIndex = 6;
-            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
-            // 
-            // tabPageBooks
-            // 
-            this.tabPageBooks.Controls.Add(this.booksGridView);
-            this.tabPageBooks.Location = new System.Drawing.Point(4, 22);
-            this.tabPageBooks.Name = "tabPageBooks";
-            this.tabPageBooks.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBooks.Size = new System.Drawing.Size(602, 439);
-            this.tabPageBooks.TabIndex = 0;
-            this.tabPageBooks.Text = "Books";
-            this.tabPageBooks.UseVisualStyleBackColor = true;
-            // 
-            // tabPageMagazines
-            // 
-            this.tabPageMagazines.Controls.Add(this.magazinesGridView);
-            this.tabPageMagazines.Location = new System.Drawing.Point(4, 22);
-            this.tabPageMagazines.Name = "tabPageMagazines";
-            this.tabPageMagazines.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMagazines.Size = new System.Drawing.Size(602, 439);
-            this.tabPageMagazines.TabIndex = 1;
-            this.tabPageMagazines.Text = "Magazines";
-            this.tabPageMagazines.UseVisualStyleBackColor = true;
-            // 
-            // magazinesGridView
-            // 
-            this.magazinesGridView.AllowUserToAddRows = false;
-            this.magazinesGridView.AllowUserToDeleteRows = false;
-            this.magazinesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.magazinesGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.MagazineId,
-            this.MagazineTitle,
-            this.MagazinePeriodiciti,
-            this.MagazineSubjects,
-            this.MagazineDate,
-            this.MagazineAvailable});
-            this.magazinesGridView.Location = new System.Drawing.Point(7, 6);
-            this.magazinesGridView.MultiSelect = false;
-            this.magazinesGridView.Name = "magazinesGridView";
-            this.magazinesGridView.ReadOnly = true;
-            this.magazinesGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.magazinesGridView.Size = new System.Drawing.Size(589, 426);
-            this.magazinesGridView.TabIndex = 1;
-            this.magazinesGridView.SelectionChanged += new System.EventHandler(this.magazinesGridView_SelectionChanged);
-            // 
-            // tabPageNewspapers
-            // 
-            this.tabPageNewspapers.Controls.Add(this.newspapersGridView);
-            this.tabPageNewspapers.Location = new System.Drawing.Point(4, 22);
-            this.tabPageNewspapers.Name = "tabPageNewspapers";
-            this.tabPageNewspapers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNewspapers.Size = new System.Drawing.Size(602, 439);
-            this.tabPageNewspapers.TabIndex = 2;
-            this.tabPageNewspapers.Text = "Newspapers";
-            this.tabPageNewspapers.UseVisualStyleBackColor = true;
-            // 
-            // newspapersGridView
-            // 
-            this.newspapersGridView.AllowUserToAddRows = false;
-            this.newspapersGridView.AllowUserToDeleteRows = false;
-            this.newspapersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.newspapersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NewspaperId,
-            this.NewspaperTitle,
-            this.NewspaperPeriodicity,
-            this.NewspaperDate,
-            this.NewspaperAvailable});
-            this.newspapersGridView.Location = new System.Drawing.Point(7, 6);
-            this.newspapersGridView.MultiSelect = false;
-            this.newspapersGridView.Name = "newspapersGridView";
-            this.newspapersGridView.ReadOnly = true;
-            this.newspapersGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.newspapersGridView.Size = new System.Drawing.Size(589, 426);
-            this.newspapersGridView.TabIndex = 1;
-            this.newspapersGridView.SelectionChanged += new System.EventHandler(this.newspapersGridView_SelectionChanged);
-            // 
-            // MagazineId
-            // 
-            this.MagazineId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.MagazineId.HeaderText = "Id";
-            this.MagazineId.Name = "MagazineId";
-            this.MagazineId.ReadOnly = true;
-            this.MagazineId.Width = 41;
-            // 
-            // MagazineTitle
-            // 
-            this.MagazineTitle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.MagazineTitle.HeaderText = "Title";
-            this.MagazineTitle.Name = "MagazineTitle";
-            this.MagazineTitle.ReadOnly = true;
-            this.MagazineTitle.Width = 52;
-            // 
-            // MagazinePeriodiciti
-            // 
-            this.MagazinePeriodiciti.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.MagazinePeriodiciti.HeaderText = "Periodicity";
-            this.MagazinePeriodiciti.Name = "MagazinePeriodiciti";
-            this.MagazinePeriodiciti.ReadOnly = true;
-            this.MagazinePeriodiciti.Width = 80;
-            // 
-            // MagazineSubjects
-            // 
-            this.MagazineSubjects.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.MagazineSubjects.HeaderText = "Subjects";
-            this.MagazineSubjects.Name = "MagazineSubjects";
-            this.MagazineSubjects.ReadOnly = true;
-            this.MagazineSubjects.Width = 73;
-            // 
-            // MagazineDate
-            // 
-            this.MagazineDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.MagazineDate.HeaderText = "Date";
-            this.MagazineDate.Name = "MagazineDate";
-            this.MagazineDate.ReadOnly = true;
-            this.MagazineDate.Width = 55;
-            // 
-            // MagazineAvailable
-            // 
-            this.MagazineAvailable.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.MagazineAvailable.HeaderText = "Available";
-            this.MagazineAvailable.Name = "MagazineAvailable";
-            this.MagazineAvailable.ReadOnly = true;
-            this.MagazineAvailable.Width = 75;
             // 
             // BookId
             // 
@@ -346,6 +146,206 @@
             this.BookAvailable.ReadOnly = true;
             this.BookAvailable.Width = 75;
             // 
+            // buttonTakeToRead
+            // 
+            this.buttonTakeToRead.Location = new System.Drawing.Point(616, 12);
+            this.buttonTakeToRead.Name = "buttonTakeToRead";
+            this.buttonTakeToRead.Size = new System.Drawing.Size(160, 25);
+            this.buttonTakeToRead.TabIndex = 1;
+            this.buttonTakeToRead.Text = "Take to read selected ";
+            this.buttonTakeToRead.UseVisualStyleBackColor = true;
+            this.buttonTakeToRead.Click += new System.EventHandler(this.buttonTakeToRead_Click);
+            // 
+            // buttonReturnSelectedBook
+            // 
+            this.buttonReturnSelectedBook.Location = new System.Drawing.Point(616, 43);
+            this.buttonReturnSelectedBook.Name = "buttonReturnSelectedBook";
+            this.buttonReturnSelectedBook.Size = new System.Drawing.Size(160, 25);
+            this.buttonReturnSelectedBook.TabIndex = 2;
+            this.buttonReturnSelectedBook.Text = "Mark as Available";
+            this.buttonReturnSelectedBook.UseVisualStyleBackColor = true;
+            this.buttonReturnSelectedBook.Click += new System.EventHandler(this.buttonReturnSelectedBook_Click);
+            // 
+            // buttonDeleteSelected
+            // 
+            this.buttonDeleteSelected.Location = new System.Drawing.Point(616, 107);
+            this.buttonDeleteSelected.Name = "buttonDeleteSelected";
+            this.buttonDeleteSelected.Size = new System.Drawing.Size(160, 25);
+            this.buttonDeleteSelected.TabIndex = 4;
+            this.buttonDeleteSelected.Text = "Delete selected";
+            this.buttonDeleteSelected.UseVisualStyleBackColor = true;
+            this.buttonDeleteSelected.Click += new System.EventHandler(this.buttonDeleteSelected_Click);
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(616, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(160, 2);
+            this.label1.TabIndex = 3;
+            // 
+            // buttonUpdateSelected
+            // 
+            this.buttonUpdateSelected.Location = new System.Drawing.Point(616, 76);
+            this.buttonUpdateSelected.Name = "buttonUpdateSelected";
+            this.buttonUpdateSelected.Size = new System.Drawing.Size(160, 25);
+            this.buttonUpdateSelected.TabIndex = 3;
+            this.buttonUpdateSelected.Text = "Update selected";
+            this.buttonUpdateSelected.UseVisualStyleBackColor = true;
+            this.buttonUpdateSelected.Click += new System.EventHandler(this.buttonUpdateSelected_Click);
+            // 
+            // label2
+            // 
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Location = new System.Drawing.Point(616, 135);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(160, 2);
+            this.label2.TabIndex = 5;
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(617, 141);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(160, 25);
+            this.buttonAdd.TabIndex = 5;
+            this.buttonAdd.Text = "Add new";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAddBook_Click);
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabPageBooks);
+            this.tabControl.Controls.Add(this.tabPageJournals);
+            this.tabControl.Controls.Add(this.tabPageNewspapers);
+            this.tabControl.Location = new System.Drawing.Point(1, 1);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(610, 465);
+            this.tabControl.TabIndex = 6;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
+            // 
+            // tabPageBooks
+            // 
+            this.tabPageBooks.Controls.Add(this.booksGridView);
+            this.tabPageBooks.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBooks.Name = "tabPageBooks";
+            this.tabPageBooks.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageBooks.Size = new System.Drawing.Size(602, 439);
+            this.tabPageBooks.TabIndex = 0;
+            this.tabPageBooks.Text = "Books";
+            this.tabPageBooks.UseVisualStyleBackColor = true;
+            // 
+            // tabPageJournals
+            // 
+            this.tabPageJournals.Controls.Add(this.journalsGridView);
+            this.tabPageJournals.Location = new System.Drawing.Point(4, 22);
+            this.tabPageJournals.Name = "tabPageJournals";
+            this.tabPageJournals.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageJournals.Size = new System.Drawing.Size(602, 439);
+            this.tabPageJournals.TabIndex = 1;
+            this.tabPageJournals.Text = "Journals";
+            this.tabPageJournals.UseVisualStyleBackColor = true;
+            // 
+            // journalsGridView
+            // 
+            this.journalsGridView.AllowUserToAddRows = false;
+            this.journalsGridView.AllowUserToDeleteRows = false;
+            this.journalsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.journalsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.JournalId,
+            this.JournalTitle,
+            this.JournalPeriodiciti,
+            this.JournalSubjects,
+            this.JournalDate,
+            this.JournalAvailable});
+            this.journalsGridView.Location = new System.Drawing.Point(7, 6);
+            this.journalsGridView.MultiSelect = false;
+            this.journalsGridView.Name = "journalsGridView";
+            this.journalsGridView.ReadOnly = true;
+            this.journalsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.journalsGridView.Size = new System.Drawing.Size(589, 426);
+            this.journalsGridView.TabIndex = 1;
+            this.journalsGridView.SelectionChanged += new System.EventHandler(this.journalsGridView_SelectionChanged);
+            // 
+            // JournalId
+            // 
+            this.JournalId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.JournalId.HeaderText = "Id";
+            this.JournalId.Name = "JournalId";
+            this.JournalId.ReadOnly = true;
+            this.JournalId.Width = 41;
+            // 
+            // JournalTitle
+            // 
+            this.JournalTitle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.JournalTitle.HeaderText = "Title";
+            this.JournalTitle.Name = "JournalTitle";
+            this.JournalTitle.ReadOnly = true;
+            this.JournalTitle.Width = 52;
+            // 
+            // JournalPeriodiciti
+            // 
+            this.JournalPeriodiciti.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.JournalPeriodiciti.HeaderText = "Periodicity";
+            this.JournalPeriodiciti.Name = "JournalPeriodiciti";
+            this.JournalPeriodiciti.ReadOnly = true;
+            this.JournalPeriodiciti.Width = 80;
+            // 
+            // JournalSubjects
+            // 
+            this.JournalSubjects.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.JournalSubjects.HeaderText = "Subjects";
+            this.JournalSubjects.Name = "JournalSubjects";
+            this.JournalSubjects.ReadOnly = true;
+            this.JournalSubjects.Width = 73;
+            // 
+            // JournalDate
+            // 
+            this.JournalDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.JournalDate.HeaderText = "Date";
+            this.JournalDate.Name = "JournalDate";
+            this.JournalDate.ReadOnly = true;
+            this.JournalDate.Width = 55;
+            // 
+            // JournalAvailable
+            // 
+            this.JournalAvailable.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.JournalAvailable.HeaderText = "Available";
+            this.JournalAvailable.Name = "JournalAvailable";
+            this.JournalAvailable.ReadOnly = true;
+            this.JournalAvailable.Width = 75;
+            // 
+            // tabPageNewspapers
+            // 
+            this.tabPageNewspapers.Controls.Add(this.newspapersGridView);
+            this.tabPageNewspapers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNewspapers.Name = "tabPageNewspapers";
+            this.tabPageNewspapers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageNewspapers.Size = new System.Drawing.Size(602, 439);
+            this.tabPageNewspapers.TabIndex = 2;
+            this.tabPageNewspapers.Text = "Newspapers";
+            this.tabPageNewspapers.UseVisualStyleBackColor = true;
+            // 
+            // newspapersGridView
+            // 
+            this.newspapersGridView.AllowUserToAddRows = false;
+            this.newspapersGridView.AllowUserToDeleteRows = false;
+            this.newspapersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.newspapersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NewspaperId,
+            this.NewspaperTitle,
+            this.NewspaperPeriodicity,
+            this.NewspaperDate,
+            this.NewspaperAvailable});
+            this.newspapersGridView.Location = new System.Drawing.Point(7, 6);
+            this.newspapersGridView.MultiSelect = false;
+            this.newspapersGridView.Name = "newspapersGridView";
+            this.newspapersGridView.ReadOnly = true;
+            this.newspapersGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.newspapersGridView.Size = new System.Drawing.Size(589, 426);
+            this.newspapersGridView.TabIndex = 1;
+            this.newspapersGridView.SelectionChanged += new System.EventHandler(this.newspapersGridView_SelectionChanged);
+            // 
             // NewspaperId
             // 
             this.NewspaperId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -390,7 +390,7 @@
             // 
             this.ClientSize = new System.Drawing.Size(784, 471);
             this.Controls.Add(this.tabControl);
-            this.Controls.Add(this.buttonAddBook);
+            this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonUpdateSelected);
             this.Controls.Add(this.label1);
@@ -401,8 +401,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabPageBooks.ResumeLayout(false);
-            this.tabPageMagazines.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.magazinesGridView)).EndInit();
+            this.tabPageJournals.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.journalsGridView)).EndInit();
             this.tabPageNewspapers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.newspapersGridView)).EndInit();
             this.ResumeLayout(false);
@@ -419,12 +419,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonUpdateSelected;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonAddBook;
+        private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageBooks;
-        private System.Windows.Forms.TabPage tabPageMagazines;
+        private System.Windows.Forms.TabPage tabPageJournals;
         private System.Windows.Forms.TabPage tabPageNewspapers;
-        private System.Windows.Forms.DataGridView magazinesGridView;
+        private System.Windows.Forms.DataGridView journalsGridView;
         private System.Windows.Forms.DataGridView newspapersGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn BookId;
         private System.Windows.Forms.DataGridViewTextBoxColumn BookTitle;
@@ -433,12 +433,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BookYear;
         private System.Windows.Forms.DataGridViewTextBoxColumn BookPages;
         private System.Windows.Forms.DataGridViewTextBoxColumn BookAvailable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MagazineId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MagazineTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MagazinePeriodiciti;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MagazineSubjects;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MagazineDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MagazineAvailable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn JournalId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn JournalTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn JournalPeriodiciti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn JournalSubjects;
+        private System.Windows.Forms.DataGridViewTextBoxColumn JournalDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn JournalAvailable;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewspaperId;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewspaperTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewspaperPeriodicity;

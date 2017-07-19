@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Anuitex.Library.Data;
-using Anuitex.Library.Models.Repositories.Interfaces;
 
 namespace Anuitex.Library.Models.Repositories
 {
-    public class NewspaperRepository : IRepository<Newspaper>
+    public class NewspaperRepository
     {
         public IEnumerable<Newspaper> GetList()
         {

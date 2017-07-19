@@ -11,31 +11,31 @@ using System.Windows.Forms;
 
 namespace Anuitex.Library
 {
-    public partial class DesignMagazineForm : Form
+    public partial class DesignJournalForm : Form
     {
 
-        public Magazine ResultMagazine => _magazine;
+        public Journal ResultJournal => _journal;
 
-        private Magazine _magazine;
+        private Journal _journal;
 
-        public DesignMagazineForm()
+        public DesignJournalForm()
         {
             InitializeComponent();
         }
 
-        public DesignMagazineForm(Magazine magazine)
+        public DesignJournalForm(Journal journal)
         {
             InitializeComponent();
-            this._magazine = magazine;
+            this._journal = journal;
             InitializeForUpdate();
         }
 
         private void InitializeForUpdate()
         {
-            textBoxTitle.Text = _magazine.Title;
-            textBoxPeriodicity.Text = _magazine.Periodicity;
-            textBoxSubjects.Text = _magazine.Subjects;
-            textBoxDate.Text = _magazine.Date;            
+            textBoxTitle.Text = _journal.Title;
+            textBoxPeriodicity.Text = _journal.Periodicity;
+            textBoxSubjects.Text = _journal.Subjects;
+            textBoxDate.Text = _journal.Date;            
 
             buttonBuild.Text = "Update";
         }
@@ -70,9 +70,9 @@ namespace Anuitex.Library
         {
             if (!ValidateInputs()) return;            
 
-            _magazine = new Magazine()
+            _journal = new Journal()
             {
-                Id = _magazine?.Id ?? 0,
+                Id = _journal?.Id ?? 0,
                 Title = textBoxTitle.Text,
                 Periodicity = textBoxPeriodicity.Text,
                 Subjects = textBoxSubjects.Text,
