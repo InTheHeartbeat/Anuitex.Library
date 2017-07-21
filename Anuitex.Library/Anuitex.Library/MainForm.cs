@@ -19,7 +19,6 @@ namespace Anuitex.Library
         public IEnumerable<Journal> Journals;
         public IEnumerable<Newspaper> Newspapers;
 
-
         #region Book events
         public event Action BooksListUpdated;
         public event Action<Book> BookCreated;
@@ -45,12 +44,9 @@ namespace Anuitex.Library
         public event Action<Newspaper> NewspaperReturned;
         #endregion
 
-
         public MainForm()
         {
-            InitializeComponent();
-
-            booksGridView.SelectionChanged += BooksGridView_SelectionChanged;
+            InitializeComponent();            
 
             Books = new List<Book>();   
             Journals = new List<Journal>();
@@ -99,9 +95,14 @@ namespace Anuitex.Library
             }
         }
 
+        private TabPage GetCurrentTabPage()
+        {
+            return tabControl.SelectedTab;
+        }
+
         private Type GetTypeSelectedItem()
         {
-            TabPage selectedPage = tabControl.SelectedTab;
+            TabPage selectedPage = GetCurrentTabPage();
             if (selectedPage.Name == "tabPageBooks" && booksGridView.Visible)
             {
                 return typeof(Book);                
@@ -483,7 +484,7 @@ namespace Anuitex.Library
         
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TabPage selectedPage = tabControl.SelectedTab;
+            TabPage selectedPage = GetCurrentTabPage();
 
             if (selectedPage.Name == "tabPageBooks")
             {

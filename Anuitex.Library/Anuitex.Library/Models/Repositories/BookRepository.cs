@@ -20,10 +20,10 @@ namespace Anuitex.Library.Models.Repositories
         public IEnumerable<Book> GetList()
         {
             return DataContext.Context.LibraryContext.Books.AsEnumerable();
-        }
+        }  
 
         public void Add(Book item)
-        {            
+        {              
             DataContext.Context.LibraryContext.Books.InsertOnSubmit(item);
         }
 

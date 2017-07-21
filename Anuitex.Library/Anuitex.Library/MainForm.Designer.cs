@@ -89,6 +89,7 @@
             this.booksGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.booksGridView.Size = new System.Drawing.Size(589, 426);
             this.booksGridView.TabIndex = 0;
+            this.booksGridView.SelectionChanged += new System.EventHandler(this.BooksGridView_SelectionChanged);
             // 
             // BookId
             // 
