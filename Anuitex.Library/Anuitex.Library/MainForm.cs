@@ -60,17 +60,43 @@ namespace Anuitex.Library
         public new void Show()
         {
             OnBooksListUpdated();
+            SetButtonsState();
             Application.Run(this);              
         }
 
         private void SetButtonsState()
         {
-            bool anyBookExists = Books.Any();
+            TabPage selectedPage = tabControl.SelectedTab;
 
-            buttonTakeToRead.Enabled = anyBookExists;
-            buttonReturnSelectedBook.Enabled = anyBookExists;
-            buttonUpdateSelected.Enabled = anyBookExists;
-            buttonDeleteSelected.Enabled = anyBookExists;
+            if (selectedPage.Name == "tabPageBooks")
+            {
+                bool anyBookExists = Books.Any();
+
+                buttonTakeToRead.Enabled = anyBookExists;
+                buttonReturnSelected.Enabled = anyBookExists;
+                buttonUpdateSelected.Enabled = anyBookExists;
+                buttonDeleteSelected.Enabled = anyBookExists;
+            }
+
+            if (selectedPage.Name == "tabPageJournals")
+            {
+                bool anyJournalsExists = Journals.Any();
+
+                buttonTakeToRead.Enabled = anyJournalsExists;
+                buttonReturnSelected.Enabled = anyJournalsExists;
+                buttonUpdateSelected.Enabled = anyJournalsExists;
+                buttonDeleteSelected.Enabled = anyJournalsExists;
+            }
+
+            if (selectedPage.Name == "tabPageNewspapers")
+            {
+                bool anyNewspapersExists = Newspapers.Any();
+
+                buttonTakeToRead.Enabled = anyNewspapersExists;
+                buttonReturnSelected.Enabled = anyNewspapersExists;
+                buttonUpdateSelected.Enabled = anyNewspapersExists;
+                buttonDeleteSelected.Enabled = anyNewspapersExists;
+            }
         }
 
         private Type GetTypeSelectedItem()
@@ -105,7 +131,7 @@ namespace Anuitex.Library
                 bool bookAvailable = GetSelectedBook().Available;
 
                 buttonTakeToRead.Enabled = bookAvailable;
-                buttonReturnSelectedBook.Enabled = !bookAvailable;
+                buttonReturnSelected.Enabled = !bookAvailable;
             }
         }        
 
@@ -183,7 +209,7 @@ namespace Anuitex.Library
                 bool available = GetSelectedJournal().Available;
 
                 buttonTakeToRead.Enabled = available;
-                buttonReturnSelectedBook.Enabled = !available;
+                buttonReturnSelected.Enabled = !available;
             }
         }        
 
@@ -264,7 +290,7 @@ namespace Anuitex.Library
                 bool available = GetSelectedNewspaper().Available;
 
                 buttonTakeToRead.Enabled = available;
-                buttonReturnSelectedBook.Enabled = !available;
+                buttonReturnSelected.Enabled = !available;
             }
         }
 
@@ -485,6 +511,7 @@ namespace Anuitex.Library
                 buttonDeleteSelected.Text = "Delete selected newspaper";
                 buttonUpdateSelected.Text = "Update selected newspaper";
             }
+            SetButtonsState();
         }        
     }
 }

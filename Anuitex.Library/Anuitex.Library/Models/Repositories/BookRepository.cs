@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Linq;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Anuitex.Library.Models.Repositories
         }
 
         public void Add(Book item)
-        {
+        {            
             DataContext.Context.LibraryContext.Books.InsertOnSubmit(item);
         }
 

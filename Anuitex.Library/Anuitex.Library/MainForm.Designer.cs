@@ -37,7 +37,7 @@
             this.BookPages = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonTakeToRead = new System.Windows.Forms.Button();
-            this.buttonReturnSelectedBook = new System.Windows.Forms.Button();
+            this.buttonReturnSelected = new System.Windows.Forms.Button();
             this.buttonDeleteSelected = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonUpdateSelected = new System.Windows.Forms.Button();
@@ -156,15 +156,15 @@
             this.buttonTakeToRead.UseVisualStyleBackColor = true;
             this.buttonTakeToRead.Click += new System.EventHandler(this.buttonTakeToRead_Click);
             // 
-            // buttonReturnSelectedBook
+            // buttonReturnSelected
             // 
-            this.buttonReturnSelectedBook.Location = new System.Drawing.Point(616, 43);
-            this.buttonReturnSelectedBook.Name = "buttonReturnSelectedBook";
-            this.buttonReturnSelectedBook.Size = new System.Drawing.Size(160, 25);
-            this.buttonReturnSelectedBook.TabIndex = 2;
-            this.buttonReturnSelectedBook.Text = "Mark as Available";
-            this.buttonReturnSelectedBook.UseVisualStyleBackColor = true;
-            this.buttonReturnSelectedBook.Click += new System.EventHandler(this.buttonReturnSelectedBook_Click);
+            this.buttonReturnSelected.Location = new System.Drawing.Point(616, 43);
+            this.buttonReturnSelected.Name = "buttonReturnSelected";
+            this.buttonReturnSelected.Size = new System.Drawing.Size(160, 25);
+            this.buttonReturnSelected.TabIndex = 2;
+            this.buttonReturnSelected.Text = "Mark as Available";
+            this.buttonReturnSelected.UseVisualStyleBackColor = true;
+            this.buttonReturnSelected.Click += new System.EventHandler(this.buttonReturnSelectedBook_Click);
             // 
             // buttonDeleteSelected
             // 
@@ -396,7 +396,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonDeleteSelected);
             this.Controls.Add(this.buttonTakeToRead);
-            this.Controls.Add(this.buttonReturnSelectedBook);
+            this.Controls.Add(this.buttonReturnSelected);
             this.Name = "MainForm";
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).EndInit();
             this.tabControl.ResumeLayout(false);
@@ -414,7 +414,7 @@
 
         private System.Windows.Forms.DataGridView booksGridView;
         private System.Windows.Forms.Button buttonTakeToRead;
-        private System.Windows.Forms.Button buttonReturnSelectedBook;
+        private System.Windows.Forms.Button buttonReturnSelected;
         private System.Windows.Forms.Button buttonDeleteSelected;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonUpdateSelected;
