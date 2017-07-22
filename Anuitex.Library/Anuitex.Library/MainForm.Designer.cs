@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.booksGridView = new System.Windows.Forms.DataGridView();
+            this.BookId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookGenre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookPages = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonSell = new System.Windows.Forms.Button();
             this.buttonDeleteSelected = new System.Windows.Forms.Button();
             this.buttonUpdateSelected = new System.Windows.Forms.Button();
@@ -38,16 +46,6 @@
             this.tabPageBooks = new System.Windows.Forms.TabPage();
             this.tabPageJournals = new System.Windows.Forms.TabPage();
             this.journalsGridView = new System.Windows.Forms.DataGridView();
-            this.tabPageNewspapers = new System.Windows.Forms.TabPage();
-            this.newspapersGridView = new System.Windows.Forms.DataGridView();
-            this.BookId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookGenre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookPages = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.JournalId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.JournalTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.JournalPeriodiciti = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +53,8 @@
             this.JournalDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.JournalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.JournalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageNewspapers = new System.Windows.Forms.TabPage();
+            this.newspapersGridView = new System.Windows.Forms.DataGridView();
             this.NewspaperId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewspaperTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewspaperPeriodicity = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,13 +86,74 @@
             this.BookPrice,
             this.BookAmount});
             this.booksGridView.Location = new System.Drawing.Point(7, 6);
-            this.booksGridView.MultiSelect = false;
             this.booksGridView.Name = "booksGridView";
             this.booksGridView.ReadOnly = true;
             this.booksGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.booksGridView.Size = new System.Drawing.Size(589, 426);
             this.booksGridView.TabIndex = 0;
             this.booksGridView.SelectionChanged += new System.EventHandler(this.BooksGridView_SelectionChanged);
+            // 
+            // BookId
+            // 
+            this.BookId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BookId.HeaderText = "Id";
+            this.BookId.Name = "BookId";
+            this.BookId.ReadOnly = true;
+            this.BookId.Width = 41;
+            // 
+            // BookTitle
+            // 
+            this.BookTitle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BookTitle.HeaderText = "Title";
+            this.BookTitle.Name = "BookTitle";
+            this.BookTitle.ReadOnly = true;
+            this.BookTitle.Width = 52;
+            // 
+            // BookAuthor
+            // 
+            this.BookAuthor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BookAuthor.HeaderText = "Author";
+            this.BookAuthor.Name = "BookAuthor";
+            this.BookAuthor.ReadOnly = true;
+            this.BookAuthor.Width = 63;
+            // 
+            // BookGenre
+            // 
+            this.BookGenre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BookGenre.HeaderText = "Genre";
+            this.BookGenre.Name = "BookGenre";
+            this.BookGenre.ReadOnly = true;
+            this.BookGenre.Width = 61;
+            // 
+            // BookYear
+            // 
+            this.BookYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BookYear.HeaderText = "Year";
+            this.BookYear.Name = "BookYear";
+            this.BookYear.ReadOnly = true;
+            this.BookYear.Width = 54;
+            // 
+            // BookPages
+            // 
+            this.BookPages.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BookPages.HeaderText = "Pages";
+            this.BookPages.Name = "BookPages";
+            this.BookPages.ReadOnly = true;
+            this.BookPages.Width = 62;
+            // 
+            // BookPrice
+            // 
+            this.BookPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BookPrice.HeaderText = "Price";
+            this.BookPrice.Name = "BookPrice";
+            this.BookPrice.ReadOnly = true;
+            this.BookPrice.Width = 56;
+            // 
+            // BookAmount
+            // 
+            this.BookAmount.HeaderText = "Amount";
+            this.BookAmount.Name = "BookAmount";
+            this.BookAmount.ReadOnly = true;
             // 
             // buttonSell
             // 
@@ -102,7 +163,7 @@
             this.buttonSell.TabIndex = 1;
             this.buttonSell.Text = "Sell selected";
             this.buttonSell.UseVisualStyleBackColor = true;
-            this.buttonSell.Click += new System.EventHandler(this.buttonTakeToRead_Click);
+            this.buttonSell.Click += new System.EventHandler(this.ButtonSellClick);
             // 
             // buttonDeleteSelected
             // 
@@ -190,107 +251,12 @@
             this.JournalPrice,
             this.JournalAmount});
             this.journalsGridView.Location = new System.Drawing.Point(7, 6);
-            this.journalsGridView.MultiSelect = false;
             this.journalsGridView.Name = "journalsGridView";
             this.journalsGridView.ReadOnly = true;
             this.journalsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.journalsGridView.Size = new System.Drawing.Size(589, 426);
             this.journalsGridView.TabIndex = 1;
             this.journalsGridView.SelectionChanged += new System.EventHandler(this.journalsGridView_SelectionChanged);
-            // 
-            // tabPageNewspapers
-            // 
-            this.tabPageNewspapers.Controls.Add(this.newspapersGridView);
-            this.tabPageNewspapers.Location = new System.Drawing.Point(4, 22);
-            this.tabPageNewspapers.Name = "tabPageNewspapers";
-            this.tabPageNewspapers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNewspapers.Size = new System.Drawing.Size(602, 439);
-            this.tabPageNewspapers.TabIndex = 2;
-            this.tabPageNewspapers.Text = "Newspapers";
-            this.tabPageNewspapers.UseVisualStyleBackColor = true;
-            // 
-            // newspapersGridView
-            // 
-            this.newspapersGridView.AllowUserToAddRows = false;
-            this.newspapersGridView.AllowUserToDeleteRows = false;
-            this.newspapersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.newspapersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NewspaperId,
-            this.NewspaperTitle,
-            this.NewspaperPeriodicity,
-            this.NewspaperDate,
-            this.NewspaperPrice,
-            this.NewspaperAmount});
-            this.newspapersGridView.Location = new System.Drawing.Point(7, 6);
-            this.newspapersGridView.MultiSelect = false;
-            this.newspapersGridView.Name = "newspapersGridView";
-            this.newspapersGridView.ReadOnly = true;
-            this.newspapersGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.newspapersGridView.Size = new System.Drawing.Size(589, 426);
-            this.newspapersGridView.TabIndex = 1;
-            this.newspapersGridView.SelectionChanged += new System.EventHandler(this.newspapersGridView_SelectionChanged);
-            // 
-            // BookId
-            // 
-            this.BookId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BookId.HeaderText = "Id";
-            this.BookId.Name = "BookId";
-            this.BookId.ReadOnly = true;
-            this.BookId.Width = 41;
-            // 
-            // BookTitle
-            // 
-            this.BookTitle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BookTitle.HeaderText = "Title";
-            this.BookTitle.Name = "BookTitle";
-            this.BookTitle.ReadOnly = true;
-            this.BookTitle.Width = 52;
-            // 
-            // BookAuthor
-            // 
-            this.BookAuthor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BookAuthor.HeaderText = "Author";
-            this.BookAuthor.Name = "BookAuthor";
-            this.BookAuthor.ReadOnly = true;
-            this.BookAuthor.Width = 63;
-            // 
-            // BookGenre
-            // 
-            this.BookGenre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BookGenre.HeaderText = "Genre";
-            this.BookGenre.Name = "BookGenre";
-            this.BookGenre.ReadOnly = true;
-            this.BookGenre.Width = 61;
-            // 
-            // BookYear
-            // 
-            this.BookYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BookYear.HeaderText = "Year";
-            this.BookYear.Name = "BookYear";
-            this.BookYear.ReadOnly = true;
-            this.BookYear.Width = 54;
-            // 
-            // BookPages
-            // 
-            this.BookPages.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BookPages.HeaderText = "Pages";
-            this.BookPages.Name = "BookPages";
-            this.BookPages.ReadOnly = true;
-            this.BookPages.Width = 62;
-            // 
-            // BookPrice
-            // 
-            this.BookPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BookPrice.HeaderText = "Price";
-            this.BookPrice.Name = "BookPrice";
-            this.BookPrice.ReadOnly = true;
-            this.BookPrice.Width = 56;
-            // 
-            // BookAmount
-            // 
-            this.BookAmount.HeaderText = "Amount";
-            this.BookAmount.Name = "BookAmount";
-            this.BookAmount.ReadOnly = true;
             // 
             // JournalId
             // 
@@ -345,6 +311,37 @@
             this.JournalAmount.HeaderText = "Amount";
             this.JournalAmount.Name = "JournalAmount";
             this.JournalAmount.ReadOnly = true;
+            // 
+            // tabPageNewspapers
+            // 
+            this.tabPageNewspapers.Controls.Add(this.newspapersGridView);
+            this.tabPageNewspapers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNewspapers.Name = "tabPageNewspapers";
+            this.tabPageNewspapers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageNewspapers.Size = new System.Drawing.Size(602, 439);
+            this.tabPageNewspapers.TabIndex = 2;
+            this.tabPageNewspapers.Text = "Newspapers";
+            this.tabPageNewspapers.UseVisualStyleBackColor = true;
+            // 
+            // newspapersGridView
+            // 
+            this.newspapersGridView.AllowUserToAddRows = false;
+            this.newspapersGridView.AllowUserToDeleteRows = false;
+            this.newspapersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.newspapersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NewspaperId,
+            this.NewspaperTitle,
+            this.NewspaperPeriodicity,
+            this.NewspaperDate,
+            this.NewspaperPrice,
+            this.NewspaperAmount});
+            this.newspapersGridView.Location = new System.Drawing.Point(7, 6);
+            this.newspapersGridView.Name = "newspapersGridView";
+            this.newspapersGridView.ReadOnly = true;
+            this.newspapersGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.newspapersGridView.Size = new System.Drawing.Size(589, 426);
+            this.newspapersGridView.TabIndex = 1;
+            this.newspapersGridView.SelectionChanged += new System.EventHandler(this.newspapersGridView_SelectionChanged);
             // 
             // NewspaperId
             // 

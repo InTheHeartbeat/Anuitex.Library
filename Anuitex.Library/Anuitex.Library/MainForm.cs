@@ -118,10 +118,8 @@ namespace Anuitex.Library
             SetButtonsState();
 
             if (booksGridView.SelectedRows.Count > 0)
-            {
-                bool bookAvailable = GetSelectedBook().AvailableToBuy;
-
-                buttonSell.Enabled = bookAvailable;                
+            {                
+                buttonSell.Enabled = GetSelectedBooks().All(book => book.AvailableToBuy);                
             }
         }        
 
@@ -145,14 +143,19 @@ namespace Anuitex.Library
             }
         }        
 
-        private int GetSelectedBookId()
+        private List<int> GetSelectedBookIds()
         {
-            return (int)booksGridView.SelectedRows[0].Cells["BookId"].Value;
+            List<int> result = new List<int>();
+            for (int i = 0; i < booksGridView.SelectedRows.Count; i++)
+            {
+                result.Add((int)booksGridView.SelectedRows[i].Cells["BookId"].Value);
+            }
+            return result;
         }
 
-        private Book GetSelectedBook()
-        {
-            return Books.FirstOrDefault(book => book.Id == GetSelectedBookId());
+        private List<Book> GetSelectedBooks()
+        {            
+            return Books.Where(book => GetSelectedBookIds().Contains(book.Id)).ToList();
         }
 
         private void OnBookCreated(Book obj)
@@ -170,7 +173,7 @@ namespace Anuitex.Library
             BookDeleted?.Invoke(obj);
             OnBooksListUpdated();
         }
-        private void OnBookTakenToRead(Book obj)
+        private void OnBookSelled(Book obj)
         {
             BookTakenToRead?.Invoke(obj);
             OnBooksListUpdated();
@@ -197,7 +200,7 @@ namespace Anuitex.Library
 
             if (journalsGridView.SelectedRows.Count > 0)
             {                
-                buttonSell.Enabled = GetSelectedJournal().AvailableToBuy;                
+                buttonSell.Enabled = GetSelectedJournals().All(journal => journal.AvailableToBuy);                
             }
         }        
 
@@ -220,14 +223,19 @@ namespace Anuitex.Library
             }
         }
 
-        private int GetSelectedJournalId()
+        private List<int> GetSelectedJournalIds()
         {
-            return (int)journalsGridView.SelectedRows[0].Cells["JournalId"].Value;
+            List<int> result = new List<int>();
+            for (int i = 0; i < journalsGridView.SelectedRows.Count; i++)
+            {
+                result.Add((int)journalsGridView.SelectedRows[i].Cells["JournalId"].Value);
+            }
+            return result;
         }
 
-        private Journal GetSelectedJournal()
+        private List<Journal> GetSelectedJournals()
         {
-            return Journals.FirstOrDefault(journal => journal.Id == GetSelectedJournalId());
+            return Journals.Where(journal => GetSelectedJournalIds().Contains(journal.Id)).ToList();
         }
         
         private void OnJournalsListUpdated()
@@ -254,7 +262,7 @@ namespace Anuitex.Library
             OnJournalsListUpdated();
         }
 
-        private void OnJournalTakenToRead(Journal obj)
+        private void OnJournalSelled(Journal obj)
         {
             JournalTakenToRead?.Invoke(obj);
             OnJournalsListUpdated();
@@ -276,7 +284,7 @@ namespace Anuitex.Library
 
             if (newspapersGridView.SelectedRows.Count > 0)
             {                
-                buttonSell.Enabled = GetSelectedNewspaper().AvailableToBuy;                
+                buttonSell.Enabled = GetSelectedNewspapers().All(newspaper=>newspaper.AvailableToBuy);                
             }
         }
 
@@ -298,14 +306,19 @@ namespace Anuitex.Library
             }
         }
 
-        private int GetSelectedNewspaperId()
+        private List<int> GetSelectedNewspaperIds()
         {
-            return (int)newspapersGridView.SelectedRows[0].Cells["NewspaperId"].Value;
+            List<int> result = new List<int>();
+            for (int i = 0; i < newspapersGridView.SelectedRows.Count; i++)
+            {
+                result.Add((int)newspapersGridView.SelectedRows[i].Cells["NewspaperId"].Value);
+            }
+            return result;
         }
 
-        private Newspaper GetSelectedNewspaper()
+        private List<Newspaper> GetSelectedNewspapers()
         {
-            return Newspapers.FirstOrDefault(newspaper => newspaper.Id == GetSelectedNewspaperId());
+            return Newspapers.Where(newspaper => GetSelectedNewspaperIds().Contains(newspaper.Id)).ToList();
         }
 
         private void OnNewspapersListUpdated()
@@ -332,7 +345,7 @@ namespace Anuitex.Library
             OnNewspapersListUpdated();
         }
 
-        private void OnNewspaperTakenToRead(Newspaper obj)
+        private void OnNewspaperSelled(Newspaper obj)
         {
             NewspaperTakenToRead?.Invoke(obj);
             OnNewspapersListUpdated();
@@ -347,52 +360,70 @@ namespace Anuitex.Library
         #endregion
 
         #region Buttons handlers                
-        private void buttonTakeToRead_Click(object sender, EventArgs e)
-        {
+        private void ButtonSellClick(object sender, EventArgs e)
+        {            
             Type selectedType = GetTypeSelectedItem();
             if (selectedType == typeof(Book))
             {
-                OnBookTakenToRead(GetSelectedBook());
+                List<Book> selectedBooks = GetSelectedBooks();
+
+                foreach (Book selectedBook in selectedBooks)
+                {
+                    SellForm form = new SellForm(selectedBook.Price, $"Book {selectedBook.Title}-{selectedBook.Author} \n {selectedBook.Genre} \n {selectedBook.Year} \n {selectedBook.Pages}");
+                    DialogResult dialogResult = form.ShowDialog(this);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        OnBookSelled(selectedBook);
+                    }
+                    form.Dispose();
+                }                
             }
             if (selectedType == typeof(Journal))
             {
-                OnJournalTakenToRead(GetSelectedJournal());
+                List<Journal> selectedJournals = GetSelectedJournals();
+
+                foreach (Journal selectedJournal in selectedJournals)
+                {
+                    SellForm form = new SellForm(selectedJournal.Price, $"Journal {selectedJournal.Title}\n{selectedJournal.Periodicity}\n{selectedJournal.Subjects}\n{selectedJournal.Date}");
+                    DialogResult dialogResult = form.ShowDialog(this);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        OnJournalSelled(selectedJournal);
+                    }
+                    form.Dispose();
+                }
             }
             if (selectedType == typeof(Newspaper))
             {
-                OnNewspaperTakenToRead(GetSelectedNewspaper());
+                List<Newspaper> selectedNewspapers = GetSelectedNewspapers();
+
+                foreach (Newspaper selectedNewspaper in selectedNewspapers)
+                {
+                    SellForm form = new SellForm(selectedNewspaper.Price, $"Newspaper {selectedNewspaper.Title}\n{selectedNewspaper.Periodicity}\n{selectedNewspaper.Date}");
+                    DialogResult dialogResult = form.ShowDialog(this);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        OnNewspaperSelled(selectedNewspaper);
+                    }
+                    form.Dispose();
+                }
             }
         }       
-        private void buttonReturnSelectedBook_Click(object sender, EventArgs e)
-        {
-            Type selectedType = GetTypeSelectedItem();
-            if (selectedType == typeof(Book))
-            {
-                OnBookReturned(GetSelectedBook());
-            }
-            if (selectedType == typeof(Journal))
-            {
-                OnJournalReturned(GetSelectedJournal());
-            }
-            if (selectedType == typeof(Newspaper))
-            {
-                OnNewspaperReturned(GetSelectedNewspaper());
-            }
-        }        
+       
         private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {
             Type selectedType = GetTypeSelectedItem();
             if (selectedType == typeof(Book))
             {
-                OnBookDeleted(GetSelectedBook());
+                GetSelectedBooks().ForEach(OnBookDeleted);
             }
             if (selectedType == typeof(Journal))
             {
-                OnJournalDeleted(GetSelectedJournal());
+                GetSelectedJournals().ForEach(OnJournalDeleted);
             }
             if (selectedType == typeof(Newspaper))
             {
-                OnNewspaperDeleted(GetSelectedNewspaper());
+                GetSelectedNewspapers().ForEach(OnNewspaperDeleted);
             }
         }
         private void buttonAddBook_Click(object sender, EventArgs e)
@@ -434,35 +465,47 @@ namespace Anuitex.Library
         {
             if (GetTypeSelectedItem() == typeof(Book))
             {
-                DesignBookForm form = new DesignBookForm(GetSelectedBook());
-                DialogResult dialogResult = form.ShowDialog(this);
-                if (dialogResult == DialogResult.OK)
+                List<Book> selectedBooks = GetSelectedBooks();
+                foreach (Book selectedBook in selectedBooks)
                 {
-                    OnBookUpdated(form.ResultBook);
+                    DesignBookForm form = new DesignBookForm(selectedBook);
+                    DialogResult dialogResult = form.ShowDialog(this);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        OnBookUpdated(form.ResultBook);
+                    }
+                    form.Dispose();
                 }
-                form.Dispose();
             }
 
             if(GetTypeSelectedItem() == typeof(Journal))
             {
-                DesignJournalForm form = new DesignJournalForm(GetSelectedJournal());
-                DialogResult dialogResult = form.ShowDialog(this);
-                if (dialogResult == DialogResult.OK)
+                List<Journal> selectedJournals = GetSelectedJournals();
+                foreach (Journal selectedJournal in selectedJournals)
                 {
-                    OnJournalUpdated(form.ResultJournal);
+                    DesignJournalForm form = new DesignJournalForm(selectedJournal);
+                    DialogResult dialogResult = form.ShowDialog(this);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        OnJournalUpdated(form.ResultJournal);
+                    }
+                    form.Dispose();
                 }
-                form.Dispose();
             }
 
             if (GetTypeSelectedItem() == typeof(Newspaper))
             {
-                DesignNewspaperForm form = new DesignNewspaperForm(GetSelectedNewspaper());
-                DialogResult dialogResult = form.ShowDialog(this);
-                if (dialogResult == DialogResult.OK)
+                List<Newspaper> selectedNewspapers = GetSelectedNewspapers();
+                foreach (Newspaper selectedNewspaper in selectedNewspapers)
                 {
-                    OnNewspaperUpdated(form.ResultNewspaper);
+                    DesignNewspaperForm form = new DesignNewspaperForm(selectedNewspaper);
+                    DialogResult dialogResult = form.ShowDialog(this);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        OnNewspaperUpdated(form.ResultNewspaper);
+                    }
+                    form.Dispose();
                 }
-                form.Dispose();
             }
         }
         #endregion

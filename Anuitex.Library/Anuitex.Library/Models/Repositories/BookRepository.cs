@@ -52,7 +52,7 @@ namespace Anuitex.Library.Models.Repositories
                 + "(Title, Year, Pages, Author, Genre, Amount, Price) values(@Title, @Year, @Pages, @Author, @Genre, @Amount, @Price)");
             using (SqlCommand cmd = new SqlCommand(sql, DataContext.Context.SqlConnection))
             {
-                cmd.Parameters.AddWithValue("@Title", item.Title);
+                cmd.Parameters.AddWithValue("@Title", item.Title);                
                 cmd.Parameters.AddWithValue("@Year", item.Year);
                 cmd.Parameters.AddWithValue("@Pages", item.Pages);
                 cmd.Parameters.AddWithValue("@Author", item.Author);
