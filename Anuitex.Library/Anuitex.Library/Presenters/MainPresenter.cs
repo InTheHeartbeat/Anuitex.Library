@@ -28,17 +28,20 @@ namespace Anuitex.Library.Presenters
             this.view.BookDeleted += OnViewBookDeleted;
             this.view.BookCreated += OnViewBookCreated;
             this.view.BookUpdated += OnViewBookUpdated;
+            this.view.BookSelled += OnViewBookSelled;
 
             this.view.JournalsListUpdated += UpdateJournalsList;            
             this.view.JournalDeleted += OnViewJournalDeleted;
             this.view.JournalCreated += OnViewJournalCreated;
             this.view.JournalUpdated += OnViewJournalUpdated;
+            this.view.JournalSelled += OnViewJournalSelled;
 
             this.view.NewspapersListUpdated += UpdateNewspapersList;            
             this.view.NewspaperDeleted += OnViewNewspaperDeleted;
             this.view.NewspaperCreated += OnViewNewspaperCreated;
             this.view.NewspaperUpdated += OnViewNewspaperUpdated;
-        }
+            this.view.NewspaperSelled += OnViewNewspaperSelled;
+        }                    
 
         #region Newspaper
         private void OnViewNewspaperUpdated(Newspaper obj)
@@ -69,8 +72,13 @@ namespace Anuitex.Library.Presenters
         {
             this.view.Newspapers = newspaperRepository.GetList();
         }
-#endregion
-        #region Marazine
+        private void OnViewNewspaperSelled(Newspaper obj)
+        {
+            obj.Amount -= 1;
+            newspaperRepository.Update(obj);
+        }
+        #endregion
+        #region Journal
         private void OnViewJournalUpdated(Journal obj)
         {
             if(obj != null)
@@ -98,6 +106,11 @@ namespace Anuitex.Library.Presenters
         private void UpdateJournalsList()
         {
             this.view.Journals = journalRepository.GetList();
+        }
+        private void OnViewJournalSelled(Journal obj)
+        {
+            obj.Amount -= 1;
+            journalRepository.Update(obj);
         }
         #endregion
         #region Book
@@ -129,7 +142,12 @@ namespace Anuitex.Library.Presenters
         {
             view.Books = bookRepository.GetList();
         }
-#endregion
+        private void OnViewBookSelled(Book obj)
+        {
+            obj.Amount -= 1;
+            bookRepository.Update(obj);
+        }
+        #endregion
 
         public void Run()
         {

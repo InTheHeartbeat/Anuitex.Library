@@ -17,7 +17,7 @@ namespace Anuitex.Library
         public event Action<Book> BookCreated;
         public event Action<Book> BookDeleted;
         public event Action<Book> BookUpdated;
-        public event Action<Book> BookTakenToRead;
+        public event Action<Book> BookSelled;
         public event Action<Book> BookReturned;
         #endregion
         #region Journal events
@@ -25,7 +25,7 @@ namespace Anuitex.Library
         public event Action<Journal> JournalCreated;
         public event Action<Journal> JournalDeleted;
         public event Action<Journal> JournalUpdated;
-        public event Action<Journal> JournalTakenToRead;
+        public event Action<Journal> JournalSelled;
         public event Action<Journal> JournalReturned;
         #endregion
         #region Newspaper events
@@ -33,7 +33,7 @@ namespace Anuitex.Library
         public event Action<Newspaper> NewspaperCreated;
         public event Action<Newspaper> NewspaperDeleted;
         public event Action<Newspaper> NewspaperUpdated;
-        public event Action<Newspaper> NewspaperTakenToRead;
+        public event Action<Newspaper> NewspaperSelled;
         public event Action<Newspaper> NewspaperReturned;
         #endregion
 
@@ -175,7 +175,7 @@ namespace Anuitex.Library
         }
         private void OnBookSelled(Book obj)
         {
-            BookTakenToRead?.Invoke(obj);
+            BookSelled?.Invoke(obj);
             OnBooksListUpdated();
         }
         private void OnBookReturned(Book obj)
@@ -264,7 +264,7 @@ namespace Anuitex.Library
 
         private void OnJournalSelled(Journal obj)
         {
-            JournalTakenToRead?.Invoke(obj);
+            JournalSelled?.Invoke(obj);
             OnJournalsListUpdated();
         }
 
@@ -347,7 +347,7 @@ namespace Anuitex.Library
 
         private void OnNewspaperSelled(Newspaper obj)
         {
-            NewspaperTakenToRead?.Invoke(obj);
+            NewspaperSelled?.Invoke(obj);
             OnNewspapersListUpdated();
         }
 
