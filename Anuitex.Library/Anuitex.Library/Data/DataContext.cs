@@ -16,7 +16,7 @@ namespace Anuitex.Library.Data
 
         private static readonly string DbFilePath = Application.StartupPath + "\\Data\\LibraryDatabase.mdf";
         private static readonly string connectionString =
-                "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + DbFilePath + ";Integrated Security=True;Connect Timeout=30"
+                "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + DbFilePath + ";Integrated Security=True;Connect Timeout=30;Current Language=Russian"
             ;        
 
         public readonly SqlConnection SqlConnection = new SqlConnection(connectionString);

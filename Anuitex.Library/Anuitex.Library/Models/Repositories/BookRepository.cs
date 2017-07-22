@@ -70,10 +70,10 @@ namespace Anuitex.Library.Models.Repositories
         {
             DataContext.Context.SqlConnection.Open();
             string sql =
-                $"update Book set Title = '{newItem.Title}', Year = '{newItem.Year}', Pages = '{newItem.Pages}', Author = '{newItem.Author}', Genre = '{newItem.Genre}', Amount = '{newItem.Amount}', Price = '{newItem.Price}' where Id = '{newItem.Id}'";
+                string.Format($"update Book set Title = N'{newItem.Title}', Year = '{newItem.Year}', Pages = '{newItem.Pages}', Author = N'{newItem.Author}', Genre = N'{newItem.Genre}', Amount = '{newItem.Amount}', Price = '{newItem.Price}' where Id = '{newItem.Id}'");
             using (SqlCommand cmd = new SqlCommand(sql, DataContext.Context.SqlConnection))
             {
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();                
             }
             DataContext.Context.SqlConnection.Close();
         }

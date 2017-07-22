@@ -64,7 +64,7 @@ namespace Anuitex.Library.Models.Repositories
         {
             DataContext.Context.SqlConnection.Open();
             string sql =
-                $"update Newspaper set Title = '{newItem.Title}', Periodicity = '{newItem.Periodicity}', Date = '{newItem.Date}', Amount = '{newItem.Amount}', Price = '{newItem.Price}' where Id = '{newItem.Id}'";
+                $"update Newspaper set Title = N'{newItem.Title}', Periodicity = N'{newItem.Periodicity}', Date = N'{newItem.Date}', Amount = '{newItem.Amount}', Price = '{newItem.Price}' where Id = '{newItem.Id}'";
             using (SqlCommand cmd = new SqlCommand(sql, DataContext.Context.SqlConnection))
             {
                 cmd.ExecuteNonQuery();
