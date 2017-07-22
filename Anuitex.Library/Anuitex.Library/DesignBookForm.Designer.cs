@@ -41,6 +41,10 @@
             this.buttonBuild = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxAmount = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -125,7 +129,7 @@
             // 
             // buttonBuild
             // 
-            this.buttonBuild.Location = new System.Drawing.Point(80, 210);
+            this.buttonBuild.Location = new System.Drawing.Point(78, 292);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(75, 23);
             this.buttonBuild.TabIndex = 10;
@@ -135,7 +139,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(12, 210);
+            this.buttonClear.Location = new System.Drawing.Point(10, 292);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(62, 23);
             this.buttonClear.TabIndex = 11;
@@ -145,7 +149,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(12, 239);
+            this.buttonCancel.Location = new System.Drawing.Point(10, 321);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(62, 23);
             this.buttonCancel.TabIndex = 12;
@@ -153,11 +157,47 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // textBoxPrice
+            // 
+            this.textBoxPrice.Location = new System.Drawing.Point(10, 224);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.Size = new System.Drawing.Size(143, 20);
+            this.textBoxPrice.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 209);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(34, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Price:";
+            // 
+            // textBoxAmount
+            // 
+            this.textBoxAmount.Location = new System.Drawing.Point(10, 263);
+            this.textBoxAmount.Name = "textBoxAmount";
+            this.textBoxAmount.Size = new System.Drawing.Size(143, 20);
+            this.textBoxAmount.TabIndex = 16;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 248);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Amount:";
+            // 
             // DesignBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(165, 265);
+            this.ClientSize = new System.Drawing.Size(165, 356);
+            this.Controls.Add(this.textBoxAmount);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBoxPrice);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonBuild);
@@ -193,5 +233,9 @@
         private System.Windows.Forms.Button buttonBuild;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.TextBox textBoxPrice;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxAmount;
+        private System.Windows.Forms.Label label7;
     }
 }

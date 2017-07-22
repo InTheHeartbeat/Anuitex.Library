@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Anuitex.Library.Data;
-using Anuitex.Library.Models.Repositories;
-using Anuitex.Library.Presenters;
+using Anuitex.Library.Data.Entities;
 
 namespace Anuitex.Library
 {
@@ -17,7 +10,7 @@ namespace Anuitex.Library
     {
         public IEnumerable<Book> Books;
         public IEnumerable<Journal> Journals;
-        public IEnumerable<Newspaper> Newspapers;
+        public List<Newspaper> Newspapers;
 
         #region Book events
         public event Action BooksListUpdated;
@@ -68,8 +61,7 @@ namespace Anuitex.Library
             {
                 bool anyBookExists = Books.Any();
 
-                buttonTakeToRead.Enabled = anyBookExists;
-                buttonReturnSelected.Enabled = anyBookExists;
+                buttonSell.Enabled = anyBookExists;                
                 buttonUpdateSelected.Enabled = anyBookExists;
                 buttonDeleteSelected.Enabled = anyBookExists;
             }
@@ -78,8 +70,7 @@ namespace Anuitex.Library
             {
                 bool anyJournalsExists = Journals.Any();
 
-                buttonTakeToRead.Enabled = anyJournalsExists;
-                buttonReturnSelected.Enabled = anyJournalsExists;
+                buttonSell.Enabled = anyJournalsExists;                
                 buttonUpdateSelected.Enabled = anyJournalsExists;
                 buttonDeleteSelected.Enabled = anyJournalsExists;
             }
@@ -88,8 +79,7 @@ namespace Anuitex.Library
             {
                 bool anyNewspapersExists = Newspapers.Any();
 
-                buttonTakeToRead.Enabled = anyNewspapersExists;
-                buttonReturnSelected.Enabled = anyNewspapersExists;
+                buttonSell.Enabled = anyNewspapersExists;                
                 buttonUpdateSelected.Enabled = anyNewspapersExists;
                 buttonDeleteSelected.Enabled = anyNewspapersExists;
             }
@@ -129,10 +119,9 @@ namespace Anuitex.Library
 
             if (booksGridView.SelectedRows.Count > 0)
             {
-                bool bookAvailable = GetSelectedBook().Available;
+                bool bookAvailable = GetSelectedBook().AvailableToBuy;
 
-                buttonTakeToRead.Enabled = bookAvailable;
-                buttonReturnSelected.Enabled = !bookAvailable;
+                buttonSell.Enabled = bookAvailable;                
             }
         }        
 
@@ -150,7 +139,8 @@ namespace Anuitex.Library
                         book.Genre,
                         book.Year,
                         book.Pages,
-                        book.Available);
+                        book.Price,
+                        book.Amount);
                 }
             }
         }        
@@ -206,11 +196,8 @@ namespace Anuitex.Library
             SetButtonsState();
 
             if (journalsGridView.SelectedRows.Count > 0)
-            {
-                bool available = GetSelectedJournal().Available;
-
-                buttonTakeToRead.Enabled = available;
-                buttonReturnSelected.Enabled = !available;
+            {                
+                buttonSell.Enabled = GetSelectedJournal().AvailableToBuy;                
             }
         }        
 
@@ -227,7 +214,8 @@ namespace Anuitex.Library
                         journal.Date,
                         journal.Periodicity,
                         journal.Subjects,                        
-                        journal.Available);
+                        journal.Price,
+                        journal.Amount);
                 }
             }
         }
@@ -287,11 +275,8 @@ namespace Anuitex.Library
             SetButtonsState();
 
             if (newspapersGridView.SelectedRows.Count > 0)
-            {
-                bool available = GetSelectedNewspaper().Available;
-
-                buttonTakeToRead.Enabled = available;
-                buttonReturnSelected.Enabled = !available;
+            {                
+                buttonSell.Enabled = GetSelectedNewspaper().AvailableToBuy;                
             }
         }
 
@@ -307,7 +292,8 @@ namespace Anuitex.Library
                         newspaper.Title,
                         newspaper.Date,
                         newspaper.Periodicity,                        
-                        newspaper.Available);
+                        newspaper.Price,
+                        newspaper.Amount);
                 }
             }
         }

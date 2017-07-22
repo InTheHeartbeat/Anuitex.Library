@@ -37,6 +37,10 @@
             this.buttonBuild = new System.Windows.Forms.Button();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxAmount = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxDate
@@ -73,7 +77,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(12, 156);
+            this.buttonCancel.Location = new System.Drawing.Point(12, 235);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(62, 23);
             this.buttonCancel.TabIndex = 28;
@@ -83,7 +87,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(12, 127);
+            this.buttonClear.Location = new System.Drawing.Point(12, 206);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(62, 23);
             this.buttonClear.TabIndex = 27;
@@ -93,7 +97,7 @@
             // 
             // buttonBuild
             // 
-            this.buttonBuild.Location = new System.Drawing.Point(80, 127);
+            this.buttonBuild.Location = new System.Drawing.Point(80, 206);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(75, 23);
             this.buttonBuild.TabIndex = 26;
@@ -103,7 +107,7 @@
             // 
             // textBoxTitle
             // 
-            this.textBoxTitle.Location = new System.Drawing.Point(13, 19);
+            this.textBoxTitle.Location = new System.Drawing.Point(12, 19);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(143, 20);
             this.textBoxTitle.TabIndex = 25;
@@ -117,11 +121,47 @@
             this.label1.TabIndex = 24;
             this.label1.Text = "Title:";
             // 
+            // textBoxPrice
+            // 
+            this.textBoxPrice.Location = new System.Drawing.Point(12, 141);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.Size = new System.Drawing.Size(143, 20);
+            this.textBoxPrice.TabIndex = 36;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 125);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 35;
+            this.label3.Text = "Price:";
+            // 
+            // textBoxAmount
+            // 
+            this.textBoxAmount.Location = new System.Drawing.Point(12, 180);
+            this.textBoxAmount.Name = "textBoxAmount";
+            this.textBoxAmount.Size = new System.Drawing.Size(143, 20);
+            this.textBoxAmount.TabIndex = 38;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 164);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.TabIndex = 37;
+            this.label5.Text = "Amount:";
+            // 
             // DesignNewspaperForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(171, 189);
+            this.ClientSize = new System.Drawing.Size(171, 263);
+            this.Controls.Add(this.textBoxAmount);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBoxPrice);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxDate);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxPeriodicity);
@@ -149,5 +189,9 @@
         private System.Windows.Forms.Button buttonBuild;
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxPrice;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxAmount;
+        private System.Windows.Forms.Label label5;
     }
 }

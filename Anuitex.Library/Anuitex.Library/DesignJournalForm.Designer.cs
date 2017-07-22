@@ -39,11 +39,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxDate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxAmount = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(12, 235);
+            this.buttonCancel.Location = new System.Drawing.Point(11, 283);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(62, 23);
             this.buttonCancel.TabIndex = 17;
@@ -53,7 +57,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(12, 206);
+            this.buttonClear.Location = new System.Drawing.Point(11, 254);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(62, 23);
             this.buttonClear.TabIndex = 16;
@@ -63,7 +67,7 @@
             // 
             // buttonBuild
             // 
-            this.buttonBuild.Location = new System.Drawing.Point(80, 206);
+            this.buttonBuild.Location = new System.Drawing.Point(79, 254);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(75, 23);
             this.buttonBuild.TabIndex = 15;
@@ -73,7 +77,7 @@
             // 
             // textBoxTitle
             // 
-            this.textBoxTitle.Location = new System.Drawing.Point(12, 21);
+            this.textBoxTitle.Location = new System.Drawing.Point(11, 22);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(143, 20);
             this.textBoxTitle.TabIndex = 14;
@@ -81,7 +85,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 5);
+            this.label1.Location = new System.Drawing.Point(11, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 13;
@@ -121,7 +125,7 @@
             // 
             // textBoxDate
             // 
-            this.textBoxDate.Location = new System.Drawing.Point(11, 149);
+            this.textBoxDate.Location = new System.Drawing.Point(11, 148);
             this.textBoxDate.Name = "textBoxDate";
             this.textBoxDate.Size = new System.Drawing.Size(143, 20);
             this.textBoxDate.TabIndex = 23;
@@ -129,17 +133,53 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 133);
+            this.label4.Location = new System.Drawing.Point(11, 132);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 13);
             this.label4.TabIndex = 22;
             this.label4.Text = "Date:";
             // 
+            // textBoxPrice
+            // 
+            this.textBoxPrice.Location = new System.Drawing.Point(11, 187);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.Size = new System.Drawing.Size(143, 20);
+            this.textBoxPrice.TabIndex = 25;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 171);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Price:";
+            // 
+            // textBoxAmount
+            // 
+            this.textBoxAmount.Location = new System.Drawing.Point(11, 228);
+            this.textBoxAmount.Name = "textBoxAmount";
+            this.textBoxAmount.Size = new System.Drawing.Size(143, 20);
+            this.textBoxAmount.TabIndex = 27;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(11, 212);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(46, 13);
+            this.label6.TabIndex = 26;
+            this.label6.Text = "Amount:";
+            // 
             // DesignJournalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(166, 261);
+            this.ClientSize = new System.Drawing.Size(166, 314);
+            this.Controls.Add(this.textBoxAmount);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.textBoxPrice);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxDate);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxSubjects);
@@ -171,5 +211,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxDate;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxPrice;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxAmount;
+        private System.Windows.Forms.Label label6;
     }
 }

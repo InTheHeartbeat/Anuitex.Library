@@ -8,12 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Anuitex.Library.Data.Entities;
 
 namespace Anuitex.Library
 {
     public partial class DesignJournalForm : Form
     {
-
         public Journal ResultJournal => _journal;
 
         private Journal _journal;
@@ -35,7 +35,9 @@ namespace Anuitex.Library
             textBoxTitle.Text = _journal.Title;
             textBoxPeriodicity.Text = _journal.Periodicity;
             textBoxSubjects.Text = _journal.Subjects;
-            textBoxDate.Text = _journal.Date;            
+            textBoxDate.Text = _journal.Date;
+            textBoxPrice.Text = _journal.Price.ToString();
+            textBoxAmount.Text = _journal.Amount.ToString();            
 
             buttonBuild.Text = "Update";
         }
@@ -62,13 +64,36 @@ namespace Anuitex.Library
                 MessageBox.Show("Fied \"Date\" must be filled");
                 return false;
             }
+            if (string.IsNullOrWhiteSpace(textBoxPrice.Text))
+            {
+                MessageBox.Show("Fied \"Price\" must be filled");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(textBoxAmount.Text))
+            {
+                MessageBox.Show("Fied \"Amount\" must be filled");
+                return false;
+            }
 
             return true;
         }
 
         private void buttonBuild_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputs()) return;            
+            if (!ValidateInputs()) return;
+
+            float price = 0;
+            int amount = 0;
+
+            if (!float.TryParse(textBoxPrice.Text, out price))
+            {
+                MessageBox.Show("Incorrect field \"Price\"");
+                return;
+            }
+            if (!int.TryParse(textBoxAmount.Text, out amount))
+            {
+                MessageBox.Show("Incorrect field \"Amount\"");
+            }
 
             _journal = new Journal()
             {
@@ -76,8 +101,9 @@ namespace Anuitex.Library
                 Title = textBoxTitle.Text,
                 Periodicity = textBoxPeriodicity.Text,
                 Subjects = textBoxSubjects.Text,
-                Date= textBoxDate.Text,                
-                Available = true
+                Date= textBoxDate.Text,
+                Amount = amount,
+                Price = price
             };
             this.DialogResult = DialogResult.OK;
         }
@@ -88,6 +114,8 @@ namespace Anuitex.Library
             textBoxPeriodicity.Text = String.Empty;
             textBoxSubjects.Text = String.Empty;
             textBoxDate.Text = String.Empty;
+            textBoxPrice.Text = String.Empty;
+            textBoxAmount.Text = String.Empty;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

@@ -63,16 +63,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\Entities\Book.cs" />
+    <Compile Include="Data\Entities\Journal.cs" />
+    <Compile Include="Data\Entities\Newspaper.cs" />
     <Compile Include="DesignBookForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DesignBookForm.Designer.cs">
       <DependentUpon>DesignBookForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Data\LibraryContext.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="DesignJournalForm.cs">
       <SubType>Form</SubType>
@@ -93,14 +91,11 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\BookRepository.cs" />
-    <Compile Include="Models\Repositories\MagazineRepository.cs" />
-    <Compile Include="Models\Repositories\Newspaper.cs" />
+    <Compile Include="Models\Repositories\JournalRepository.cs" />
+    <Compile Include="Models\Repositories\NewspaperRepository.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Data\LibraryContext.dbml.layout">
-      <DependentUpon>LibraryContext.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="DesignBookForm.resx">
       <DependentUpon>DesignBookForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,11 +117,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Data\LibraryContext.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>LibraryContext.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -141,9 +131,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\LibraryDatabase.mdf" />
+    <Content Include="Data\LibraryDatabase.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\LibraryDatabase_log.ldf">
       <DependentUpon>LibraryDatabase.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

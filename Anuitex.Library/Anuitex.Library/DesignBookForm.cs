@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Anuitex.Library.Data;
+using Anuitex.Library.Data.Entities;
 
 namespace Anuitex.Library
 {
@@ -29,6 +30,8 @@ namespace Anuitex.Library
             textBoxGenre.Text = _book.Genre;
             textBoxPages.Text = _book.Pages.ToString();
             textBoxYear.Text = _book.Year.ToString();
+            textBoxPrice.Text = _book.Price.ToString();
+            textBoxAmount.Text = _book.Amount.ToString();
 
             buttonBuild.Text = "Update";
         }
@@ -39,6 +42,8 @@ namespace Anuitex.Library
 
             int year = 0;
             int pages = 0;
+            float price = 0;
+            int amount = 0;
 
             if (!int.TryParse(textBoxYear.Text, out year))
             {
@@ -49,6 +54,16 @@ namespace Anuitex.Library
             {
                 MessageBox.Show("Incorrect field \"Pages\"");
             }
+            if (!float.TryParse(textBoxPrice.Text, out price))
+            {
+                MessageBox.Show("Incorrect field \"Price\"");
+                return;
+            }
+            if (!int.TryParse(textBoxAmount.Text, out amount))
+            {
+                MessageBox.Show("Incorrect field \"Amount\"");
+            }
+
 
             _book = new Book()
             {
@@ -58,7 +73,8 @@ namespace Anuitex.Library
                 Genre = textBoxGenre.Text,
                 Year = year,
                 Pages = pages,
-                Available = true
+                Amount = amount,
+                Price = price
             };
             this.DialogResult = DialogResult.OK;                        
         }
@@ -90,6 +106,16 @@ namespace Anuitex.Library
                 MessageBox.Show("Fied \"Pages\" must be filled");
                 return false;
             }
+            if (string.IsNullOrWhiteSpace(textBoxPrice.Text))
+            {
+                MessageBox.Show("Fied \"Price\" must be filled");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(textBoxAmount.Text))
+            {
+                MessageBox.Show("Fied \"Amount\" must be filled");
+                return false;
+            }
             return true;
         }
         
@@ -100,6 +126,8 @@ namespace Anuitex.Library
             textBoxGenre.Text = String.Empty;
             textBoxYear.Text = String.Empty;
             textBoxPages.Text = String.Empty;
+            textBoxAmount.Text = String.Empty;
+            textBoxPrice.Text = String.Empty;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

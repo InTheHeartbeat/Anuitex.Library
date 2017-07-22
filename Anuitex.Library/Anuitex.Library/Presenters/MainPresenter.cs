@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Anuitex.Library.Data;
+using Anuitex.Library.Data.Entities;
 using Anuitex.Library.Models.Repositories;
 
 namespace Anuitex.Library.Presenters
@@ -23,23 +24,17 @@ namespace Anuitex.Library.Presenters
             this.journalRepository = journalRepository;
             this.newspaperRepository = newspaperRepository;
 
-            this.view.BooksListUpdated += UpdateBooksList;
-            this.view.BookTakenToRead += OnViewBookTakenToRead;
-            this.view.BookReturned += OnViewBookReturned;
+            this.view.BooksListUpdated += UpdateBooksList;           
             this.view.BookDeleted += OnViewBookDeleted;
             this.view.BookCreated += OnViewBookCreated;
             this.view.BookUpdated += OnViewBookUpdated;
 
-            this.view.JournalsListUpdated += UpdateJournalsList;
-            this.view.JournalTakenToRead += OnViewJournalTakenToRead;
-            this.view.JournalReturned += OnViewJournalReturned;
+            this.view.JournalsListUpdated += UpdateJournalsList;            
             this.view.JournalDeleted += OnViewJournalDeleted;
             this.view.JournalCreated += OnViewJournalCreated;
             this.view.JournalUpdated += OnViewJournalUpdated;
 
-            this.view.NewspapersListUpdated += UpdateNewspapersList;
-            this.view.NewspaperTakenToRead += OnViewNewspaperTakenToRead;
-            this.view.NewspaperReturned += OnViewNewspaperReturned;
+            this.view.NewspapersListUpdated += UpdateNewspapersList;            
             this.view.NewspaperDeleted += OnViewNewspaperDeleted;
             this.view.NewspaperCreated += OnViewNewspaperCreated;
             this.view.NewspaperUpdated += OnViewNewspaperUpdated;
@@ -50,8 +45,7 @@ namespace Anuitex.Library.Presenters
         {
             if(obj != null)
             {
-                newspaperRepository.Update(obj);
-                newspaperRepository.Submit();
+                newspaperRepository.Update(obj);                
             }
         }
 
@@ -59,8 +53,7 @@ namespace Anuitex.Library.Presenters
         {
             if (obj != null)
             {
-                newspaperRepository.Add(obj);
-                newspaperRepository.Submit();
+                newspaperRepository.Add(obj);                
             }
         }
 
@@ -68,42 +61,21 @@ namespace Anuitex.Library.Presenters
         {
             if (obj != null)
             {
-                newspaperRepository.Delete(obj);
-                newspaperRepository.Submit();
+                newspaperRepository.Delete(obj);                
             }
         }
-
-        private void OnViewNewspaperReturned(Newspaper obj)
-        {
-            if (obj != null)
-            {
-                newspaperRepository.SetAvailableValue(obj.Id, true);
-                newspaperRepository.Submit();
-            }
-        }
-
-        private void OnViewNewspaperTakenToRead(Newspaper obj)
-        {
-            if (obj != null)
-            {
-                newspaperRepository.SetAvailableValue(obj.Id, false); 
-                newspaperRepository.Submit();
-            }
-        }
-
+        
         private void UpdateNewspapersList()
         {
             this.view.Newspapers = newspaperRepository.GetList();
         }
 #endregion
-
         #region Marazine
         private void OnViewJournalUpdated(Journal obj)
         {
             if(obj != null)
             {
-                journalRepository.Update(obj);
-                journalRepository.Submit();
+                journalRepository.Update(obj);                
             }
         }
 
@@ -111,8 +83,7 @@ namespace Anuitex.Library.Presenters
         {
             if (obj != null)
             {
-                journalRepository.Add(obj);
-                journalRepository.Submit();
+                journalRepository.Add(obj);                
             }
         }
 
@@ -120,51 +91,29 @@ namespace Anuitex.Library.Presenters
         {
             if (obj != null)
             {
-                journalRepository.Delete(obj);
-                journalRepository.Submit();
+                journalRepository.Delete(obj);                
             }
-        }
-
-        private void OnViewJournalReturned(Journal obj)
-        {
-            if (obj != null)
-            {
-                journalRepository.SetAvailableValue(obj.Id, true);
-                journalRepository.Submit();
-            }
-        }
-
-        private void OnViewJournalTakenToRead(Journal obj)
-        {
-            if (obj != null)
-            {
-                journalRepository.SetAvailableValue(obj.Id, false);
-                journalRepository.Submit();
-            }
-        }
+        }      
 
         private void UpdateJournalsList()
         {
             this.view.Journals = journalRepository.GetList();
         }
         #endregion
-
         #region Book
         private void OnViewBookUpdated(Book book)
         {
             if (book != null)
             {
-                bookRepository.Update(book);
-                bookRepository.Submit();
+                bookRepository.Update(book);                
             }
         }
 
-        private void OnViewBookCreated(Data.Book book)
+        private void OnViewBookCreated(Book book)
         {
             if (book != null)
             {
-                bookRepository.Add(book);
-                bookRepository.Submit();
+                bookRepository.Add(book);                
             }
         }
 
@@ -172,35 +121,15 @@ namespace Anuitex.Library.Presenters
         {
             if (book != null)
             {
-                bookRepository.Delete(book);
-                bookRepository.Submit();
+                bookRepository.Delete(book);                
             }
         }
-
-        private void OnViewBookReturned(Book book)
-        {
-            if (book != null)
-            {
-                bookRepository.SetAvailableValue(book.Id, true);
-                bookRepository.Submit();
-            }
-        }
-
-        private void OnViewBookTakenToRead(Book book)
-        {
-            if (book != null)
-            {
-                bookRepository.SetAvailableValue(book.Id, false);
-                bookRepository.Submit();
-            }
-        }
-
+      
         private void UpdateBooksList()
         {
             view.Books = bookRepository.GetList();
         }
 #endregion
-
 
         public void Run()
         {
