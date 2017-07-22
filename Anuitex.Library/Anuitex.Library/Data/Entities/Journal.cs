@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Anuitex.Library.Data.Entities
 {
+    [Serializable]
     public class Journal
     {
         public int Id { get; set; }
@@ -17,5 +18,21 @@ namespace Anuitex.Library.Data.Entities
         public double Price { get; set; }
 
         public bool AvailableToBuy => Amount > 0;
+
+        public Journal()
+        {
+            
+        }
+
+        public Journal(int id, string title, string periodicity, string subjects, string date, int amount, double price)
+        {
+            Id = id;
+            Title = title;
+            Periodicity = periodicity;
+            Subjects = subjects;
+            Date = date;
+            Amount = amount;
+            Price = price;
+        }
     }
 }

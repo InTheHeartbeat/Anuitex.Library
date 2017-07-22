@@ -62,6 +62,11 @@
             this.NewspaperPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewspaperAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonExportXml = new System.Windows.Forms.Button();
+            this.buttonExportFile = new System.Windows.Forms.Button();
+            this.buttonImportXml = new System.Windows.Forms.Button();
+            this.buttonImportFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.booksGridView)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageBooks.SuspendLayout();
@@ -157,7 +162,7 @@
             // 
             // buttonSell
             // 
-            this.buttonSell.Location = new System.Drawing.Point(617, 23);
+            this.buttonSell.Location = new System.Drawing.Point(618, 23);
             this.buttonSell.Name = "buttonSell";
             this.buttonSell.Size = new System.Drawing.Size(160, 25);
             this.buttonSell.TabIndex = 1;
@@ -167,7 +172,7 @@
             // 
             // buttonDeleteSelected
             // 
-            this.buttonDeleteSelected.Location = new System.Drawing.Point(617, 117);
+            this.buttonDeleteSelected.Location = new System.Drawing.Point(618, 117);
             this.buttonDeleteSelected.Name = "buttonDeleteSelected";
             this.buttonDeleteSelected.Size = new System.Drawing.Size(160, 25);
             this.buttonDeleteSelected.TabIndex = 4;
@@ -177,7 +182,7 @@
             // 
             // buttonUpdateSelected
             // 
-            this.buttonUpdateSelected.Location = new System.Drawing.Point(617, 86);
+            this.buttonUpdateSelected.Location = new System.Drawing.Point(618, 86);
             this.buttonUpdateSelected.Name = "buttonUpdateSelected";
             this.buttonUpdateSelected.Size = new System.Drawing.Size(160, 25);
             this.buttonUpdateSelected.TabIndex = 3;
@@ -188,7 +193,7 @@
             // label2
             // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label2.Location = new System.Drawing.Point(617, 145);
+            this.label2.Location = new System.Drawing.Point(618, 145);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(160, 2);
             this.label2.TabIndex = 5;
@@ -392,14 +397,67 @@
             // label3
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Location = new System.Drawing.Point(617, 66);
+            this.label3.Location = new System.Drawing.Point(618, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(160, 2);
             this.label3.TabIndex = 7;
             // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(618, 179);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(160, 2);
+            this.label1.TabIndex = 8;
+            // 
+            // buttonExportXml
+            // 
+            this.buttonExportXml.Location = new System.Drawing.Point(618, 185);
+            this.buttonExportXml.Name = "buttonExportXml";
+            this.buttonExportXml.Size = new System.Drawing.Size(160, 23);
+            this.buttonExportXml.TabIndex = 9;
+            this.buttonExportXml.Text = "Export selected to xml";
+            this.buttonExportXml.UseVisualStyleBackColor = true;
+            this.buttonExportXml.Click += new System.EventHandler(this.buttonExportXml_Click);
+            // 
+            // buttonExportFile
+            // 
+            this.buttonExportFile.Location = new System.Drawing.Point(618, 214);
+            this.buttonExportFile.Name = "buttonExportFile";
+            this.buttonExportFile.Size = new System.Drawing.Size(160, 23);
+            this.buttonExportFile.TabIndex = 10;
+            this.buttonExportFile.Text = "Export selected to raw file";
+            this.buttonExportFile.UseVisualStyleBackColor = true;
+            this.buttonExportFile.Click += new System.EventHandler(this.buttonExportFile_Click);
+            // 
+            // buttonImportXml
+            // 
+            this.buttonImportXml.Location = new System.Drawing.Point(618, 243);
+            this.buttonImportXml.Name = "buttonImportXml";
+            this.buttonImportXml.Size = new System.Drawing.Size(160, 23);
+            this.buttonImportXml.TabIndex = 11;
+            this.buttonImportXml.Text = "Import from xml";
+            this.buttonImportXml.UseVisualStyleBackColor = true;
+            this.buttonImportXml.Click += new System.EventHandler(this.buttonImportXml_Click);
+            // 
+            // buttonImportFile
+            // 
+            this.buttonImportFile.Location = new System.Drawing.Point(618, 272);
+            this.buttonImportFile.Name = "buttonImportFile";
+            this.buttonImportFile.Size = new System.Drawing.Size(160, 23);
+            this.buttonImportFile.TabIndex = 12;
+            this.buttonImportFile.Text = "Import from raw file";
+            this.buttonImportFile.UseVisualStyleBackColor = true;
+            this.buttonImportFile.Click += new System.EventHandler(this.buttonImportFile_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(784, 471);
+            this.Controls.Add(this.buttonImportFile);
+            this.Controls.Add(this.buttonImportXml);
+            this.Controls.Add(this.buttonExportFile);
+            this.Controls.Add(this.buttonExportXml);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.buttonAdd);
@@ -456,6 +514,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NewspaperPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewspaperAmount;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonExportXml;
+        private System.Windows.Forms.Button buttonExportFile;
+        private System.Windows.Forms.Button buttonImportXml;
+        private System.Windows.Forms.Button buttonImportFile;
     }
 }
 

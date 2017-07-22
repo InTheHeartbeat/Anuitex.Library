@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Anuitex.Library.Data;
 using Anuitex.Library.Data.Entities;
+using Anuitex.Library.Models;
 using Anuitex.Library.Models.Repositories;
 
 namespace Anuitex.Library.Presenters
@@ -16,13 +17,17 @@ namespace Anuitex.Library.Presenters
         private readonly JournalRepository journalRepository;
         private readonly NewspaperRepository newspaperRepository;
 
+        private readonly XmlRepository xmlRepository;
+        private readonly RawFileRepository rawFileRepository;
 
-        public MainPresenter(MainForm view, BookRepository bookRepository, JournalRepository journalRepository, NewspaperRepository newspaperRepository)
+        public MainPresenter(MainForm view, BookRepository bookRepository, JournalRepository journalRepository, NewspaperRepository newspaperRepository, XmlRepository xmlRepository, RawFileRepository rawFileRepository)
         {
             this.view = view;
             this.bookRepository = bookRepository;
             this.journalRepository = journalRepository;
             this.newspaperRepository = newspaperRepository;
+            this.xmlRepository = xmlRepository;
+            this.rawFileRepository = rawFileRepository;
 
             this.view.BooksListUpdated += UpdateBooksList;           
             this.view.BookDeleted += OnViewBookDeleted;
@@ -41,7 +46,81 @@ namespace Anuitex.Library.Presenters
             this.view.NewspaperCreated += OnViewNewspaperCreated;
             this.view.NewspaperUpdated += OnViewNewspaperUpdated;
             this.view.NewspaperSelled += OnViewNewspaperSelled;
-        }                    
+
+            this.view.BooksXmlExported += OnViewBooksXmlExported;
+            this.view.BooksRawExported += OnViewBooksRawExported;
+            this.view.JournalsXmlExported += OnViewJournalsXmlExported;
+            this.view.JournalsRawExported += OnViewJournalsRawExported;
+            this.view.NewspapersXmlExported += OnViewNewspapersXmlExported;
+            this.view.NewspapersRawExported += OnViewNewspapersRawExported;
+
+            this.view.BooksXmlImported += OnViewBooksXmlImported;
+            this.view.BooksRawImported += OnViewBooksRawImported;
+            this.view.JournalsXmlImported += OnViewJournalsXmlImported;
+            this.view.JournalsRawImported += OnViewJournalsRawImported;
+            this.view.NewspapersXmlImported += OnViewNewspapersXmlImported;
+            this.view.NewspapersRawImported += OnViewNewspapersRawImported;
+        }
+
+        private void OnViewNewspapersRawImported(string obj)
+        {
+            rawFileRepository.Import<Newspaper>(obj).ForEach(newspaperRepository.Add);
+        }
+
+        private void OnViewNewspapersXmlImported(string obj)
+        {
+            xmlRepository.Import<Newspaper>(obj).ForEach(newspaperRepository.Add);
+        }
+
+        private void OnViewJournalsRawImported(string obj)
+        {
+            rawFileRepository.Import<Journal>(obj).ForEach(journalRepository.Add);
+        }
+
+        private void OnViewJournalsXmlImported(string obj)
+        {
+            xmlRepository.Import<Journal>(obj).ForEach(journalRepository.Add);
+        }
+
+        private void OnViewBooksRawImported(string path)
+        {
+            rawFileRepository.Import<Book>(path).ForEach(bookRepository.Add);
+        }
+
+        private void OnViewBooksXmlImported(string path)
+        {
+            xmlRepository.Import<Book>(path).ForEach(bookRepository.Add);
+        }
+
+        private void OnViewNewspapersRawExported(List<Newspaper> newspapers, string path)
+        {
+            rawFileRepository.Export(newspapers,path);
+        }
+
+        private void OnViewNewspapersXmlExported(List<Newspaper> newspapers, string path)
+        {
+            xmlRepository.Export(newspapers,path);
+        }
+
+        private void OnViewJournalsRawExported(List<Journal> journals, string path)
+        {
+            rawFileRepository.Export(journals, path);
+        }
+
+        private void OnViewJournalsXmlExported(List<Journal> journals, string path)
+        {
+            xmlRepository.Export(journals,path);
+        }
+
+        private void OnViewBooksRawExported(List<Book> books, string path)
+        {
+            rawFileRepository.Export(books, path);
+        }
+
+        private void OnViewBooksXmlExported(List<Book> obj, string path)
+        {
+            xmlRepository.Export(obj,path);
+        }
 
         #region Newspaper
         private void OnViewNewspaperUpdated(Newspaper obj)

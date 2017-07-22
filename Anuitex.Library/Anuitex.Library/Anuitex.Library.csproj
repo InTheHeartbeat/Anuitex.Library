@@ -90,9 +90,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\RawFileRepository.cs" />
     <Compile Include="Models\Repositories\BookRepository.cs" />
     <Compile Include="Models\Repositories\JournalRepository.cs" />
     <Compile Include="Models\Repositories\NewspaperRepository.cs" />
+    <Compile Include="Models\XmlRepository.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

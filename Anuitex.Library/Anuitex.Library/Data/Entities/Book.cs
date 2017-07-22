@@ -19,5 +19,22 @@ namespace Anuitex.Library.Data.Entities
         public double Price { get; set; }
         
         public bool AvailableToBuy => Amount > 0;
+
+        public Book()
+        {
+            
+        }
+
+        public Book(int id, string title, int year, int pages, string author, string genre, int amount, double price)
+        {
+            Id = id;
+            Title = title;
+            Year = year;
+            Pages = pages;
+            Author = author;
+            Genre = genre;
+            Amount = amount;
+            Price = price;
+        }
     }
 }

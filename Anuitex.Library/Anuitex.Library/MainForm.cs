@@ -37,6 +37,20 @@ namespace Anuitex.Library
         public event Action<Newspaper> NewspaperReturned;
         #endregion
 
+        public event Action<List<Book>, string> BooksXmlExported;
+        public event Action<List<Book>, string> BooksRawExported;
+        public event Action<List<Journal>, string> JournalsXmlExported;
+        public event Action<List<Journal>, string> JournalsRawExported;
+        public event Action<List<Newspaper>, string> NewspapersXmlExported;
+        public event Action<List<Newspaper>, string> NewspapersRawExported;
+
+        public event Action<string> BooksXmlImported;
+        public event Action<string> BooksRawImported;
+        public event Action<string> JournalsXmlImported;
+        public event Action<string> JournalsRawImported;
+        public event Action<string> NewspapersXmlImported;
+        public event Action<string> NewspapersRawImported;
+
         public MainForm()
         {
             InitializeComponent();            
@@ -90,7 +104,7 @@ namespace Anuitex.Library
             return tabControl.SelectedTab;
         }
 
-        private Type GetTypeSelectedItem()
+        private Type GetSelectedType()
         {
             TabPage selectedPage = GetCurrentTabPage();
             if (selectedPage.Name == "tabPageBooks" && booksGridView.Visible)
@@ -362,7 +376,7 @@ namespace Anuitex.Library
         #region Buttons handlers                
         private void ButtonSellClick(object sender, EventArgs e)
         {            
-            Type selectedType = GetTypeSelectedItem();
+            Type selectedType = GetSelectedType();
             if (selectedType == typeof(Book))
             {
                 List<Book> selectedBooks = GetSelectedBooks();
@@ -412,7 +426,7 @@ namespace Anuitex.Library
        
         private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {
-            Type selectedType = GetTypeSelectedItem();
+            Type selectedType = GetSelectedType();
             if (selectedType == typeof(Book))
             {
                 GetSelectedBooks().ForEach(OnBookDeleted);
@@ -428,7 +442,7 @@ namespace Anuitex.Library
         }
         private void buttonAddBook_Click(object sender, EventArgs e)
         {
-            if (GetTypeSelectedItem() == typeof(Book))
+            if (GetSelectedType() == typeof(Book))
             {
                 DesignBookForm form = new DesignBookForm();
                 DialogResult dialogResult = form.ShowDialog(this);
@@ -439,7 +453,7 @@ namespace Anuitex.Library
                 form.Dispose();
             }
 
-            if (GetTypeSelectedItem() == typeof(Journal))
+            if (GetSelectedType() == typeof(Journal))
             {
                 DesignJournalForm form = new DesignJournalForm();
                 DialogResult dialogResult = form.ShowDialog(this);
@@ -450,7 +464,7 @@ namespace Anuitex.Library
                 form.Dispose();
             }
 
-            if (GetTypeSelectedItem() == typeof(Newspaper))
+            if (GetSelectedType() == typeof(Newspaper))
             {
                 DesignNewspaperForm form = new DesignNewspaperForm();
                 DialogResult dialogResult = form.ShowDialog(this);
@@ -463,7 +477,7 @@ namespace Anuitex.Library
         }
         private void buttonUpdateSelected_Click(object sender, EventArgs e)
         {
-            if (GetTypeSelectedItem() == typeof(Book))
+            if (GetSelectedType() == typeof(Book))
             {
                 List<Book> selectedBooks = GetSelectedBooks();
                 foreach (Book selectedBook in selectedBooks)
@@ -478,7 +492,7 @@ namespace Anuitex.Library
                 }
             }
 
-            if(GetTypeSelectedItem() == typeof(Journal))
+            if(GetSelectedType() == typeof(Journal))
             {
                 List<Journal> selectedJournals = GetSelectedJournals();
                 foreach (Journal selectedJournal in selectedJournals)
@@ -493,7 +507,7 @@ namespace Anuitex.Library
                 }
             }
 
-            if (GetTypeSelectedItem() == typeof(Newspaper))
+            if (GetSelectedType() == typeof(Newspaper))
             {
                 List<Newspaper> selectedNewspapers = GetSelectedNewspapers();
                 foreach (Newspaper selectedNewspaper in selectedNewspapers)
@@ -542,6 +556,191 @@ namespace Anuitex.Library
                 buttonUpdateSelected.Text = "Update selected newspaper";
             }
             SetButtonsState();
+        }
+
+        private void buttonExportXml_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                DefaultExt = ".xml",
+                AddExtension = true,
+                CheckPathExists = true,
+                CreatePrompt = true,
+                OverwritePrompt = true,
+                Filter = "Xml files (*.xml)|*.xml"
+            };
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                Type selectedType = GetSelectedType();
+                if (selectedType == typeof(Book))
+                {
+                    OnBooksXmlExported(GetSelectedBooks(), saveFileDialog.FileName);
+                }                
+                if (selectedType == typeof(Journal))
+                {
+                    OnJournalsXmlExported(GetSelectedJournals(), saveFileDialog.FileName);
+                }
+                if (selectedType == typeof(Newspaper))
+                {
+                    OnNewspapersXmlExported(GetSelectedNewspapers(), saveFileDialog.FileName);
+                }
+            }
+        }        
+
+        private void buttonExportFile_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                DefaultExt = ".txt",
+                AddExtension = true,
+                CheckPathExists = true,
+                CreatePrompt = true,
+                OverwritePrompt = true,
+                Filter = "Text files (*.txt)|*.txt"
+            };
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                Type selectedType = GetSelectedType();
+                if (selectedType == typeof(Book))
+                {
+                    OnBooksRawExported(GetSelectedBooks(), saveFileDialog.FileName);
+                }
+                if (selectedType == typeof(Journal))
+                {
+                    OnJournalsRawExported(GetSelectedJournals(), saveFileDialog.FileName);
+                }
+                if (selectedType == typeof(Newspaper))
+                {
+                    OnNewspapersRawExported(GetSelectedNewspapers(), saveFileDialog.FileName);
+                }
+            }
+        }
+
+        private void buttonImportXml_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                DefaultExt = ".xml",
+                AddExtension = true,
+                CheckPathExists = true,
+                Filter = "Xml files (*.xml)|*.xml"
+            };
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                Type selectedType = GetSelectedType();
+                if (selectedType == typeof(Book))
+                {
+                    OnBooksXmlImported(openFileDialog.FileName);
+                    OnBooksListUpdated();
+                }
+                if (selectedType == typeof(Journal))
+                {
+                    OnJournalsXmlImported(openFileDialog.FileName);
+                    OnJournalsListUpdated();
+                }
+                if (selectedType == typeof(Newspaper))
+                {
+                    OnNewspapersXmlImported(openFileDialog.FileName);
+                    OnNewspapersListUpdated();
+                }
+            }            
+        }
+
+        private void buttonImportFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog()
+                {
+                    DefaultExt = ".txt",
+                    AddExtension = true,
+                    CheckPathExists = true,
+                    Filter = "Text files (*.txt)|*.txt"
+                };
+                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    Type selectedType = GetSelectedType();
+                    if (selectedType == typeof(Book))
+                    {
+                        OnBooksRawImported(openFileDialog.FileName);
+                        OnBooksListUpdated();
+                    }
+                    if (selectedType == typeof(Journal))
+                    {
+                        OnJournalsRawImported(openFileDialog.FileName);
+                        OnJournalsListUpdated();
+                    }
+                    if (selectedType == typeof(Newspaper))
+                    {
+                        OnNewspapersRawImported(openFileDialog.FileName);
+                        OnNewspapersListUpdated();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void OnBooksXmlExported(List<Book> obj, string path)
+        {
+            BooksXmlExported?.Invoke(obj, path);
+        }
+        private void OnBooksRawExported(List<Book> books, string path)
+        {
+            BooksRawExported?.Invoke(books, path);
+        }
+
+        private void OnJournalsXmlExported(List<Journal> journals, string path)
+        {
+            JournalsXmlExported?.Invoke(journals, path);
+        }
+
+        private void OnJournalsRawExported(List<Journal> journals, string path)
+        {
+            JournalsRawExported?.Invoke(journals, path);
+        }
+
+        private void OnNewspapersXmlExported(List<Newspaper> newspapers, string path)
+        {
+            NewspapersXmlExported?.Invoke(newspapers, path);
+        }
+
+        private void OnNewspapersRawExported(List<Newspaper> newspapers, string path)
+        {
+            NewspapersRawExported?.Invoke(newspapers, path);
+        }
+
+
+        private void OnBooksXmlImported(string path)
+        {
+            BooksXmlImported?.Invoke(path);
+        }
+
+        private void OnBooksRawImported(string path)
+        {
+            BooksRawImported?.Invoke(path);
+        }
+
+        private void OnJournalsXmlImported(string path)
+        {
+            JournalsXmlImported?.Invoke(path);
+        }
+
+        private void OnJournalsRawImported(string path)
+        {
+            JournalsRawImported?.Invoke(path);
+        }
+
+        private void OnNewspapersXmlImported(string path)
+        {
+            NewspapersXmlImported?.Invoke(path);
+        }
+
+        private void OnNewspapersRawImported(string path)
+        {
+            NewspapersRawImported?.Invoke(path);
         }        
     }
 }
