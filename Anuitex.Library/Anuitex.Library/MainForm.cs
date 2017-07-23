@@ -70,33 +70,46 @@ namespace Anuitex.Library
         private void SetButtonsState()
         {
             TabPage selectedPage = tabControl.SelectedTab;
+            bool anyCurrentExists = false;
+
 
             if (selectedPage.Name == "tabPageBooks")
             {
-                bool anyBookExists = Books.Any();
-
-                buttonSell.Enabled = anyBookExists;                
-                buttonUpdateSelected.Enabled = anyBookExists;
-                buttonDeleteSelected.Enabled = anyBookExists;
+                anyCurrentExists = Books.Any();
+                /* bool anyBookExists = Books.Any();
+ 
+                 buttonSell.Enabled = anyBookExists;                
+                 buttonUpdateSelected.Enabled = anyBookExists;
+                 buttonDeleteSelected.Enabled = anyBookExists;
+                 buttonExportFile.Enabled = anyBookExists;
+                 buttonExportXml.Enabled = anyBookExists;*/
             }
 
             if (selectedPage.Name == "tabPageJournals")
             {
-                bool anyJournalsExists = Journals.Any();
+                anyCurrentExists = Journals.Any();
+                /*bool anyJournalsExists = Journals.Any();
 
                 buttonSell.Enabled = anyJournalsExists;                
                 buttonUpdateSelected.Enabled = anyJournalsExists;
-                buttonDeleteSelected.Enabled = anyJournalsExists;
+                buttonDeleteSelected.Enabled = anyJournalsExists;*/
             }
 
             if (selectedPage.Name == "tabPageNewspapers")
             {
-                bool anyNewspapersExists = Newspapers.Any();
-
-                buttonSell.Enabled = anyNewspapersExists;                
-                buttonUpdateSelected.Enabled = anyNewspapersExists;
-                buttonDeleteSelected.Enabled = anyNewspapersExists;
+                anyCurrentExists = Newspapers.Any();
+                /* bool anyNewspapersExists = Newspapers.Any();
+ 
+                 buttonSell.Enabled = anyNewspapersExists;                
+                 buttonUpdateSelected.Enabled = anyNewspapersExists;
+                 buttonDeleteSelected.Enabled = anyNewspapersExists;*/
             }
+
+            buttonSell.Enabled = anyCurrentExists;
+            buttonUpdateSelected.Enabled = anyCurrentExists;
+            buttonDeleteSelected.Enabled = anyCurrentExists;
+            buttonExportFile.Enabled = anyCurrentExists;
+            buttonExportXml.Enabled = anyCurrentExists;
         }
 
         private TabPage GetCurrentTabPage()
@@ -228,9 +241,9 @@ namespace Anuitex.Library
                     journalsGridView.Rows.Add(
                         journal.Id,
                         journal.Title,
-                        journal.Date,
                         journal.Periodicity,
-                        journal.Subjects,                        
+                        journal.Subjects,
+                        journal.Date,                        
                         journal.Price,
                         journal.Amount);
                 }
