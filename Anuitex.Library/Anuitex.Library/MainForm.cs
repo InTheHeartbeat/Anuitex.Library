@@ -76,33 +76,16 @@ namespace Anuitex.Library
             if (selectedPage.Name == "tabPageBooks")
             {
                 anyCurrentExists = Books.Any();
-                /* bool anyBookExists = Books.Any();
- 
-                 buttonSell.Enabled = anyBookExists;                
-                 buttonUpdateSelected.Enabled = anyBookExists;
-                 buttonDeleteSelected.Enabled = anyBookExists;
-                 buttonExportFile.Enabled = anyBookExists;
-                 buttonExportXml.Enabled = anyBookExists;*/
             }
 
             if (selectedPage.Name == "tabPageJournals")
             {
-                anyCurrentExists = Journals.Any();
-                /*bool anyJournalsExists = Journals.Any();
-
-                buttonSell.Enabled = anyJournalsExists;                
-                buttonUpdateSelected.Enabled = anyJournalsExists;
-                buttonDeleteSelected.Enabled = anyJournalsExists;*/
+                anyCurrentExists = Journals.Any();                
             }
 
             if (selectedPage.Name == "tabPageNewspapers")
             {
-                anyCurrentExists = Newspapers.Any();
-                /* bool anyNewspapersExists = Newspapers.Any();
- 
-                 buttonSell.Enabled = anyNewspapersExists;                
-                 buttonUpdateSelected.Enabled = anyNewspapersExists;
-                 buttonDeleteSelected.Enabled = anyNewspapersExists;*/
+                anyCurrentExists = Newspapers.Any();                
             }
 
             buttonSell.Enabled = anyCurrentExists;
