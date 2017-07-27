@@ -2,55 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using Anuitex.Library.Base.Enums;
 using Anuitex.Library.Data.Entities;
+using Anuitex.Library.Data.Interfaces;
 
 namespace Anuitex.Library
 {
     public sealed partial class MainForm : Form
     {
-        public IEnumerable<Book> Books;
-        public IEnumerable<Journal> Journals;
+        public List<Book> Books;
+        public List<Journal> Journals;
         public List<Newspaper> Newspapers;
+        
+        public event Action<Type> DataUpdated;
+        public event Action<ILibraryEntity> CreatedEntity;
+        public event Action<ILibraryEntity> DeletedEntity;
+        public event Action<ILibraryEntity> UpdatedEntity;
+        public event Action<ILibraryEntity> SelledEntity;                
 
-        #region Book events
-        public event Action BooksListUpdated;
-        public event Action<Book> BookCreated;
-        public event Action<Book> BookDeleted;
-        public event Action<Book> BookUpdated;
-        public event Action<Book> BookSelled;
-        public event Action<Book> BookReturned;
-        #endregion
-        #region Journal events
-        public event Action JournalsListUpdated;
-        public event Action<Journal> JournalCreated;
-        public event Action<Journal> JournalDeleted;
-        public event Action<Journal> JournalUpdated;
-        public event Action<Journal> JournalSelled;
-        public event Action<Journal> JournalReturned;
-        #endregion
-        #region Newspaper events
-        public event Action NewspapersListUpdated;
-        public event Action<Newspaper> NewspaperCreated;
-        public event Action<Newspaper> NewspaperDeleted;
-        public event Action<Newspaper> NewspaperUpdated;
-        public event Action<Newspaper> NewspaperSelled;
-        public event Action<Newspaper> NewspaperReturned;
-        #endregion
-
-        public event Action<List<Book>, string> BooksXmlExported;
-        public event Action<List<Book>, string> BooksRawExported;
-        public event Action<List<Journal>, string> JournalsXmlExported;
-        public event Action<List<Journal>, string> JournalsRawExported;
-        public event Action<List<Newspaper>, string> NewspapersXmlExported;
-        public event Action<List<Newspaper>, string> NewspapersRawExported;
-
-        public event Action<string> BooksXmlImported;
-        public event Action<string> BooksRawImported;
-        public event Action<string> JournalsXmlImported;
-        public event Action<string> JournalsRawImported;
-        public event Action<string> NewspapersXmlImported;
-        public event Action<string> NewspapersRawImported;
-
+        public event Action<List<ILibraryEntity>, string, FileStorageType> Exported;                
+        public event Action<Type,string, FileStorageType> Imported;        
+        
         public MainForm()
         {
             InitializeComponent();            
@@ -62,7 +35,7 @@ namespace Anuitex.Library
 
         public new void Show()
         {
-            OnBooksListUpdated();
+            OnDataUpdated(GetSelectedType());
             SetButtonsState();
             Application.Run(this);              
         }
@@ -71,7 +44,6 @@ namespace Anuitex.Library
         {
             TabPage selectedPage = tabControl.SelectedTab;
             bool anyCurrentExists = false;
-
 
             if (selectedPage.Name == "tabPageBooks")
             {
@@ -119,7 +91,42 @@ namespace Anuitex.Library
             }
             return null;
         }
-                
+
+        private List<ILibraryEntity> GetSelectedEntities()
+        {
+            Type selectedType = GetSelectedType();
+            if (selectedType == typeof(Book))
+            {
+                return new List<ILibraryEntity>(GetSelectedBooks());
+            }
+            if (selectedType == typeof(Journal))
+            {
+                return new List<ILibraryEntity>(GetSelectedJournals());
+            }
+            if (selectedType == typeof(Newspaper))
+            {
+                return new List<ILibraryEntity>(GetSelectedNewspapers());
+            }
+            return null;
+        }
+
+
+        private void UpdateCurrentDataGrid()
+        {
+            Type current = GetSelectedType();
+            if (current == typeof(Book))
+            {
+                UpdateBooksGridView();
+            }
+            if (current == typeof(Journal))
+            {
+                UpdateJournalsGridView();
+            }
+            if (current == typeof(Newspaper))
+            {
+                UpdateNewspapersGridView();
+            }
+        }
 
         #region Book
 
@@ -168,38 +175,6 @@ namespace Anuitex.Library
             return Books.Where(book => GetSelectedBookIds().Contains(book.Id)).ToList();
         }
 
-        private void OnBookCreated(Book obj)
-        {
-            BookCreated?.Invoke(obj);
-            OnBooksListUpdated();
-        }
-        private void OnBookUpdated(Book obj)
-        {
-            BookUpdated?.Invoke(obj);
-            OnBooksListUpdated();
-        }
-        private void OnBookDeleted(Book obj)
-        {
-            BookDeleted?.Invoke(obj);
-            OnBooksListUpdated();
-        }
-        private void OnBookSelled(Book obj)
-        {
-            BookSelled?.Invoke(obj);
-            OnBooksListUpdated();
-        }
-        private void OnBookReturned(Book obj)
-        {
-            BookReturned?.Invoke(obj);
-            OnBooksListUpdated();
-        }
-
-        private void OnBooksListUpdated()
-        {
-            BooksListUpdated?.Invoke();
-            UpdateBooksGridView();
-        }
-
         #endregion
 
         #region Journal
@@ -246,43 +221,7 @@ namespace Anuitex.Library
         private List<Journal> GetSelectedJournals()
         {
             return Journals.Where(journal => GetSelectedJournalIds().Contains(journal.Id)).ToList();
-        }
-        
-        private void OnJournalsListUpdated()
-        {
-            JournalsListUpdated?.Invoke();
-            UpdateJournalsGridView();
-        }
-
-        private void OnJournalCreated(Journal obj)
-        {
-            JournalCreated?.Invoke(obj);
-            OnJournalsListUpdated();
-        }
-
-        private void OnJournalDeleted(Journal obj)
-        {
-            JournalDeleted?.Invoke(obj);
-            OnJournalsListUpdated();
-        }
-
-        private void OnJournalUpdated(Journal obj)
-        {
-            JournalUpdated?.Invoke(obj);
-            OnJournalsListUpdated();
-        }
-
-        private void OnJournalSelled(Journal obj)
-        {
-            JournalSelled?.Invoke(obj);
-            OnJournalsListUpdated();
-        }
-
-        private void OnJournalReturned(Journal obj)
-        {
-            JournalReturned?.Invoke(obj);
-            OnJournalsListUpdated();
-        }
+        }       
 
         #endregion
 
@@ -330,111 +269,25 @@ namespace Anuitex.Library
         {
             return Newspapers.Where(newspaper => GetSelectedNewspaperIds().Contains(newspaper.Id)).ToList();
         }
-
-        private void OnNewspapersListUpdated()
-        {
-            NewspapersListUpdated?.Invoke();
-            UpdateNewspapersGridView();
-        }
-
-        private void OnNewspaperCreated(Newspaper obj)
-        {
-            NewspaperCreated?.Invoke(obj);
-            OnNewspapersListUpdated();
-        }
-
-        private void OnNewspaperDeleted(Newspaper obj)
-        {
-            NewspaperDeleted?.Invoke(obj);
-            OnNewspapersListUpdated();
-        }
-
-        private void OnNewspaperUpdated(Newspaper obj)
-        {
-            NewspaperUpdated?.Invoke(obj);
-            OnNewspapersListUpdated();
-        }
-
-        private void OnNewspaperSelled(Newspaper obj)
-        {
-            NewspaperSelled?.Invoke(obj);
-            OnNewspapersListUpdated();
-        }
-
-        private void OnNewspaperReturned(Newspaper obj)
-        {
-            NewspaperReturned?.Invoke(obj);
-            OnNewspapersListUpdated();
-        }
-
         #endregion
 
         #region Buttons handlers                
+
         private void ButtonSellClick(object sender, EventArgs e)
-        {            
-            Type selectedType = GetSelectedType();
-            if (selectedType == typeof(Book))
-            {
-                List<Book> selectedBooks = GetSelectedBooks();
-
-                foreach (Book selectedBook in selectedBooks)
-                {
-                    SellForm form = new SellForm(selectedBook.Price, $"Book {selectedBook.Title}-{selectedBook.Author} \n {selectedBook.Genre} \n {selectedBook.Year} \n {selectedBook.Pages}");
-                    DialogResult dialogResult = form.ShowDialog(this);
-                    if (dialogResult == DialogResult.OK)
-                    {
-                        OnBookSelled(selectedBook);
-                    }
-                    form.Dispose();
-                }                
-            }
-            if (selectedType == typeof(Journal))
-            {
-                List<Journal> selectedJournals = GetSelectedJournals();
-
-                foreach (Journal selectedJournal in selectedJournals)
-                {
-                    SellForm form = new SellForm(selectedJournal.Price, $"Journal {selectedJournal.Title}\n{selectedJournal.Periodicity}\n{selectedJournal.Subjects}\n{selectedJournal.Date}");
-                    DialogResult dialogResult = form.ShowDialog(this);
-                    if (dialogResult == DialogResult.OK)
-                    {
-                        OnJournalSelled(selectedJournal);
-                    }
-                    form.Dispose();
-                }
-            }
-            if (selectedType == typeof(Newspaper))
-            {
-                List<Newspaper> selectedNewspapers = GetSelectedNewspapers();
-
-                foreach (Newspaper selectedNewspaper in selectedNewspapers)
-                {
-                    SellForm form = new SellForm(selectedNewspaper.Price, $"Newspaper {selectedNewspaper.Title}\n{selectedNewspaper.Periodicity}\n{selectedNewspaper.Date}");
-                    DialogResult dialogResult = form.ShowDialog(this);
-                    if (dialogResult == DialogResult.OK)
-                    {
-                        OnNewspaperSelled(selectedNewspaper);
-                    }
-                    form.Dispose();
-                }
-            }
-        }       
-       
-        private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {
-            Type selectedType = GetSelectedType();
-            if (selectedType == typeof(Book))
+            SellForm form = new SellForm(GetSelectedEntities());
+            DialogResult dialogResult = form.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
             {
-                GetSelectedBooks().ForEach(OnBookDeleted);
+                form.SelledEntities.ForEach(OnSelledEntity);   
             }
-            if (selectedType == typeof(Journal))
-            {
-                GetSelectedJournals().ForEach(OnJournalDeleted);
-            }
-            if (selectedType == typeof(Newspaper))
-            {
-                GetSelectedNewspapers().ForEach(OnNewspaperDeleted);
-            }
+
+            form.Dispose();
+        }
+
+        private void buttonDeleteSelected_Click(object sender, EventArgs e)
+        {            
+            GetSelectedEntities().ForEach(OnDeletedEntity);
         }
         private void buttonAddBook_Click(object sender, EventArgs e)
         {
@@ -444,7 +297,7 @@ namespace Anuitex.Library
                 DialogResult dialogResult = form.ShowDialog(this);
                 if (dialogResult == DialogResult.OK)
                 {
-                    OnBookCreated(form.ResultBook);
+                    OnCreatedEntity(form.ResultBook);
                 }
                 form.Dispose();
             }
@@ -455,7 +308,7 @@ namespace Anuitex.Library
                 DialogResult dialogResult = form.ShowDialog(this);
                 if (dialogResult == DialogResult.OK)
                 {
-                    OnJournalCreated(form.ResultJournal);
+                    OnCreatedEntity(form.ResultJournal);
                 }
                 form.Dispose();
             }
@@ -466,7 +319,7 @@ namespace Anuitex.Library
                 DialogResult dialogResult = form.ShowDialog(this);
                 if (dialogResult == DialogResult.OK)
                 {
-                    OnNewspaperCreated(form.ResultNewspaper);
+                    OnCreatedEntity(form.ResultNewspaper);
                 }
                 form.Dispose();
             }
@@ -482,7 +335,7 @@ namespace Anuitex.Library
                     DialogResult dialogResult = form.ShowDialog(this);
                     if (dialogResult == DialogResult.OK)
                     {
-                        OnBookUpdated(form.ResultBook);
+                        OnUpdatedEntity(form.ResultBook);
                     }
                     form.Dispose();
                 }
@@ -497,7 +350,7 @@ namespace Anuitex.Library
                     DialogResult dialogResult = form.ShowDialog(this);
                     if (dialogResult == DialogResult.OK)
                     {
-                        OnJournalUpdated(form.ResultJournal);
+                        OnUpdatedEntity(form.ResultJournal);
                     }
                     form.Dispose();
                 }
@@ -512,7 +365,7 @@ namespace Anuitex.Library
                     DialogResult dialogResult = form.ShowDialog(this);
                     if (dialogResult == DialogResult.OK)
                     {
-                        OnNewspaperUpdated(form.ResultNewspaper);
+                        OnUpdatedEntity(form.ResultNewspaper);
                     }
                     form.Dispose();
                 }
@@ -524,33 +377,28 @@ namespace Anuitex.Library
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             TabPage selectedPage = GetCurrentTabPage();
-
+            OnDataUpdated(GetSelectedType());
             if (selectedPage.Name == "tabPageBooks")
-            {
-                OnBooksListUpdated();
-
+            {                
                 buttonAdd.Text = "Add new book";
                 buttonDeleteSelected.Text = "Delete selected book";                
-                buttonUpdateSelected.Text = "Update selected book";
+                buttonUpdateSelected.Text = "Update selected book";                
             }
 
             if (selectedPage.Name == "tabPageJournals")
             {
-                OnJournalsListUpdated();
-
                 buttonAdd.Text = "Add new journal";
                 buttonDeleteSelected.Text = "Delete selected journal";
-                buttonUpdateSelected.Text = "Update selected journal";
+                buttonUpdateSelected.Text = "Update selected journal";                
             }
 
             if (selectedPage.Name == "tabPageNewspapers")
             {
-                OnNewspapersListUpdated();
-
                 buttonAdd.Text = "Add new newspaper";
                 buttonDeleteSelected.Text = "Delete selected newspaper";
-                buttonUpdateSelected.Text = "Update selected newspaper";
+                buttonUpdateSelected.Text = "Update selected newspaper";                
             }
+            UpdateCurrentDataGrid();
             SetButtonsState();
         }
 
@@ -567,22 +415,16 @@ namespace Anuitex.Library
             };
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                Type selectedType = GetSelectedType();
-                if (selectedType == typeof(Book))
+                try
                 {
-                    OnBooksXmlExported(GetSelectedBooks(), saveFileDialog.FileName);
+                    OnExported(GetSelectedEntities(), saveFileDialog.FileName, FileStorageType.Xml);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error");
                 }                
-                if (selectedType == typeof(Journal))
-                {
-                    OnJournalsXmlExported(GetSelectedJournals(), saveFileDialog.FileName);
-                }
-                if (selectedType == typeof(Newspaper))
-                {
-                    OnNewspapersXmlExported(GetSelectedNewspapers(), saveFileDialog.FileName);
-                }
             }
         }        
-
         private void buttonExportFile_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -596,18 +438,13 @@ namespace Anuitex.Library
             };
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                Type selectedType = GetSelectedType();
-                if (selectedType == typeof(Book))
+                try
                 {
-                    OnBooksRawExported(GetSelectedBooks(), saveFileDialog.FileName);
+                    OnExported(GetSelectedEntities(), saveFileDialog.FileName, FileStorageType.Raw);
                 }
-                if (selectedType == typeof(Journal))
+                catch (Exception exception)
                 {
-                    OnJournalsRawExported(GetSelectedJournals(), saveFileDialog.FileName);
-                }
-                if (selectedType == typeof(Newspaper))
-                {
-                    OnNewspapersRawExported(GetSelectedNewspapers(), saveFileDialog.FileName);
+                    MessageBox.Show(exception.Message, "Error");
                 }
             }
         }
@@ -623,120 +460,80 @@ namespace Anuitex.Library
             };
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                Type selectedType = GetSelectedType();
-                if (selectedType == typeof(Book))
+                try
                 {
-                    OnBooksXmlImported(openFileDialog.FileName);
-                    OnBooksListUpdated();
+                    OnImported(GetSelectedType(), openFileDialog.FileName, FileStorageType.Xml);
                 }
-                if (selectedType == typeof(Journal))
+                catch (Exception exception)
                 {
-                    OnJournalsXmlImported(openFileDialog.FileName);
-                    OnJournalsListUpdated();
+                    MessageBox.Show(exception.Message, "Error");
                 }
-                if (selectedType == typeof(Newspaper))
-                {
-                    OnNewspapersXmlImported(openFileDialog.FileName);
-                    OnNewspapersListUpdated();
-                }
-            }            
+            }
         }
 
         private void buttonImportFile_Click(object sender, EventArgs e)
         {
-            try
+
+            OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog()
+                DefaultExt = ".txt",
+                AddExtension = true,
+                CheckPathExists = true,
+                Filter = "Text files (*.txt)|*.txt"
+            };
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                try
                 {
-                    DefaultExt = ".txt",
-                    AddExtension = true,
-                    CheckPathExists = true,
-                    Filter = "Text files (*.txt)|*.txt"
-                };
-                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                    OnImported(GetSelectedType(), openFileDialog.FileName, FileStorageType.Raw);
+                }
+                catch (Exception ex)
                 {
-                    Type selectedType = GetSelectedType();
-                    if (selectedType == typeof(Book))
-                    {
-                        OnBooksRawImported(openFileDialog.FileName);
-                        OnBooksListUpdated();
-                    }
-                    if (selectedType == typeof(Journal))
-                    {
-                        OnJournalsRawImported(openFileDialog.FileName);
-                        OnJournalsListUpdated();
-                    }
-                    if (selectedType == typeof(Newspaper))
-                    {
-                        OnNewspapersRawImported(openFileDialog.FileName);
-                        OnNewspapersListUpdated();
-                    }
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
-        private void OnBooksXmlExported(List<Book> obj, string path)
+        private void OnDataUpdated(Type obj)
         {
-            BooksXmlExported?.Invoke(obj, path);
-        }
-        private void OnBooksRawExported(List<Book> books, string path)
-        {
-            BooksRawExported?.Invoke(books, path);
+            DataUpdated?.Invoke(obj);
+            UpdateCurrentDataGrid();
         }
 
-        private void OnJournalsXmlExported(List<Journal> journals, string path)
+        private void OnCreatedEntity(ILibraryEntity obj)
         {
-            JournalsXmlExported?.Invoke(journals, path);
+            CreatedEntity?.Invoke(obj);
+            OnDataUpdated(obj.GetType());
         }
 
-        private void OnJournalsRawExported(List<Journal> journals, string path)
+        private void OnDeletedEntity(ILibraryEntity obj)
         {
-            JournalsRawExported?.Invoke(journals, path);
+            DeletedEntity?.Invoke(obj);
+            OnDataUpdated(obj.GetType());
         }
 
-        private void OnNewspapersXmlExported(List<Newspaper> newspapers, string path)
+        private void OnUpdatedEntity(ILibraryEntity obj)
         {
-            NewspapersXmlExported?.Invoke(newspapers, path);
+            UpdatedEntity?.Invoke(obj);
+            OnDataUpdated(obj.GetType());
         }
 
-        private void OnNewspapersRawExported(List<Newspaper> newspapers, string path)
+        private void OnSelledEntity(ILibraryEntity obj)
         {
-            NewspapersRawExported?.Invoke(newspapers, path);
+            SelledEntity?.Invoke(obj);
+            OnDataUpdated(obj.GetType());
         }
 
 
-        private void OnBooksXmlImported(string path)
+        private void OnExported(List<ILibraryEntity> arg1, string arg2, FileStorageType arg3)
         {
-            BooksXmlImported?.Invoke(path);
+            Exported?.Invoke(arg1, arg2, arg3);
         }
 
-        private void OnBooksRawImported(string path)
+        private void OnImported(Type arg1, string arg2, FileStorageType arg3)
         {
-            BooksRawImported?.Invoke(path);
+            Imported?.Invoke(arg1, arg2, arg3);
+            OnDataUpdated(arg1);
         }
-
-        private void OnJournalsXmlImported(string path)
-        {
-            JournalsXmlImported?.Invoke(path);
-        }
-
-        private void OnJournalsRawImported(string path)
-        {
-            JournalsRawImported?.Invoke(path);
-        }
-
-        private void OnNewspapersXmlImported(string path)
-        {
-            NewspapersXmlImported?.Invoke(path);
-        }
-
-        private void OnNewspapersRawImported(string path)
-        {
-            NewspapersRawImported?.Invoke(path);
-        }        
     }
 }

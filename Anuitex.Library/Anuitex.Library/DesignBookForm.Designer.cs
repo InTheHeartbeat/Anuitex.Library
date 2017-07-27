@@ -221,21 +221,21 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxTitle;
+        internal System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxAuthor;
-        private System.Windows.Forms.TextBox textBoxGenre;
+        internal System.Windows.Forms.TextBox textBoxAuthor;
+        internal System.Windows.Forms.TextBox textBoxGenre;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxYear;
+        internal System.Windows.Forms.TextBox textBoxYear;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxPages;
+        internal System.Windows.Forms.TextBox textBoxPages;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonBuild;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.TextBox textBoxPrice;
+        internal System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBoxAmount;
+        internal System.Windows.Forms.TextBox textBoxAmount;
         private System.Windows.Forms.Label label7;
     }
 }

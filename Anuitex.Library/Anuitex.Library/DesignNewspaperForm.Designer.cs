@@ -180,18 +180,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxDate;
+        internal System.Windows.Forms.TextBox textBoxDate;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxPeriodicity;
+        internal System.Windows.Forms.TextBox textBoxPeriodicity;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonBuild;
-        private System.Windows.Forms.TextBox textBoxTitle;
+        internal System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxPrice;
+        internal System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxAmount;
+        internal System.Windows.Forms.TextBox textBoxAmount;
         private System.Windows.Forms.Label label5;
     }
 }

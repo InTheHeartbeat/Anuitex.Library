@@ -62,10 +62,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Enums\FileStorageType.cs" />
+    <Compile Include="Base\Helpers\FormValidateHelper.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\Entities\Book.cs" />
     <Compile Include="Data\Entities\Journal.cs" />
     <Compile Include="Data\Entities\Newspaper.cs" />
+    <Compile Include="Data\Interfaces\ILibraryEntity.cs" />
     <Compile Include="DesignBookForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,11 +93,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\RawFileRepository.cs" />
+    <Compile Include="Models\Providers\RawFileProvider.cs" />
     <Compile Include="Models\Repositories\BookRepository.cs" />
     <Compile Include="Models\Repositories\JournalRepository.cs" />
     <Compile Include="Models\Repositories\NewspaperRepository.cs" />
-    <Compile Include="Models\XmlRepository.cs" />
+    <Compile Include="Models\Providers\XmlProvider.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -162,6 +165,7 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

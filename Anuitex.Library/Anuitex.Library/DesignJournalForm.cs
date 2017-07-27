@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Anuitex.Library.Base.Helpers;
 using Anuitex.Library.Data.Entities;
 
 namespace Anuitex.Library
@@ -40,47 +41,11 @@ namespace Anuitex.Library
             textBoxAmount.Text = _journal.Amount.ToString();            
 
             buttonBuild.Text = "Update";
-        }
-
-        private bool ValidateInputs()
-        {
-            if (string.IsNullOrWhiteSpace(textBoxTitle.Text))
-            {
-                MessageBox.Show("Fied \"Title\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxSubjects.Text))
-            {
-                MessageBox.Show("Fied \"Subjects\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxPeriodicity.Text))
-            {
-                MessageBox.Show("Fied \"Periodicity\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxDate.Text))
-            {
-                MessageBox.Show("Fied \"Date\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxPrice.Text))
-            {
-                MessageBox.Show("Fied \"Price\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxAmount.Text))
-            {
-                MessageBox.Show("Fied \"Amount\" must be filled");
-                return false;
-            }
-
-            return true;
-        }
+        }        
 
         private void buttonBuild_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputs()) return;
+            if (!FormValidateHelper.DesignJournalValidateInputs(this)) return;
 
             float price = 0;
             int amount = 0;

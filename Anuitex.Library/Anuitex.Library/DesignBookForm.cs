@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Anuitex.Library.Base.Helpers;
 using Anuitex.Library.Data;
 using Anuitex.Library.Data.Entities;
 
@@ -38,7 +39,7 @@ namespace Anuitex.Library
 
         private void buttonBuild_Click(object sender, EventArgs e)
         {                       
-            if(!ValidateInputs()) return;
+            if(!FormValidateHelper.DesignBookValidateInputs(this)) return;
 
             int year = 0;
             int pages = 0;
@@ -78,46 +79,7 @@ namespace Anuitex.Library
             };
             this.DialogResult = DialogResult.OK;                        
         }
-
-        private bool ValidateInputs()
-        {
-            if (string.IsNullOrWhiteSpace(textBoxTitle.Text))
-            {
-                MessageBox.Show("Fied \"Title\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxAuthor.Text))
-            {
-                MessageBox.Show("Fied \"Author\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxGenre.Text))
-            {
-                MessageBox.Show("Fied \"Genre\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxYear.Text))
-            {
-                MessageBox.Show("Fied \"Year\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxPages.Text))
-            {
-                MessageBox.Show("Fied \"Pages\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxPrice.Text))
-            {
-                MessageBox.Show("Fied \"Price\" must be filled");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(textBoxAmount.Text))
-            {
-                MessageBox.Show("Fied \"Amount\" must be filled");
-                return false;
-            }
-            return true;
-        }
+        
         
         private void buttonClear_Click(object sender, EventArgs e)
         {

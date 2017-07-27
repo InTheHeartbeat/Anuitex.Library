@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Anuitex.Library.Models;
+using Anuitex.Library.Models.Providers;
 using Anuitex.Library.Models.Repositories;
 using Anuitex.Library.Presenters;
 

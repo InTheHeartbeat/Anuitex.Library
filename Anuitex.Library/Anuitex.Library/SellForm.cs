@@ -8,21 +8,59 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Anuitex.Library.Data.Interfaces;
 
 namespace Anuitex.Library
 {
     public partial class SellForm : Form
     {
-        private double _price;
+        public List<ILibraryEntity> SelledEntities;
 
-        public SellForm(double price, string item)
+        private double totalPrice;
+
+        private List<ILibraryEntity> checkedItems;
+
+        public SellForm(List<ILibraryEntity> list)
         {
-            InitializeComponent();
+            InitializeComponent();            
+            checkedItems = new List<ILibraryEntity>();
+            sellEntitiesListBox.ItemCheck += SellEntitiesListBox_ItemCheck;
 
-            labelItem.Text = item;
-            labelPrice.Text = price.ToString(CultureInfo.InvariantCulture);
+            sellEntitiesListBox.Items.AddRange(list.ToArray());
+            
+            for (var i = 0; i < sellEntitiesListBox.Items.Count; i++)
+            {
+                sellEntitiesListBox.SetItemChecked(i,true);
+            }
+            CalcTotalPrice();
 
-            _price = price;
+            
+        }
+
+        private void SellEntitiesListBox_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            checkedItems = sellEntitiesListBox.CheckedItems.Cast<ILibraryEntity>().ToList();
+            if (e.NewValue == CheckState.Checked)
+            {
+                if (!checkedItems.Contains(sellEntitiesListBox.Items[e.Index]))
+                {
+                    checkedItems.Add((ILibraryEntity) sellEntitiesListBox.Items[e.Index]);
+                }
+            }
+            if (e.NewValue == CheckState.Unchecked)
+            {
+                if (checkedItems.Contains(sellEntitiesListBox.Items[e.Index]))
+                {
+                    checkedItems.Remove((ILibraryEntity) sellEntitiesListBox.Items[e.Index]);
+                }
+            }
+            CalcTotalPrice();
+        }
+
+        private void CalcTotalPrice()
+        {            
+            totalPrice = checkedItems.Sum(e => e.Price);
+            labelPrice.Text = totalPrice.ToString();
         }
 
         private void buttonConfirmSell_Click(object sender, EventArgs e)
@@ -41,17 +79,18 @@ namespace Anuitex.Library
                 return;
             }
 
-            if (money < _price)
+            if (money < totalPrice)
             {
                 MessageBox.Show("Money should be more than the price");
                 return;
             }
 
-            if (money > _price)
+            if (money > totalPrice)
             {
-                MessageBox.Show($"Delivery {money - _price}");
+                MessageBox.Show($"Delivery {money - totalPrice}");
             }
 
+            SelledEntities = checkedItems;
             DialogResult = DialogResult.OK;
         }
     }

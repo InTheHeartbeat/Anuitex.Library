@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Anuitex.Library.Base.Enums;
 using Anuitex.Library.Data;
 using Anuitex.Library.Data.Entities;
+using Anuitex.Library.Data.Interfaces;
 using Anuitex.Library.Models;
+using Anuitex.Library.Models.Providers;
 using Anuitex.Library.Models.Repositories;
 
 namespace Anuitex.Library.Presenters
@@ -29,204 +32,147 @@ namespace Anuitex.Library.Presenters
             this.xmlRepository = xmlRepository;
             this.rawFileRepository = rawFileRepository;
 
-            this.view.BooksListUpdated += UpdateBooksList;           
-            this.view.BookDeleted += OnViewBookDeleted;
-            this.view.BookCreated += OnViewBookCreated;
-            this.view.BookUpdated += OnViewBookUpdated;
-            this.view.BookSelled += OnViewBookSelled;
+            this.view.DataUpdated += OnViewDataUpdated;
+            this.view.DeletedEntity += OnViewDeletedEntity;
+            this.view.CreatedEntity += OnViewCreatedEntity;
+            this.view.UpdatedEntity += OnViewUpdatedEntity;
+            this.view.SelledEntity += OnViewSelledEntity;
 
-            this.view.JournalsListUpdated += UpdateJournalsList;            
-            this.view.JournalDeleted += OnViewJournalDeleted;
-            this.view.JournalCreated += OnViewJournalCreated;
-            this.view.JournalUpdated += OnViewJournalUpdated;
-            this.view.JournalSelled += OnViewJournalSelled;
-
-            this.view.NewspapersListUpdated += UpdateNewspapersList;            
-            this.view.NewspaperDeleted += OnViewNewspaperDeleted;
-            this.view.NewspaperCreated += OnViewNewspaperCreated;
-            this.view.NewspaperUpdated += OnViewNewspaperUpdated;
-            this.view.NewspaperSelled += OnViewNewspaperSelled;
-
-            this.view.BooksXmlExported += OnViewBooksXmlExported;
-            this.view.BooksRawExported += OnViewBooksRawExported;
-            this.view.JournalsXmlExported += OnViewJournalsXmlExported;
-            this.view.JournalsRawExported += OnViewJournalsRawExported;
-            this.view.NewspapersXmlExported += OnViewNewspapersXmlExported;
-            this.view.NewspapersRawExported += OnViewNewspapersRawExported;
-
-            this.view.BooksXmlImported += OnViewBooksXmlImported;
-            this.view.BooksRawImported += OnViewBooksRawImported;
-            this.view.JournalsXmlImported += OnViewJournalsXmlImported;
-            this.view.JournalsRawImported += OnViewJournalsRawImported;
-            this.view.NewspapersXmlImported += OnViewNewspapersXmlImported;
-            this.view.NewspapersRawImported += OnViewNewspapersRawImported;
+            this.view.Exported += OnViewExported;            
+            this.view.Imported += OnViewImported;                  
         }
 
-        private void OnViewNewspapersRawImported(string obj)
+        private void OnViewImported(Type type, string path, FileStorageType storageType)
         {
-            rawFileRepository.Import<Newspaper>(obj).ForEach(newspaperRepository.Add);
-        }
-
-        private void OnViewNewspapersXmlImported(string obj)
-        {
-            xmlRepository.Import<Newspaper>(obj).ForEach(newspaperRepository.Add);
-        }
-
-        private void OnViewJournalsRawImported(string obj)
-        {
-            rawFileRepository.Import<Journal>(obj).ForEach(journalRepository.Add);
-        }
-
-        private void OnViewJournalsXmlImported(string obj)
-        {
-            xmlRepository.Import<Journal>(obj).ForEach(journalRepository.Add);
-        }
-
-        private void OnViewBooksRawImported(string path)
-        {
-            rawFileRepository.Import<Book>(path).ForEach(bookRepository.Add);
-        }
-
-        private void OnViewBooksXmlImported(string path)
-        {
-            xmlRepository.Import<Book>(path).ForEach(bookRepository.Add);
-        }
-
-        private void OnViewNewspapersRawExported(List<Newspaper> newspapers, string path)
-        {
-            rawFileRepository.Export(newspapers,path);
-        }
-
-        private void OnViewNewspapersXmlExported(List<Newspaper> newspapers, string path)
-        {
-            xmlRepository.Export(newspapers,path);
-        }
-
-        private void OnViewJournalsRawExported(List<Journal> journals, string path)
-        {
-            rawFileRepository.Export(journals, path);
-        }
-
-        private void OnViewJournalsXmlExported(List<Journal> journals, string path)
-        {
-            xmlRepository.Export(journals,path);
-        }
-
-        private void OnViewBooksRawExported(List<Book> books, string path)
-        {
-            rawFileRepository.Export(books, path);
-        }
-
-        private void OnViewBooksXmlExported(List<Book> obj, string path)
-        {
-            xmlRepository.Export(obj,path);
-        }
-
-        #region Newspaper
-        private void OnViewNewspaperUpdated(Newspaper obj)
-        {
-            if(obj != null)
+            if (type == typeof(Book))
             {
-                newspaperRepository.Update(obj);                
+                if (storageType == FileStorageType.Raw)
+                {
+                    view.Books = rawFileRepository.Import<Book>(path);
+                }
+                if (storageType == FileStorageType.Xml)
+                {
+                    view.Books = xmlRepository.Import<Book>(path);
+                }
+            }
+            if (type == typeof(Journal))
+            {
+                if (storageType == FileStorageType.Raw)
+                {
+                    view.Journals = rawFileRepository.Import<Journal>(path);
+                }
+                if (storageType == FileStorageType.Xml)
+                {
+                    view.Journals = xmlRepository.Import<Journal>(path);
+                }                
+            }
+            if (type == typeof(Newspaper))
+            {
+                if (storageType == FileStorageType.Raw)
+                {
+                    view.Newspapers = rawFileRepository.Import<Newspaper>(path);
+                }
+                if (storageType == FileStorageType.Xml)
+                {
+                    view.Newspapers = xmlRepository.Import<Newspaper>(path);
+                }
             }
         }
 
-        private void OnViewNewspaperCreated(Newspaper obj)
+        private void OnViewExported(List<ILibraryEntity> entities, string path, FileStorageType storageType)
         {
-            if (obj != null)
+            if (storageType == FileStorageType.Raw)
             {
-                newspaperRepository.Add(obj);                
+                rawFileRepository.Export(entities,path);
+            }
+            if (storageType == FileStorageType.Xml)
+            {
+                xmlRepository.Export(entities, path);
             }
         }
 
-        private void OnViewNewspaperDeleted(Newspaper obj)
+
+
+        private void OnViewSelledEntity(ILibraryEntity entity)
         {
-            if (obj != null)
-            {
-                newspaperRepository.Delete(obj);                
+            entity.Amount--;
+            if (entity is Book)
+            {                
+                bookRepository.Update(entity as Book);
             }
-        }
-        
-        private void UpdateNewspapersList()
-        {
-            this.view.Newspapers = newspaperRepository.GetList();
-        }
-        private void OnViewNewspaperSelled(Newspaper obj)
-        {
-            obj.Amount -= 1;
-            newspaperRepository.Update(obj);
-        }
-        #endregion
-        #region Journal
-        private void OnViewJournalUpdated(Journal obj)
-        {
-            if(obj != null)
+            if (entity is Journal)
             {
-                journalRepository.Update(obj);                
+                journalRepository.Update(entity as Journal);
+            }
+            if (entity is Newspaper)
+            {
+                newspaperRepository.Update(entity as Newspaper);
             }
         }
 
-        private void OnViewJournalCreated(Journal obj)
+        private void OnViewUpdatedEntity(ILibraryEntity entity)
         {
-            if (obj != null)
+            if (entity is Book)
             {
-                journalRepository.Add(obj);                
+                bookRepository.Update(entity as Book);
+            }
+            if (entity is Journal)
+            {
+                journalRepository.Update(entity as Journal);
+            }
+            if (entity is Newspaper)
+            {
+                newspaperRepository.Update(entity as Newspaper);
             }
         }
 
-        private void OnViewJournalDeleted(Journal obj)
+        private void OnViewCreatedEntity(ILibraryEntity entity)
         {
-            if (obj != null)
+            if (entity is Book)
             {
-                journalRepository.Delete(obj);                
+                bookRepository.Add(entity as Book);
             }
-        }      
-
-        private void UpdateJournalsList()
-        {
-            this.view.Journals = journalRepository.GetList();
-        }
-        private void OnViewJournalSelled(Journal obj)
-        {
-            obj.Amount -= 1;
-            journalRepository.Update(obj);
-        }
-        #endregion
-        #region Book
-        private void OnViewBookUpdated(Book book)
-        {
-            if (book != null)
+            if (entity is Journal)
             {
-                bookRepository.Update(book);                
+                journalRepository.Add(entity as Journal);
+            }
+            if (entity is Newspaper)
+            {
+                newspaperRepository.Add(entity as Newspaper);
             }
         }
 
-        private void OnViewBookCreated(Book book)
+        private void OnViewDeletedEntity(ILibraryEntity entity)
         {
-            if (book != null)
+            if (entity is Book)
             {
-                bookRepository.Add(book);                
+                bookRepository.Delete(entity as Book);
+            }
+            if (entity is Journal)
+            {
+                journalRepository.Delete(entity as Journal);
+            }
+            if (entity is Newspaper)
+            {
+                newspaperRepository.Delete(entity as Newspaper);
             }
         }
 
-        private void OnViewBookDeleted(Book book)
+        private void OnViewDataUpdated(Type type)
         {
-            if (book != null)
+            if (type == typeof(Book))
             {
-                bookRepository.Delete(book);                
+                view.Books = bookRepository.GetList();
+            }
+            if (type == typeof(Journal))
+            {
+                view.Journals = journalRepository.GetList();
+            }
+            if (type == typeof(Newspaper))
+            {
+                view.Newspapers = newspaperRepository.GetList();
             }
         }
-      
-        private void UpdateBooksList()
-        {
-            view.Books = bookRepository.GetList();
-        }
-        private void OnViewBookSelled(Book obj)
-        {
-            obj.Amount -= 1;
-            bookRepository.Update(obj);
-        }
-        #endregion
 
         public void Run()
         {

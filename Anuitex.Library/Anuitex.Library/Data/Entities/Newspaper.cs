@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Anuitex.Library.Data.Interfaces;
 
 namespace Anuitex.Library.Data.Entities
 {
     [Serializable]
-    public class Newspaper
+    public class Newspaper : ILibraryEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -31,6 +32,11 @@ namespace Anuitex.Library.Data.Entities
             Date = date;
             Amount = amount;
             Price = price;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} {Title} {Periodicity} {Date} {Price}";
         }
     }
 }
