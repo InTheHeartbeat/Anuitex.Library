@@ -18,7 +18,7 @@ namespace Anuitex.Library.Models.Providers
                 serializer = new XmlSerializer(typeof(List<Book>));
                 using (FileStream fileStream = new FileStream(filePath, FileMode.CreateNew))
                 {
-                    serializer.Serialize(fileStream, entities.Cast<Book>());
+                    serializer.Serialize(fileStream, entities.Cast<Book>().ToList());
                 }
             }
             if (entities.First() is Journal)
@@ -34,7 +34,7 @@ namespace Anuitex.Library.Models.Providers
                 serializer = new XmlSerializer(typeof(List<Newspaper>));
                 using (FileStream fileStream = new FileStream(filePath, FileMode.CreateNew))
                 {
-                    serializer.Serialize(fileStream, entities.Cast<Newspaper>());
+                    serializer.Serialize(fileStream, entities.Cast<Newspaper>().ToList());
                 }
             }            
         }
