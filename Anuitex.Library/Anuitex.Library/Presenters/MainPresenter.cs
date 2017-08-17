@@ -48,35 +48,38 @@ namespace Anuitex.Library.Presenters
             {
                 if (storageType == FileStorageType.Raw)
                 {
-                    view.Books = rawFileRepository.Import<Book>(path);
+                    bookRepository.Add(rawFileRepository.Import<Book>(path));
                 }
                 if (storageType == FileStorageType.Xml)
                 {
-                    view.Books = xmlRepository.Import<Book>(path);
+                    bookRepository.Add(xmlRepository.Import<Book>(path));
                 }
+                OnViewDataUpdated(typeof(Book));
             }
             if (type == typeof(Journal))
             {
                 if (storageType == FileStorageType.Raw)
                 {
-                    view.Journals = rawFileRepository.Import<Journal>(path);
+                    journalRepository.Add(rawFileRepository.Import<Journal>(path));
                 }
                 if (storageType == FileStorageType.Xml)
                 {
-                    view.Journals = xmlRepository.Import<Journal>(path);
-                }                
+                    journalRepository.Add(xmlRepository.Import<Journal>(path));
+                }
+                OnViewDataUpdated(typeof(Journal));
             }
             if (type == typeof(Newspaper))
             {
                 if (storageType == FileStorageType.Raw)
                 {
-                    view.Newspapers = rawFileRepository.Import<Newspaper>(path);
+                    newspaperRepository.Add(rawFileRepository.Import<Newspaper>(path));
                 }
                 if (storageType == FileStorageType.Xml)
                 {
-                    view.Newspapers = xmlRepository.Import<Newspaper>(path);
+                    newspaperRepository.Add(xmlRepository.Import<Newspaper>(path));
                 }
-            }
+                OnViewDataUpdated(typeof(Newspaper));
+            }            
         }
 
         private void OnViewExported(List<ILibraryEntity> entities, string path, FileStorageType storageType)

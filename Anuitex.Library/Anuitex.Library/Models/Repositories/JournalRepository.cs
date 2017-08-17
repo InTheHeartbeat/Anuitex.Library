@@ -86,5 +86,10 @@ namespace Anuitex.Library.Models.Repositories
             }
             DataContext.Context.SqlConnection.Close();
         }
+
+        public void Add(List<Journal> journals)
+        {
+            journals.ForEach(Add);
+        }
     }
 }

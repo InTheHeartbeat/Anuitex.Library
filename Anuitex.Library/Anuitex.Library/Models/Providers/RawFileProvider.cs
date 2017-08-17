@@ -5,24 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Anuitex.Library.Data.Entities;
+using Anuitex.Library.Data.Interfaces;
 
 namespace Anuitex.Library.Models.Providers
 {
     public class RawFileRepository
     {
-        public void Export<T>(List<T> data, string path)
+        public void Export(List<ILibraryEntity> data, string path)
         {
-            if (typeof(T) == typeof(Book))
+            if (data.First() is Book)
             {
-                ExportBooks(data as List<Book>, path);
+                ExportBooks(data.Cast<Book>().ToList(), path);
             }
-            if (typeof(T) == typeof(Journal))
+            if (data.First() is Journal)
             {
-                ExportJournals(data as List<Journal>, path);
+                ExportJournals(data.Cast<Journal>().ToList(), path);
             }
-            if (typeof(T) == typeof(Newspaper))
+            if (data.First() is Newspaper)
             {
-                ExportNewspapers(data as List<Newspaper>, path);
+                ExportNewspapers(data.Cast<Newspaper>().ToList(), path);
             }
         }
         private void ExportNewspapers(List<Newspaper> newspapers, string path)
@@ -57,7 +58,7 @@ namespace Anuitex.Library.Models.Providers
                     writer.WriteLine(journal.Date);                    
                     writer.WriteLine(journal.Amount);
                     writer.WriteLine(journal.Price);
-                }
+                }                
             }
         }
         private void ExportBooks(List<Book> books, string path)
@@ -125,9 +126,9 @@ namespace Anuitex.Library.Models.Providers
         private List<Journal> ImportJournals(string path)
         {
             List<Journal> result = new List<Journal>();
-            using (StreamReader streamReader = new StreamReader(path))
+            using (StreamReader streamReader = new StreamReader(path, Encoding.Default))
             {
-                string[] data = streamReader.ReadToEnd().Split('\n');
+                string[] data = streamReader.ReadToEnd().Replace("\r","").Split('\n');
                 if (data[0] != "Journals") throw new Exception("Incorrect file");
                 for (var i = 0; i+7 < data.Length; i += 7)
                 {
@@ -149,9 +150,9 @@ namespace Anuitex.Library.Models.Providers
         private List<Newspaper> ImportNewspapers(string path)
         {
             List<Newspaper> result = new List<Newspaper>();
-            using (StreamReader streamReader = new StreamReader(path))
+            using (StreamReader streamReader = new StreamReader(path, Encoding.Default))
             {
-                string[] data = streamReader.ReadToEnd().Split('\n');
+                string[] data = streamReader.ReadToEnd().Replace("\r", "").Split('\n');
                 if (data[0] != "Newspapers") throw new Exception("Incorrect file");
                 for (var i = 0; i+6 < data.Length; i += 6)
                 {

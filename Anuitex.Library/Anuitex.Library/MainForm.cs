@@ -34,10 +34,11 @@ namespace Anuitex.Library
         }
 
         public new void Show()
-        {
-            OnDataUpdated(GetSelectedType());
+        {            
             SetButtonsState();
-            Application.Run(this);              
+            OnDataUpdated(GetSelectedType());
+            UpdateCurrentDataGrid();
+            Application.Run(this);                      
         }
 
         private void SetButtonsState()
@@ -69,23 +70,25 @@ namespace Anuitex.Library
 
         private TabPage GetCurrentTabPage()
         {
+            if (tabControl.SelectedTab == null)
+                return tabControl.TabPages[0];
             return tabControl.SelectedTab;
         }
 
         private Type GetSelectedType()
         {
             TabPage selectedPage = GetCurrentTabPage();
-            if (selectedPage.Name == "tabPageBooks" && booksGridView.Visible)
+            if (selectedPage.Name == "tabPageBooks")
             {
                 return typeof(Book);                
             }
 
-            if (selectedPage.Name == "tabPageJournals" && journalsGridView.Visible)
+            if (selectedPage.Name == "tabPageJournals")
             {
                 return typeof(Journal);
             }
 
-            if (selectedPage.Name == "tabPageNewspapers" && newspapersGridView.Visible)
+            if (selectedPage.Name == "tabPageNewspapers")
             {
                 return typeof(Newspaper);
             }

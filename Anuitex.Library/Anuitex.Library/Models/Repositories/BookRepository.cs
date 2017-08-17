@@ -89,5 +89,10 @@ namespace Anuitex.Library.Models.Repositories
             }
             DataContext.Context.SqlConnection.Close();
         }
+
+        public void Add(List<Book> books)
+        {
+            books.ForEach(Add);
+        }
     }
 }

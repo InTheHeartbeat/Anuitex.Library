@@ -82,6 +82,11 @@ namespace Anuitex.Library.Models.Repositories
                 cmd.ExecuteNonQuery();
             }
             DataContext.Context.SqlConnection.Close();
-        }       
+        }
+
+        public void Add(List<Newspaper> newspapers)
+        {
+            newspapers.ForEach(Add);
+        }
     }
 }
